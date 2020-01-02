@@ -1,0 +1,99 @@
+{% extends 'registration/login.html' %}
+{% load static %}
+
+{% block style %}
+    <style>
+    #id_email{
+    backgound: blue;
+    }
+    </style>
+{% endblock %}
+
+
+{% block boxtitle %}
+    Sign Up
+{% endblock %}
+
+{% block boxcontent %}
+
+<form class="login100-form " method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+        <div class="wrap-input100 validate-input m-b-26 form-group" data-validate="username is required">
+            <span class="label-input100">Username</span>
+            <input class="input100 form-control" type="text" name="username" id="id_username" placeholder="choose a username" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group">
+            <span class="label-input100">Frist Name</span>
+            <input class="input100 form-control" type="text" name="first_name" maxlength="30" id="id_first_name" placeholder="John" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group" >
+            <span class="label-input100">Last Name</span>
+            <input class="input100 form-control" type="text" name="last_name" maxlength="30" id="id_last_name" placeholder="Doe" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group">
+            <span class="label-input100">Date of Birth</span>
+            <input type="date" class="input100 dateinput form-control"  name="date_of_birth" id="id_date_of_birth" placeholder="Select a date" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group">
+            <span class="label-input100">Sex</span>
+            <select name="sex" class="input100 select form-control " id="id_sex" required> 
+                <option value="Male">male</option> 
+                <option value="Female">female</option>
+            </select>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group">
+            <span class="label-input100">Bio</span>
+            <input type="text" class="input100 dateinput form-control"  name="bio" id="id_bio" placeholder="enter a short description about yourself" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group" data-validate="email is required">
+            <span class="label-input100">Email</span>
+            <input class="input100 form-control" type="email" name="email" id="id_email" placeholder="abcdef@gmail.com" maxlength="254" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group">
+            <span class="label-input100">Phone</span>
+            <input class="input100 form-control" type="number" name="phone_number" maxlength="30" id="id_phone_number" placeholder="enter phone number" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group">
+            <span class="label-input100">Nationality</span>
+            <input class="input100 form-control" type="text" name="nationality" id="id_nationality" placeholder="enter nationality" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group">
+            <span class="label-input100">Address</span>
+            <input class="input100 form-control" type="text"  name="address" id="id_address" placeholder="address" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group">
+            <span class="label-input100">Profile Image</span>
+            <input class="input100 form-control" type="file" name="profile_pic" id="id_profile_pic">
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group" data-validate="password is required">
+            <span class="label-input100">Password</span>
+            <input class="input100 form-control" type="password" name="password1" id="id_password1" placeholder="password" required>
+            <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26 form-group" data-validate="password is required">
+            <span class="label-input100">Confirm Password</span>
+            <input class="input100 form-control" type="password" name="password2" id="id_password2" placeholder="repeat password" required>
+            <span class="focus-input100"></span>
+        </div>
+
+        <div class="container-login100-form-btn">
+            <button class="login100-form-btn" type="submit">
+                Submit
+            </button>
+        </div>
+</form> 
+
+
+{% endblock %}

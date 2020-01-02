@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}People Shaping People{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/vendor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    {% block headerlinks %}{% endblock %}
+    
+</head>
+
+<style>
+    {% block style %}{% endblock %}
+</style>
+
+<body id="top">
+    {% block body %}
+    
+    <!-- preloader -->
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+
+    <!-- header -->
+    <header class="s-header header">
+
+        <div class="header__logo">
+            <a class="logo" href="{% url 'home' %}">
+                <img src="{% static 'images/ppp.jpg' %}" alt="Homepage">
+            </a>
+        </div> <!-- end header__logo -->
+
+        {% if user.is_authenticated %} 
+        <span class="dropdown">
+            <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
+                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ request.user.userprofile.profile_pic.url }}" alt="image" >
+            </a>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="{% url 'create_story' %}" class="dropdown-anchor">New Story</a>
+                <a href="{% url 'my_stories' %}" class="dropdown-anchor">Stories</a>
+                <a href="{% url 'myprofile' user.pk %}" class="dropdown-anchor">Profile</a>
+                <a href="" class="dropdown-anchor">Help</a>
+                <a href="" class="dropdown-anchor">Logout</a>
+                <a href="{% url 'logout' %}" class="dropdown-anchor">Sign out</a>
+
+            </div>
+
+        </span>
+            
+        {% else %}
+            <a href="{% url 'login' %}" class="navbar-profile-pic login-txt" >
+                 <p style="vertical-align: middle; margin-top: 20px;" >Login</p>
+            </a>
+        {% endif %}
+
+        <a class="header__search-trigger" href="#0"></a>
+
+        <div class="header__search">
+            <form role="search" method="get" class="header__search-form" action="#">
+                <label>
+                    <span class="hide-content">Search for:</span>
+                    <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
+                </label>
+                <input type="submit" class="search-submit" value="Search">
+            </form>
+
+            <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
+
+        </div>  <!-- end header__search -->
+        
+        <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+        <nav class="header__nav-wrap">
+
+            <h2 class="header__nav-heading h6">Navigate to</h2>
+
+            <ul class="header__nav">
+                <li class="current"><a href="index.html" title="">Home</a></li>
+                <li class="has-children">
+                    <a href="#0" title="">My Stories</a>
+                    <ul class="sub-menu">
+                        <li><a href="category.html">View Stories</a></li>
+                        <li><a href="{% url 'create_story' %}">Add Story</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="style-guide.html" title="">Explore</a></li>
+                <li><a href="page-about.html" title="">About</a></li>
+                <li><a href="page-contact.html" title="">Contact</a></li>
+                    
+
+            </ul> <!-- end header__nav -->
+
+            <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+        </nav> <!-- end header__nav-wrap -->
+
+    </header> <!-- s-header -->
+
+    <!-- main content -->
+      {% block content %}
+
+      {% endblock content %}
+      
+    <!-- end of main content -->
+
+
+    
+
+
+    <!-- s-footer
+    ================================================== -->
+    <footer class="s-footer">
+
+        <div class="s-footer__main">
+            <div class="row">
+                
+                <div class="col-six tab-full s-footer__about">
+                        
+                    <h4>About "How friends shaped my life"</h4>
+
+                    <p>Fugiat quas eveniet voluptatem natus. Placeat error temporibus magnam sunt optio aliquam. Ut ut occaecati placeat at. 
+                    Fuga fugit ea autem. Dignissimos voluptate repellat occaecati minima dignissimos mollitia consequatur.
+                    Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa error 
+                    temporibus magnam est voluptatem.</p>
+
+                </div> <!-- end s-footer__about -->
+
+                <div class="col-six tab-full s-footer__subscribe">
+                        
+                    <h4>Our Newsletter</h4>
+
+                    <p>Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa consequatur occaecati.</p>
+
+                    <div class="subscribe-form">
+                        <form id="mc-form" class="group" novalidate="true">
+
+                            <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+                
+                            <input type="submit" name="subscribe" value="Send">
+                
+                            <label for="mc-email" class="subscribe-message"></label>
+                
+                        </form>
+                    </div>
+
+                </div> <!-- end s-footer__subscribe -->
+
+            </div>
+        </div> <!-- end s-footer__main -->
+
+        <div class="s-footer__bottom">
+            <div class="row">
+
+                <div class="col-six">
+                    <ul class="footer-social">
+                        <li>
+                            <a href="#0"><i class="fab fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#0"><i class="fab fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#0"><i class="fab fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div> <!-- end s-footer__bottom -->
+
+        <div class="go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"></a>
+        </div>
+
+    </footer> <!-- end s-footer -->
+
+    {% endblock body %}
+
+
+    <!-- Java Script
+    ================================================== -->
+
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/modernizr.js' %}"></script>
+    <script src="{% static 'js/dropdown.js' %}"></script>
+    {%block javascript%}{% endblock %}
+    
+</body>
+
+</html>

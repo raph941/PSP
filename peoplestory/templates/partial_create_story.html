@@ -1,0 +1,38 @@
+{% extends 'registration/login.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <form class="login100-form " method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+            <div class="wrap-input100 validate-input m-b-26 form-group" data-validate="username is required">
+                <span class="label-input100">Full Name</span>
+                <input class="input100 form-control" type="text" name="full_name" id="id_full_name" placeholder="Enter Your Friend's Full name" required>
+                <span class="focus-input100"></span>
+            </div>
+            <div class="wrap-input100 validate-input m-b-26 form-group">
+                <span class="label-input100">Image</span>
+                <input class="input100 form-control" type="file" name="first_name" maxlength="30" id="id_image">
+                <span class="focus-input100"></span>
+            </div>
+            <div class="wrap-input100 validate-input m-b-26 form-group" >
+                <span class="label-input100">Story Caption</span>
+                <input class="input100 form-control" type="text" name="id_story_caption" maxlength="30" id="id_story_caption" placeholder="Enter one sentence about the story for your readers" required>
+                <span class="focus-input100"></span>
+            </div>
+            <div class="wrap-input100 validate-input m-b-26 form-group">
+                <span class="label-input100">Story</span>
+                <input type="text" class="input100 form-control"  name="story" id="id_story" placeholder="start your story" required>
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="container-login100-form-btn">
+                <button class="login100-form-btn" type="submit">
+                    Submit
+                </button>
+            </div>
+    </form>
+
+{% endblock %}

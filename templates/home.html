@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- featured 
+    ================================================== -->
+    <section class="s-featured">
+        <div class="row">
+            <div class="col-full">
+
+                <div class="featured-slider featured" data-aos="zoom-in">
+
+                    <div class="featured__slide">
+                        <div class="entry">
+
+                            <div class="entry__background" style="background-image:url('/static/images/thumbs/featured/featured-guitarman.jpg');"></div>
+                            
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">The Bond</a></span>
+
+                                <h1><a href="#0" title="">Friendship is the only cement that will ever hold the world together</a></h1>
+
+                                <div class="entry__info">
+                                    <a href="#0" class="entry__profile-pic">
+                                        <img class="avatar" src="{% static 'images/avatars/user-05.jpg' %}" alt="">
+                                    </a>
+                                    <ul class="entry__meta">
+                                        <li><a href="#0">Woodrow T. Wilson</a></li>
+                                        <li>17 December, 2019</li>
+                                    </ul>
+                                </div>
+                            </div> <!-- end entry__content -->
+                            
+                        </div> <!-- end entry -->
+                    </div> <!-- end featured__slide -->
+
+                    <div class="featured__slide">
+
+                        <div class="entry">
+
+                            <div class="entry__background" style="background-image:url('/static/images/thumbs/featured/featured-watch.jpg');"></div>
+                            
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">The Art</a></span>
+
+                                <h1><a href="#0" title="">"True Friendship comes when the silence between two people is comfortable"</a></h1>
+
+                                <div class="entry__info">
+                                    <a href="#0" class="entry__profile-pic">
+                                        <img class="avatar" src="{% static 'images/avatars/user-03.jpg' %}" alt="">
+                                    </a>
+
+                                    <ul class="entry__meta">
+                                        <li><a href="#0">David Tyson</a></li>
+                                        <li>June 13, 2018</li>
+                                    </ul>
+                                </div>
+                            </div> <!-- end entry__content -->
+                            
+                        </div> <!-- end entry -->
+
+                    </div> <!-- end featured__slide -->
+
+                    <div class="featured__slide">
+
+                        <div class="entry">
+
+                            <div class="entry__background" style="background-image:url('/static/images/thumbs/featured/featured-beetle.jpg');"></div>
+
+                            <div class="entry__content">
+                                <span class="entry__category"><a href="#0">LifeStyle</a></span>
+
+                                <h1><a href="#0" title=""> Celebrate True Friendship Today, In a Special Form. "Write something beautiful" </a></h1>
+
+                                <div class="entry__info">
+                                    <a href="#0" class="entry__profile-pic">
+                                        <img class="avatar" src="{% static 'images/avatars/user-03.jpg' %}" alt="">
+                                    </a>
+
+                                    <ul class="entry__meta">
+                                        <li><a href="#0">John Doe</a></li>
+                                        <li>June 12, 2018</li>
+                                    </ul>
+                                </div>
+                            </div> <!-- end entry__content -->
+
+                        </div> <!-- end entry -->
+
+                    </div> <!-- end featured__slide -->
+                    
+                </div> <!-- end featured -->
+
+            </div> <!-- end col-full -->
+        </div>
+    </section> <!-- end s-featured -->
+
+
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content">
+        
+        <div class="row entries-wrap wide">
+            <div class="entries">
+
+            {% for story in my_stories  %}
+            <article class="col-block">
+                
+                <div class="item-entry" data-aos="zoom-in">
+                    <div class="item-entry__thumb">
+                        <a href="single-standard.html" class="item-entry__thumb-link">
+                            <img src="{{ story.image.url }}" 
+                                    srcset="{{ story.image.url }}" alt="">
+                        </a>
+                    </div>
+    
+                    <div class="item-entry__text">
+                        <div class="item-entry__cat">
+                            <a href="category.html">Design</a> 
+                        </div>
+
+                        <h1 class="item-entry__title"><a href="single-standard.html">{{ story.full_name }}</a></h1>
+                            
+                        <div class="item-entry__date">
+                            <a href="single-standard.html">{{ story.last_updated }}</a>
+                        </div>
+                    </div>
+                </div> <!-- item-entry -->
+
+            </article>
+            {% endfor %}
+
+            </div> <!-- end entries -->
+        </div> <!-- end entries-wrap -->
+
+        <div class="row pagination-wrap">
+            <div class="col-full">
+                <nav class="pgn" data-aos="fade-up">
+                    <ul>
+                        <li><a class="pgn__prev" href="#0">Prev</a></li>
+                        <li><a class="pgn__num" href="#0">1</a></li>
+                        <li><span class="pgn__num current">2</span></li>
+                        <li><a class="pgn__num" href="#0">3</a></li>
+                        <li><a class="pgn__num" href="#0">4</a></li>
+                        <li><a class="pgn__num" href="#0">5</a></li>
+                        <li><span class="pgn__num dots">…</span></li>
+                        <li><a class="pgn__num" href="#0">8</a></li>
+                        <li><a class="pgn__next" href="#0">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </section> <!-- end s-content -->
+
+    {% endblock content %}

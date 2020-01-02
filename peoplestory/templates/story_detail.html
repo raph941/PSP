@@ -1,0 +1,457 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block headerlinks %}
+<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+{% endblock %}
+
+
+{% block style %}
+
+.article_class{
+    margin-top: 50px;
+}
+
+.story_detail_article{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.story_detail_title{
+    float: left;
+    font-weight: 50;
+    color: slategrey;
+}
+
+.story_detail_date{
+    float: left;
+}
+.main_story{
+    float: right;
+}
+.sideelement{
+    float: left;
+    padding-top: 10px;
+}
+.story_detail_text{
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 300;
+    font-size: 1.7rem;
+    line-height: 1.667;
+    margin-bottom: 0.6rem;
+    color: #000000;
+}
+.posted_by_section{
+    border: solid rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
+}
+.story_detail_image{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.story_detail_comment{
+    margin-left: auto;
+    margin-right: auto;
+}
+{% endblock %}
+
+
+{% block content %}
+
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--top-padding s-content--narrow">
+
+        <article class="entry format-standard article_class story_detail_article">
+
+            <div class="entry__media col-lg-4 col-md-4 col-sm-4 col-xs-8 story_detail_image">
+                <div class="entry__post-thumb">
+                    <img src="{{ story.image.url}}" alt="">
+                    <span class="sideelement">
+                        500 likes and views
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="entry__header col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+                <h1 class="entry__header-title display-1 my_story_title story_detail_title">
+                    {{ story.full_name }}
+                </h1>
+                <hr>
+                <ul class="entry__header-meta story_detail_date">
+                    <li class="date">{{ story.last_updated }}</li>
+                    <li class="byline">
+                        By
+                        <a href="#0">{{ story.author }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+                <ul class="footer-social">
+                    <li>
+                        <a href="#0"><i class="fab fa-facebook"></i></a>
+                    </li>
+                    <li>
+                        <a href="#0"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li>
+                        <a href="#0"><i class="fab fa-instagram"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="story_detail_text col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+                <blockquote><p style="font-size: 1.7rem;">
+                    {{ story.story_caption }}
+                </p></blockquote>
+            </div>
+
+            <div class="main_story entry__main col-lg-8 col-md-8 col-sm-8 col-xs-8 " 
+                style="margin-top: 0px;">
+
+                <h3 style="margin-top: 30px;color: #708090;">who is {{ story.full_name }}?</h3>
+
+                <p class="story_detail_text">{{ story.story }}</p>
+            </div>
+
+
+        <div class="entry__author posted_by_section col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <img src="{{ story.author.userprofile.profile_pic.url }}" alt="">
+
+            <div class="entry__author-about">
+                <h5 class="entry__author-name">
+                    <span>Posted by</span>
+                    <a href="#0">{{ story.author.first_name }} {{ story.author.last_name }}</a>
+                </h5>
+
+                <div class="entry__author-desc">
+                {% if story.author.userprofile.bio %}
+                    <p>
+                    {{ story.author.userprofile.bio }}
+                    </p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        </div> <!-- s-entry__main -->
+
+        </article> <!-- end entry/article -->
+        <hr>
+
+
+        <div class="comments-wrap ">
+
+            <div id="comments" class="row story_detail_comment">
+                <div class="col-full">
+
+                    <h3 class="h2">5 Comments</h3>
+
+                    <!-- START commentlist -->
+                    <ol class="commentlist">
+
+                        <li class="depth-1 comment">
+
+                            <div class="comment__avatar">
+                                <img class="avatar" src="images/avatars/user-01.jpg" alt="" width="50" height="50">
+                            </div>
+
+                            <div class="comment__content">
+
+                                <div class="comment__info">
+                                    <div class="comment__author">Itachi Uchiha</div>
+
+                                    <div class="comment__meta">
+                                        <div class="comment__time">Jun 15, 2018</div>
+                                        <div class="comment__reply">
+                                            <a class="comment-reply-link" href="#0">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="comment__text">
+                                <p>Adhuc quaerendum est ne, vis ut harum tantas noluisse, id suas iisque mei. Nec te inani ponderum vulputate,
+                                facilisi expetenda has et. Iudico dictas scriptorem an vim, ei alia mentitum est, ne has voluptua praesent.</p>
+                                </div>
+
+                            </div>
+
+                        </li> <!-- end comment level 1 -->
+
+                        <li class="thread-alt depth-1 comment">
+
+                            <div class="comment__avatar">
+                                <img class="avatar" src="images/avatars/user-04.jpg" alt="" width="50" height="50">
+                            </div>
+
+                            <div class="comment__content">
+
+                                <div class="comment__info">
+                                    <div class="comment__author">John Doe</div>
+
+                                    <div class="comment__meta">
+                                        <div class="comment__time">Jun 15, 2018</div>
+                                        <div class="comment__reply">
+                                            <a class="comment-reply-link" href="#0">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="comment__text">
+                                <p>Sumo euismod dissentiunt ne sit, ad eos iudico qualisque adversarium, tota falli et mei. Esse euismod
+                                urbanitas ut sed, et duo scaevola pericula splendide. Primis veritus contentiones nec ad, nec et
+                                tantas semper delicatissimi.</p>
+                                </div>
+
+                            </div>
+
+                            <ul class="children">
+
+                                <li class="depth-2 comment">
+
+                                    <div class="comment__avatar">
+                                        <img class="avatar" src="images/avatars/user-03.jpg" alt="" width="50" height="50">
+                                    </div>
+
+                                    <div class="comment__content">
+
+                                        <div class="comment__info">
+                                            <div class="comment__author">Kakashi Hatake</div>
+
+                                            <div class="comment__meta">
+                                                <div class="comment__time">Jun 15, 2018</div>
+                                                <div class="comment__reply">
+                                                    <a class="comment-reply-link" href="#0">Reply</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="comment__text">
+                                            <p>Duis sed odio sit amet nibh vulputate
+                                            cursus a sit amet mauris. Morbi accumsan ipsum velit. Duis sed odio sit amet nibh vulputate
+                                            cursus a sit amet mauris</p>
+                                        </div>
+
+                                    </div>
+
+                                    <ul class="children">
+
+                                        <li class="depth-3 comment">
+
+                                            <div class="comment__avatar">
+                                                <img class="avatar" src="images/avatars/user-04.jpg" alt="" width="50" height="50">
+                                            </div>
+
+                                            <div class="comment__content">
+
+                                                <div class="comment__info">
+                                                    <div class="comment__author">John Doe</div>
+
+                                                    <div class="comment__meta">
+                                                        <div class="comment__time">Jun 15, 2018</div>
+                                                        <div class="comment__reply">
+                                                            <a class="comment-reply-link" href="#0">Reply</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="comment__text">
+                                                <p>Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est
+                                                etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.</p>
+                                                </div>
+
+                                            </div>
+
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </li> <!-- end comment level 1 -->
+
+                        <li class="depth-1 comment">
+
+                            <div class="comment__avatar">
+                                <img class="avatar" src="images/avatars/user-02.jpg" alt="" width="50" height="50">
+                            </div>
+
+                            <div class="comment__content">
+
+                                <div class="comment__info">
+                                    <div class="comment__author">Shikamaru Nara</div>
+
+                                    <div class="comment__meta">
+                                        <div class="comment__time">Jun 15, 2018</div>
+                                        <div class="comment__reply">
+                                            <a class="comment-reply-link" href="#0">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="comment__text">
+                                <p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem.</p>
+                                </div>
+
+                            </div>
+
+                        </li>  <!-- end comment level 1 -->
+
+                    </ol>
+                    <!-- END commentlist -->           
+
+                </div> <!-- end col-full -->
+            </div> <!-- end comments -->
+
+            <div class="row comment-respond">
+
+                <!-- START respond -->
+                <div id="respond" class="col-full">
+
+                    <h3 class="h2">Add Comment <span>Your email address will not be published</span></h3>
+
+                    <form name="contactForm" id="contactForm" method="post" action="" autocomplete="off">
+                        <fieldset>
+
+                            <div class="form-field">
+                                <input name="cName" id="cName" class="full-width" placeholder="Your Name*" value="" type="text">
+                            </div>
+
+                            <div class="form-field">
+                                <input name="cEmail" id="cEmail" class="full-width" placeholder="Your Email*" value="" type="text">
+                            </div>
+
+                            <div class="form-field">
+                                <input name="cWebsite" id="cWebsite" class="full-width" placeholder="Website" value="" type="text">
+                            </div>
+
+                            <div class="message form-field">
+                                <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Your Message*"></textarea>
+                            </div>
+
+                            <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large full-width" value="Add Comment" type="submit">
+
+                        </fieldset>
+                    </form> <!-- end form -->
+
+                </div>
+                <!-- END respond-->
+
+            </div> <!-- end comment-respond -->
+
+        </div> <!-- end comments-wrap -->
+
+    </section> <!-- end s-content -->
+
+
+    <!-- s-extra
+    ================================================== -->
+    <section class="s-extra">
+
+        <div class="row">
+
+            <div class="col-seven md-six tab-full popular">
+                <h3>Popular Posts</h3>
+
+                <div class="block-1-2 block-m-full popular__posts">
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="images/thumbs/small/tulips-150.jpg" alt="">
+                        </a>
+                        <h5>10 Interesting Facts About Caffeine.</h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0">John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2018-06-14">Jun 14, 2018</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="images/thumbs/small/wheel-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">Visiting Theme Parks Improves Your Health.</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0">John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="images/thumbs/small/shutterbug-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">Key Benefits Of Family Photography.</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0">John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="images/thumbs/small/cookies-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">Absolutely No Sugar Oatmeal Cookies.</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="images/thumbs/small/beetle-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">Throwback To The Good Old Days.</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0">John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="images/thumbs/small/salad-150.jpg" alt="">
+                        </a>
+                        <h5>Healthy Mediterranean Salad Recipes</h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
+                        </section>
+                    </article>
+                </div> <!-- end popular_posts -->
+            </div> <!-- end popular -->
+
+            <div class="col-four md-six tab-full end">
+                <div class="row">
+                    <div class="col-six md-six mob-full categories">
+                        <h3>Categories</h3>
+        
+                        <ul class="linklist">
+                            <li><a href="#0">Lifestyle</a></li>
+                            <li><a href="#0">Travel</a></li>
+                            <li><a href="#0">Recipes</a></li>
+                            <li><a href="#0">Management</a></li>
+                            <li><a href="#0">Health</a></li>
+                            <li><a href="#0">Creativity</a></li>
+                        </ul>
+                    </div> <!-- end categories -->
+        
+                    <div class="col-six md-six mob-full sitelinks">
+                        <h3>Site Links</h3>
+        
+                        <ul class="linklist">
+                            <li><a href="#0">Home</a></li>
+                            <li><a href="#0">Blog</a></li>
+                            <li><a href="#0">Styles</a></li>
+                            <li><a href="#0">About</a></li>
+                            <li><a href="#0">Contact</a></li>
+                            <li><a href="#0">Privacy Policy</a></li>
+                        </ul>
+                    </div> <!-- end sitelinks -->
+                </div>
+            </div>
+        </div> <!-- end row -->
+
+    </section> <!-- end s-extra -->
+
+{% endblock content %}

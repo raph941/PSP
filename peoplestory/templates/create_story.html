@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+{% endblock %}
+
+
+{% block content %}
+<section class="s-content">
+    <div class="row entries-wrap wide">
+
+    <form method='POST' enctype="multipart/form-data" class="col-6">
+                        {% csrf_token %}
+                        {{ form }}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form> 
+
+    </div>
+</section>
+
+{% endblock content %}
