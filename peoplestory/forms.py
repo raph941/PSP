@@ -12,3 +12,10 @@ class NewStoryForm(forms.ModelForm):
     class Meta:
         model = Stories
         fields = ['full_name', 'story_caption', 'story', 'image']
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['comment_content']
