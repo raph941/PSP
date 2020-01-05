@@ -20,6 +20,14 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+def About(request):
+    return render(request, 'about.html')
+
+
+def Contact(request):
+    return render(request, 'contact.html')
+
+
 @login_required
 def CreateStoryView(request):  
     form = NewStoryForm(request.POST, request.FILES)
