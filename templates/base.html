@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/vendor.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     {% block headerlinks %}{% endblock %}
@@ -22,18 +23,9 @@
 
 <body id="top">
     {% block body %}
-    
-    <!-- preloader -->
-    <div id="preloader">
-        <div id="loader" class="dots-fade">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-
 
     <!-- header -->
+    {% include 'partials/messages.html' %}
     <header class="s-header header">
 
         <div class="header__logo">
@@ -86,7 +78,7 @@
             <h2 class="header__nav-heading h6">Navigate to</h2>
 
             <ul class="header__nav">
-                <li class="current"><a href="index.html" title="">Home</a></li>
+                <li class="current"><a href="{% url 'home' %}" title="">Home</a></li>
                 <li class="has-children">
                     <a href="#0" title="">My Stories</a>
                     <ul class="sub-menu">

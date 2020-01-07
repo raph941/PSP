@@ -1,11 +1,15 @@
-{% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" style="
+    margin-top: 65px;
+    margin-bottom: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    height: 65px;
+    padding: 10px;
+    padding-top: 15px;">
+    
+    {{ message }}
+  </div>
+{% endfor %}

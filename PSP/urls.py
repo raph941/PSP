@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r"^AboutUs/$", views.About, name="about"),
     url(r"^ContactUs/$", views.Contact, name="contact"),
+
     path('accounts/', include('accounts.urls')),
     path('Stories/', include('peoplestory.urls')),
     #authentication urls

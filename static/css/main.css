@@ -16,7 +16,7 @@
  *    ## Change Autocomplete styles in Chrome
  *  # buttons
  *  # additional components
- *    ## alert box 
+ 
  *    ## additional typo styles 
  *    ## pagination 
  *  # reusable and common theme styles
@@ -1041,50 +1041,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  *
  * ------------------------------------------------------------------- */
 
-/* ------------------------------------------------------------------- 
- * ## alert box 
- * ------------------------------------------------------------------- */
-.alert-box {
-  padding: 2.1rem 4rem 2.1rem 3rem;
-  position: relative;
-  margin-bottom: 3rem;
-  border-radius: 3px;
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
-  font-size: 1.5rem;
-  line-height: 1.6;
-}
 
-.alert-box__close {
-  position: absolute;
-  right: 1.8rem;
-  top: 1.8rem;
-  cursor: pointer;
-}
-
-.alert-box__close.fa {
-  font-size: 12px;
-}
-
-.alert-box--error {
-  background-color: #ffd1d2;
-  color: #e65153;
-}
-
-.alert-box--success {
-  background-color: #c8e675;
-  color: #758c36;
-}
-
-.alert-box--info {
-  background-color: #d7ecfb;
-  color: #4a95cc;
-}
-
-.alert-box--notice {
-  background-color: #fff099;
-  color: #bba31b;
-}
 
 /* ------------------------------------------------------------------- 
  * ## additional typo styles 
@@ -3920,6 +3877,7 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
 .comments-wrap {
   padding: 4.5rem 0 7.2rem;
   margin-top: 10.2rem;
+  margin-top: 15px;
 }
 
 .comments-wrap h3 {
@@ -4733,75 +4691,6 @@ input.input100 {
     padding: 0 5px;
   }
 }
-
-
-/*------------------------------------------------------------------
-[ Alert validate ]*/
-
-.validate-input {
-  position: relative;
-}
-
-.alert-validate::before {
-  content: attr(data-validate);
-  position: absolute;
-  max-width: 70%;
-  background-color: #fff;
-  border: 1px solid #c80000;
-  border-radius: 2px;
-  padding: 4px 25px 4px 10px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 2px;
-  pointer-events: none;
-
-  font-family: Poppins-Medium;
-  color: #c80000;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: left;
-
-  visibility: hidden;
-  opacity: 0;
-
-  -webkit-transition: opacity 0.4s;
-  -o-transition: opacity 0.4s;
-  -moz-transition: opacity 0.4s;
-  transition: opacity 0.4s;
-}
-
-.alert-validate::after {
-  content: "\f06a";
-  font-family: FontAwesome;
-  display: block;
-  position: absolute;
-  color: #c80000;
-  font-size: 15px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 8px;
-}
-
-.alert-validate:hover:before {
-  visibility: visible;
-  opacity: 1;
-}
-
-@media (max-width: 992px) {
-  .alert-validate::before {
-    visibility: visible;
-    opacity: 1;
-  }
-}
-
 .my_story_title{
   margin-bottom: 20px;
 }

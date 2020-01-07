@@ -2,6 +2,10 @@
 {% load static %}
 
 {% block style %}
+.article_image{
+    height: 300px;
+    width: 100%;
+}
 {% endblock %}
 
 
@@ -34,23 +38,30 @@
                     <div class="item-entry" data-aos="zoom-in">
                         <div class="item-entry__thumb">
                             <a href="{% url 'story_detail' story.pk %}" class="item-entry__thumb-link">
-                                <img src="{{ story.image.url }}" 
+                                <img src="{{ story.image.url }}" class='article_image'
                                         srcset="{{ story.image.url }}" alt="">
                             </a>
                         </div>
         
                         <div class="item-entry__text">
                             <div class="item-entry__cat">
+                                
+                                <a href="#">
+                                    {{ story.views }}
+                                    <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
+                                </a>
+                                <a href="#">
+                                    {{ story.views }}
+                                    <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
+                                </a>
                                 <a href="{% url 'story_delete_confirm' story.pk %}">
                                     <img src="{% static 'images/icons/icons-delete.png' %}" alt="image">
                                 </a>
-                                <a href="#">
-                                    <img src="{% static 'images/icons/icons-edit.png' %}" alt="image">
-                                </a> 
                             </div>
 
                             <h1 class="item-entry__title"><a href="">{{ story.full_name }}</a></h1>
-                                
+                            
+                             
                             <div class="item-entry__date">
                                 <a href="">{{ story.last_updated }}</a>
                             </div>

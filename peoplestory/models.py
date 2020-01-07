@@ -21,6 +21,7 @@ class Stories(models.Model):
     last_updated = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='story_images/', default='default.jpg')    
     comment_count = models.IntegerField(blank=True, default=0, verbose_name=('comment count'))
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f'story about : { self.full_name }'

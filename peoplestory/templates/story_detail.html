@@ -21,6 +21,7 @@
     float: left;
     font-weight: 50;
     color: slategrey;
+    margin-bottom: 0px;
 }
 
 .story_detail_date{
@@ -57,6 +58,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
 {% endblock %}
 
 
@@ -79,7 +81,8 @@
 
 
             <div class="entry__header col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
-                <h1 class="entry__header-title display-1 my_story_title story_detail_title">
+                <h1 class="entry__header-title display-1 my_story_title story_detail_title" 
+                style="margin-bottom: 0px;">
                     {{ story.full_name }}
                 </h1>
                 <hr>
@@ -113,7 +116,7 @@
             </div>
 
             <div class="main_story entry__main col-lg-8 col-md-8 col-sm-8 col-xs-8 " 
-                style="margin-top: 0px;">
+                style="margin-top: 0px; padding-bottom: 60px;">
 
                 <h3 style="margin-top: 30px;color: #708090;">who is {{ story.full_name }}?</h3>
 
