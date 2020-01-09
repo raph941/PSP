@@ -11,5 +11,6 @@ urlpatterns = [
     url(r"^MyStories/$", views.MyStory, name="my_stories"),
     url(r"^DeleteStory/(?P<pk>\d+)$", views.StoryDeleteView.as_view(), name="story_delete_confirm"),
     url(r"^StoryDetail/(?P<pk>\d+)$", views.StoryDetailView, name="story_detail"),
+    url(r"^StoryDetail/(?P<pk>\d+)/EditStory$", views.UpdateStoryView, name="edit_story"),
 
 ]

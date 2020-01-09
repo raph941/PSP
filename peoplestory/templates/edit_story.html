@@ -20,30 +20,37 @@
     <div class="row entries-wrap wide">
 
 
-    <form  method='POST' enctype="multipart/form-data" class="new_story_form tab-full end">
+    {% comment %} <form method='POST' enctype="multipart/form-data" class="new_story_form col-ten md-ten tab-full end">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="submit btn btn--large full-width">Update Sory</button>
+    </form>  {% endcomment %}
+
+    <form  method='POST' enctype="multipart/form-data" class="new_story_form col-ten md-ten tab-full end">
     {% csrf_token %}
         <fieldset>
 
             <div>
-                <input name="full_name" id="id_full_name" class="full-width new_story_input" placeholder="your Full Name" value="" type="text">
+                <input name="full_name" id="id_full_name" class="full-width new_story_input" value="{{ story.full_name }}" type="text">
             </div>
 
             <div class="message form-field">
+                <label><img src="{{ story.image.url }}" style="height: 100px;"/></label>
                 <input name="image" id="id_image" class="full-width new_story_input" accept="image/*" type="file">
             </div>
 
             <div class="form-field">
-                <input name="story_caption" id="id_story_caption" class="full-width new_story_input" placeholder="a sentence to describe your Story" value="" type="text">
+                <input name="story_caption" id="id_story_caption" class="full-width new_story_input" value="{{ story.story_caption }}" type="text">
             </div>
 
             <div class="message form-field">
-                <textarea name="story" id="id_story" class="full-width new_story_input" placeholder="Your Message"></textarea>
+                {{ form.story }}
             </div>
 
             <button type="submit" class="submit btn btn--large full-width">Send Message</button>
 
         </fieldset>
-    </form> 
+    </form>
 
     </div>
 </section>

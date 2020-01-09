@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
 
-from .forms import NewStoryForm, CommentForm, ContactForm
+from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
 
 
 
@@ -53,8 +53,6 @@ def Contact(request):
     return render(request, 'contact.html', {'form': form})
 
 
-
-
 @login_required
 def CreateStoryView(request):  
     form = NewStoryForm(request.POST, request.FILES)
@@ -73,6 +71,32 @@ def CreateStoryView(request):
         form = NewStoryForm()
 
     return render(request, 'create_story.html', {'form': form})
+
+
+@login_required
+def UpdateStoryView(request, pk):
+    story = Stories.objects.get(pk=pk)  
+    form = UpdateStoryForm(request.POST, request.FILES, instance=story)
+
+    if request.method == 'POST':          
+        if form.is_valid():
+            story = form.save(commit=False)
+            story.author = request.user
+            story.save()
+            messages.success(request, 'Your story has been successfully Updated')
+
+            return redirect('my_stories')
+        else:
+            messages.warning(request, 'Your story creation was Not Uncessessful')
+    else:
+        form = UpdateStoryForm(instance=story)
+
+    context = {
+        'form': form,
+        'story': story,
+    }
+
+    return render(request, 'edit_story.html', context)
 
 
 @login_required

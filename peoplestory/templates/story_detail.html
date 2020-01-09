@@ -13,8 +13,8 @@
 }
 
 .story_detail_article{
-    margin-left: 70px;
-    margin-right: 70px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .story_detail_title{
@@ -75,7 +75,14 @@
                 <div class="entry__post-thumb">
                     <img src="{{ story.image.url}}" alt="">
                     <span class="sideelement">
-                        500 likes and views
+                        <a href="#">
+                            {{ story.views }}
+                            <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
+                        </a>
+                        <a href="#">
+                            {{ story.views }}
+                            <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
+                        </a>
                     </span>
                 </div>
             </div>
@@ -86,11 +93,11 @@
                 style="margin-bottom: 0px;">
                     {{ story.full_name }}
                 </h1>
-                    <div class="col-4 col-xs-12 s-content__header" data-aos="fade-up" style="float: right;">
-                        <a href="{% url 'create_story' %}" class="btn btn-primary" style="float:right;">
+                {% if story.author == request.user %}
+                        <a href="{% url 'edit_story' story.pk %}" class="btn btn-primary" style="float:right;">
                             Edit Story
                         </a>
-                    </div>
+                {% endif %}
 
 
                 <hr>
