@@ -14,7 +14,7 @@ from .forms import NewStoryForm, CommentForm, ContactForm
 
 
 def home(request):
-    my_stories = Stories.objects.all()
+    my_stories = Stories.objects.all().order_by('?')
 
     context = {
         'my_stories': my_stories,

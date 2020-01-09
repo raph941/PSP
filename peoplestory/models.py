@@ -1,5 +1,7 @@
 from django.db import models
 from accounts.models import User, UserProfile
+from django.utils.html import mark_safe
+from markdown import markdown
 
 #story approval status
 APPROVED = 'APPROVED'
@@ -25,6 +27,9 @@ class Stories(models.Model):
 
     def __str__(self):
         return f'story about : { self.full_name }'
+
+    def get_story_as_markdown(self):
+        return mark_safe(markdown(self.story, safe_mode='escape'))
 
     class Meta:
         ordering = ['-last_updated']

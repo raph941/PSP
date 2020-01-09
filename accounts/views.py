@@ -43,7 +43,9 @@ def NewRegularUser(request):
 
 
 @login_required
-def MyProfile(request, pk):  
+def MyProfile(request, pk): 
+    user = User.objects.get(pk=pk) 
+    
     return render(request, "myprofile.html")
 
 

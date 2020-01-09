@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block headerlinks %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+{% endblock %}
+
+ {% block style %}
+ 
+ {% endblock %}
+
+
 {% block content %}
 
 <section class="s-content">
     <div class="row entries-wrap wide">
-        
+        {{ user.username }}
+        {{ user.userprofile.profile_pic }}
+
     </div>
 </section>
 

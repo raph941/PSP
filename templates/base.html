@@ -44,7 +44,6 @@
                 <a href="{% url 'my_stories' %}" class="dropdown-anchor">Stories</a>
                 <a href="{% url 'myprofile' user.pk %}" class="dropdown-anchor">Profile</a>
                 <a href="" class="dropdown-anchor">Help</a>
-                <a href="" class="dropdown-anchor">Logout</a>
                 <a href="{% url 'logout' %}" class="dropdown-anchor">Sign out</a>
 
             </div>
@@ -82,12 +81,12 @@
                 <li class="has-children">
                     <a href="#0" title="">My Stories</a>
                     <ul class="sub-menu">
-                        <li><a href="category.html">View Stories</a></li>
+                        <li><a href="{% url 'my_stories' %}">View Stories</a></li>
                         <li><a href="{% url 'create_story' %}">Add Story</a></li>
                     </ul>
                 </li>
                 
-                <li><a href="style-guide.html" title="">Explore</a></li>
+                <li><a href="" title="">Explore</a></li>
                 <li><a href="{% url 'about' %}" title="">About</a></li>
                 <li><a href="{% url 'contact' %}" title="">Contact</a></li>
                     
