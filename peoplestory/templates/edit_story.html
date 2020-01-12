@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block headerlinks %}
-    <link rel="stylesheet" href="{% static 'css/simplemde.css' %}">
-{% endblock %}
 
 {% block style %}
 .new_story_form{
@@ -44,10 +41,10 @@
             </div>
 
             <div class="message form-field">
-                {{ form.story }}
+                <textarea name="story" id="id_story" class="full-width new_story_input tinymce" >{{ story.get_story_as_markdown}}</textarea>
             </div>
 
-            <button type="submit" class="submit btn btn--large full-width">Send Message</button>
+            <button type="submit" class="submit btn btn--large full-width">Update</button>
 
         </fieldset>
     </form>
@@ -58,8 +55,7 @@
 {% endblock content %}
 
 {% block javascript %}
-  <script src="{% static 'js/simplemde.js' %}"></script>
-  <script>
-    var simplemde = new SimpleMDE();
-  </script>
+    <script type="text/javascript" src="{% static 'tinymce/jquery.min.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'tinymce/tinymce.min.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'tinymce/init-tinymce.js' %}" ></script>
 {% endblock %}

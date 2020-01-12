@@ -11,6 +11,7 @@ from django.contrib.auth import views as auth_views
 
 from .forms import *
 from .models import UserProfile, User
+from peoplestory.models import Stories
 
 
 def NewRegularUser(request):
@@ -23,14 +24,12 @@ def NewRegularUser(request):
             user.save()
             phone_number = form.cleaned_data.get('phone_number')
             date_of_birth = form.cleaned_data.get('date_of_birth')
-            sex = form.cleaned_data.get('sex')
             nationality = form.cleaned_data.get('nationality')
-            address = form.cleaned_data.get('Address')
             bio = form.cleaned_data.get('bio')
             profile_pic = form.cleaned_data.get('profile_pic')
 
             UserProfile.objects.create(phone_number=phone_number, date_of_birth=date_of_birth,
-                                         sex=sex, nationality=nationality, address=address, bio=bio,  
+                                         nationality=nationality, bio=bio,  
                                          profile_pic=profile_pic, user=user)
             messages.success(request, "successfully Created")
             return redirect('login')
@@ -45,19 +44,24 @@ def NewRegularUser(request):
 @login_required
 def MyProfile(request, pk): 
     user = User.objects.get(pk=pk) 
+    mystory = Stories.objects.filter(author=user)
+
+    context = {
+       'mystory': mystory, 
+    }
     
-    return render(request, "myprofile.html")
+    return render(request, "myprofile.html", context)
 
 
 @login_required
-def MyProfileEdit(request, pk):   
+def UserProfileUpdateView(request, pk): 
     if request.method == 'POST':
         uu_form = UserUpdateForm(request.POST, instance=request.user)
         upu_form = UserProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
         if uu_form.is_valid and upu_form.is_valid():
             uu_form.save()
             upu_form.save()
-            return redirect('home')
+            return redirect('myprofile', pk)
     else:
         uu_form = UserUpdateForm(instance=request.user)
         upu_form = UserProfileUpdateForm(instance=request.user.userprofile)
@@ -66,4 +70,4 @@ def MyProfileEdit(request, pk):
         'uu_form': uu_form,
         'upu_form': upu_form,
     }
-    return render(request, "mypprofile.html", context)
+    return render(request, "profile_update.html", context)

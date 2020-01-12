@@ -29,19 +29,17 @@ footer{
     max-width: 70%;
     margin-bottom: 30px;
 }
-.story_count{
-    font-size: -webkit-xxx-large;
-}
-.story_count_stories{
-    font-size: x-large;
-    margin-bottom: 0px;
-}
 .profile_hr{
     margin-top: 0px;
 }
-.bio_tittle{
-    font-weight: 600;
-    color: #2f85d9;
+.new_story_form{
+    margin-top: 30px;
+}
+.new_story_input{
+    margin-bottom: 10px;
+}
+.editprofile_btn{
+    display: none;
 }
  {% endblock %}
 
@@ -77,32 +75,54 @@ footer{
                         {{ user.userprofile.phone_number }}
                     </span></li>
                 </ul>
+            <div class="editprofile_btn">
             {% if user == request.user %}
                 <div class="col-12">
-                    <a href="{% url 'profile_update' user.pk %}" class="btn btn-sm col" style="float:right;">
+                    <a href="" class="btn btn-sm col" style="float:right;">
                         Edit Profile
                     </a>
                 </div>
             {% endif %}
+            </div>
         </div>
 
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-8 picture-aside">
-            <div>
-                <span>
-                    <img src="{% static 'images/icons/story.png' %}" alt="icon"/>
-                </span>
-                <p class="story_count_stories"><span class="story_count">{{ mystory.count }} </span>Stories</p>
-                <hr class="profile_hr">    
-            </div>
-            <div>
-                <p>
-                    {% if user.userprofile.bio %}
-                    <p><span class="bio_tittle">Bio : </span>{{ user.userprofile.bio }}</p>
-                        
-                    {% endif %}
-                </p>
-            </div>
+            <form  method='POST' enctype="multipart/form-data" class="new_story_form tab-full end">
+            {% csrf_token %}
+                <fieldset>
+
+                    <div>
+                        <input name="username" id="id_username" class="full-width new_story_input" value="{{ user.username }}" type="text">
+                    </div>
+                    <div>
+                        <input name="first_name" id="id_first_name" class="full-width new_story_input" value="{{ user.first_name }}" type="text">
+                    </div>
+                    <div>
+                        <input name="last_name" id="id_last_name" class="full-width new_story_input" value="{{ user.last_name }}" type="text">
+                    </div>
+                    <div>
+                        <input name="bio" id="id_bio" class="full-width new_story_input" value="{{ user.userprofile.bio }}" type="text">
+                    </div>
+                    <div>
+                        <input name="email" id="id_email" class="full-width new_story_input" value="{{ user.email }}" type="email">
+                    </div>
+                    <div>
+                        <input name="phone_number" id="id_phone_number" class="full-width new_story_input" value="{{ user.userprofile.phone_number }}" type="text">
+                    </div>
+                    <div>
+                        <input name="nationality" id="id_nationality" class="full-width new_story_input" value="{{ user.userprofile.nationality }}" type="text">
+                    </div>
+                    
+                    
+
+                    <button type="submit" class="submit btn btn--small">Submit</button>
+
+                </fieldset>
+            </form> 
         </div>
+
+        
+
 
     </section> <!-- end s-extra -->
 

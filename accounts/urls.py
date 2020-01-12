@@ -7,4 +7,5 @@ from accounts import views
 urlpatterns = [
     url(r"^SignUp/$", views.NewRegularUser, name="signup"),
     url(r"^MyProfile/(?P<pk>\d+)/$", views.MyProfile, name="myprofile"),  
+    url(r"^MyProfile/ProfileUpdate/(?P<pk>\d+)$", views.UserProfileUpdateView, name="profile_update"),  
 ]

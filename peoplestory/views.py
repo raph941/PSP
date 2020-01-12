@@ -15,7 +15,7 @@ from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
 
 def home(request):
     my_stories = Stories.objects.all().order_by('?')
-
+    
     context = {
         'my_stories': my_stories,
     }
@@ -42,7 +42,7 @@ def Contact(request):
                 return HttpResponse('Invalid header found.')
 
             messages.success(request, 'Your message has been sent successfully, you would recieve a response very soon!')
-
+  
             return HttpResponseRedirect(request.path_info)
         else:
             messages.warning(request, 'message was Unsuccessfully')
@@ -85,7 +85,7 @@ def UpdateStoryView(request, pk):
             story.save()
             messages.success(request, 'Your story has been successfully Updated')
 
-            return redirect('my_stories')
+            return redirect('story_detail', pk)
         else:
             messages.warning(request, 'Your story creation was Not Uncessessful')
     else:
