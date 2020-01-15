@@ -8,6 +8,9 @@ from django.views.generic import ListView, DeleteView, DetailView, RedirectView
 from django.urls import reverse_lazy
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
+from django.db.models import Q, Count
+from django.core.paginator import Paginator
+
 
 from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
 
@@ -20,6 +23,30 @@ def home(request):
         'my_stories': my_stories,
     }
     return render(request, 'home.html', context)
+
+
+class SearchResultView(ListView):
+    template_name = 'search_results.html'
+    context_object_name = 'searched_result'
+    paginate_by = 5
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['query'] = self.request.GET.get('q')
+        return context
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query is not None:
+            or_lookup_stories = (
+                Q(full_name__icontains=query) |
+                Q(story__icontains=query)
+                )
+            stories_result = Stories.objects.filter(or_lookup_stories)
+
+
+            return stories_result
+        return Stories.objects.none()      
 
 
 def About(request):
@@ -159,4 +186,3 @@ class StoriesLikeToggle(RedirectView):
         return url_
         
 
-    

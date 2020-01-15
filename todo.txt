@@ -1,5 +1,5 @@
 1. Enable sendgid for password retrieval
-2. enable app search engine
+2. enable app search engine (DONE)
 3. work on footer
 4. enable pagination/ infinite scroll
 5. show popular stories

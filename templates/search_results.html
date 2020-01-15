@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+.article_image{
+    height: 300px;
+    width: 100%;
+}
+{% endblock %}
+
+
+{% block content %}
+<section class="s-content" style="height:inherit;">
+    <div class="row entries-wrap wide">
+    
+        <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--top-padding" style="padding-top: 0px;">
+    <div>
+        {% if searched_result %}
+            <h3 style="font-family: -webkit-body;">Search Results for "{{ query }}"</h3>
+        {% else %}
+        <h3 >There was No story matching your search: "{{ query }}" </>
+
+        {% endif %}
+    </div>
+    
+        <div class="row entries-wrap add-top-padding wide">
+            
+
+            <div class="entries">
+
+            {% for story in searched_result %}
+                <article class="col-block">  
+                    <div class="item-entry" data-aos="zoom-in">
+                        <div class="item-entry__thumb">
+                            <a href="{% url 'story_detail' story.pk %}" class="item-entry__thumb-link">
+                                <img src="{{ story.image.url }}" class='article_image'
+                                        srcset="{{ story.image.url }}" alt="">
+                            </a>
+                        </div>
+        
+                        <div class="item-entry__text">
+                            <div class="item-entry__cat">
+                                
+                                <a href="#">
+                                    {{ story.views }}
+                                    <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
+                                </a>
+                                <a href="{% url 'like' story.pk %}" class="like-btn">
+                                    {{ story.likes.count }}
+                                    <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
+                                </a>
+                                <a href="{% url 'story_delete_confirm' story.pk %}">
+                                    <img src="{% static 'images/icons/icons-delete.png' %}" alt="image">
+                                </a>
+                            </div>
+
+                            <h1 class="item-entry__title"><a href="">{{ story.full_name }}</a></h1>
+                            
+                             
+                            <div class="item-entry__date">
+                                <a href="">{{ story.last_updated }}</a>
+                            </div>
+                        </div>
+                    </div> 
+                </article>
+            {% endfor %}
+
+            </div> <!-- end entries -->
+        </div> <!-- end entries-wrap -->
+
+        
+
+    </section> <!-- end s-content -->
+
+    </div>
+</section>
+
+{% endblock content %}
+
