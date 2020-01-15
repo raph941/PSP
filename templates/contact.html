@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
+{% block headerlinks %}
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+{% endblock %}
+
+
 {% block style %}
 .contact-title{
     padding-bottom: 0px;
@@ -210,7 +217,30 @@
             </div>
         </div> <!-- end row -->
 
+        <div class="row">
+            <div class="your-class">
+                <div>your content</div>
+                <div>your content</div>
+                <div>your content</div>
+            </div>
+        </div>
+
     </section> <!-- end s-extra -->
 
 
 {% endblock content %}
+
+{%block javascript%}
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('.your-class').slick({
+        setting-name: setting-value
+      });
+    });
+  </script>
+
+<script type="text/javascript" src="{% static 'slick/jquery-1.11.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'slick/jquery-migrate-1.2.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
+				
+{% endblock %}
