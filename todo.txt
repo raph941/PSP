@@ -1,0 +1,11 @@
+1. Enable sendgid for password retrieval
+2. enable app search engine
+3. work on footer
+4. enable pagination/ infinite scroll
+5. show popular stories
+6. edit info on the about / Contact page
+7. help page
+8. work on like button
+9. social media share button on detail page
+10. Ajaxify forms
+11. Administrative accounts priviledges
