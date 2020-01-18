@@ -6,6 +6,12 @@
     height: 300px;
     width: 100%;
 }
+.explore_article{
+    max-width: 24.33333%;
+}
+.col-block{
+    
+}
 {% endblock %}
 
 
@@ -19,22 +25,16 @@
 
         <div class="row narrow">
             <div class="col-full s-content__header" data-aos="fade-up">
-                <h1 class="display-1 display-1--with-line-sep ">Your Stories</h1>
-                <a href="{% url 'create_story' %}" class="btn btn-primary col-6" style="float:right;">
-                    Write Story
-                </a>
+                <p class="display-1 display-1--with-line-sep ">Popular Stories</p>
             </div>
         </div>
-        <p class="lead">i live in this world, i thrive, flourish and excel not because i am the best or because i am perfect,
-                    i reach were i am today because God has brougt me in contact with some people. These people shaped
-                    my life, and these are their stories
-        </p>
         
+
         <div class="row entries-wrap add-top-padding wide">
             <div class="entries">
 
             {% for story in my_stories  %}
-                <article class="col-block">  
+                <article class="col-block explore_article">  
                     <div class="item-entry" data-aos="zoom-in">
                         <div class="item-entry__thumb">
                             <a href="{% url 'story_detail' story.pk %}" class="item-entry__thumb-link">

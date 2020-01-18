@@ -140,7 +140,17 @@ def UpdateStoryView(request, pk):
 @login_required
 def MyStory(request):
     pk = request.user.id
-    my_stories = Stories.objects.all().filter(author_id=pk)
+    my_stories_query = Stories.objects.all().filter(author_id=pk)
+
+    paginator = Paginator(my_stories_query, 9)
+    page = request.GET.get('page', 1)
+
+    try:
+        my_stories = paginator.page(page)
+    except PageNotAnInteger:
+        my_stories = paginator.page(1)
+    except EmptyPage:
+        my_stories = paginator.page(paginator.num_pages)
 
     context = {
         'my_stories': my_stories,
@@ -197,3 +207,22 @@ class StoriesLikeToggle(RedirectView):
         return url_
         
 
+def ExploreView(request):
+    my_stories_query = Stories.objects.all().order_by('?')
+    paginator = Paginator(my_stories_query, 18)
+    page = request.GET.get('page', 1)
+
+    
+
+    try:
+        my_stories = paginator.page(page)
+    except PageNotAnInteger:
+        my_stories = paginator.page(1)
+    except EmptyPage:
+        my_stories = paginator.page(paginator.num_pages)
+  
+    context = {
+        'my_stories': my_stories,
+    }
+
+    return render(request, 'explore.html', context)
