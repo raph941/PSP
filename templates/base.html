@@ -113,48 +113,50 @@
 
     <!-- s-footer
     ================================================== -->
-    <footer class="s-footer">
+    <footer class="s-footer" style="padding-top: 80px;padding-bottom: 20px;">
 
         <div class="s-footer__bottom">
             <div class="row">
 
-                <div class="col-six">
-                    <ul class="footer-social">
-                        <li>
-                            <a href="#0"><i class="fab fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="#0"><i class="fab fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#0"><i class="fab fa-instagram"></i></a>
-                        </li>
-                    </ul>
+                <div class="col-six tab-full s-footer__about"> 
+                    <h4>About PEOPLE SHAPING PEOPLE</h4>
+
+                    <p>Fugiat quas eveniet voluptatem natus. Placeat error temporibus magnam sunt optio aliquam. Ut ut occaecati placeat at. 
+                    Fuga fugit ea autem. </p>
+
+                    <div class="col-six" style="padding-left: 0px;">
+                        <ul class="footer-social">
+                            <li>
+                                <a href="#0"><i class="fab fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#0"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#0"><i class="fab fa-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+
+
+                </div> <!-- end s-footer__about -->
+            
+                <div>
+                        <div class="s-footer__copyright">
+                            <span>
+                                Copyright &copy; 2020 All rights reserved
+                            </span>
+                            <span><a href="{% url 'about' %}" title="">About Us</a></span>
+                            <span><a href="{% url 'contact' %}" title="">Contact Us</a></span>
+                        </div>
+                    </div>
+                <div class="go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top"></a>
                 </div>
-                
+
             </div>
         </div> <!-- end s-footer__bottom -->
-
-        <div class="s-footer__main">
-            <div class="row">
-                
-                <div class="col-4 tab-full s-footer__about">
-                    <h4>How Friends Shaped My Life</h4>   
-                   
-                </div> <!-- end s-footer__about -->
-
-                <div class="col-six tab-full s-footer__subscribe">
-                        
-
-                </div> <!-- end s-footer__subscribe -->
-
-            </div>
-        </div> <!-- end s-footer__main -->
-
-
-        <div class="go-top">
-            <a class="smoothscroll" title="Back to Top" href="#top"></a>
-        </div>
 
     </footer> <!-- end s-footer -->
 

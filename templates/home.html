@@ -152,23 +152,36 @@
             </div> <!-- end entries -->
         </div> <!-- end entries-wrap -->
 
-        <div class="row pagination-wrap">
-            <div class="col-full">
-                <nav class="pgn" data-aos="fade-up">
-                    <ul>
-                        <li><a class="pgn__prev" href="#0">Prev</a></li>
-                        <li><a class="pgn__num" href="#0">1</a></li>
-                        <li><span class="pgn__num current">2</span></li>
-                        <li><a class="pgn__num" href="#0">3</a></li>
-                        <li><a class="pgn__num" href="#0">4</a></li>
-                        <li><a class="pgn__num" href="#0">5</a></li>
-                        <li><span class="pgn__num dots">…</span></li>
-                        <li><a class="pgn__num" href="#0">8</a></li>
-                        <li><a class="pgn__next" href="#0">Next</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+<div class="row pagination-wrap">
+    <div class="col-full">
+        <nav class="pgn" data-aos="fade-up">
+
+            {% if my_stories.has_other_pages %}
+            <ul>
+                {% if my_stories.has_previous %}
+                    <li><a class="pgn__prev" href="?page={{ my_stories.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled pgn__prev"><span>&laquo;</span></li>
+                {% endif %}
+
+                {% for i in my_stories.paginator.page_range %}
+                {% if my_stories.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if my_stories.has_next %}
+                <li><a class="disabled pgn__next" href="?page={{ my_stories.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                <li class="disabled pgn__next"><span>&raquo;</span></li>
+                {% endif %}
+
+            </ul>
+            {% endif %}
+        </nav>
+    </div>
+</div>
 
     </section> <!-- end s-content -->
 

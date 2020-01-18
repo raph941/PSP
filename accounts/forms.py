@@ -33,6 +33,7 @@ class RegularUserCreationForm(UserCreationForm):
             'phone_number', 'nationality', 'profile_pic', 'password1', 'password2')
 
 
+
 class AdminUserCreationForm(UserCreationForm):
     first_name = forms.CharField( max_length=30, required=False)
     last_name = forms.CharField( max_length=30, required=False)

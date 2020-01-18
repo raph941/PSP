@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
 from django.db.models import Q, Count
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
@@ -17,8 +17,19 @@ from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
 
 
 def home(request):
-    my_stories = Stories.objects.all().order_by('?')
+    my_stories_query = Stories.objects.all().order_by('?')
+    paginator = Paginator(my_stories_query, 18)
+    page = request.GET.get('page', 1)
+
     
+
+    try:
+        my_stories = paginator.page(page)
+    except PageNotAnInteger:
+        my_stories = paginator.page(1)
+    except EmptyPage:
+        my_stories = paginator.page(paginator.num_pages)
+  
     context = {
         'my_stories': my_stories,
     }

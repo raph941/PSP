@@ -39,8 +39,6 @@ def NewRegularUser(request):
 
     return render(request, 'signup_regular.html', {'form': form})
 
-
-
 @login_required
 def MyProfile(request, pk): 
     user = User.objects.get(pk=pk) 
