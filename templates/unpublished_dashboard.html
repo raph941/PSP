@@ -1,0 +1,31 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block extended-dashboard %}
+    
+        <h3 style="margin-top: 1.8rem;color: #627c63;font-weight:normal;font-size:2rem;" class="">Unpublished Stories</h3>
+        <div class="table-responsive">
+        <table class="table " style="display: table;">
+            <thead class="thead-inverse">
+                <tr>
+                <th>S/N</th>
+                <th>Name</th>                          
+                <th>Author</th>
+                <th>Publish</th>
+                <th>Deny</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for story in unpublished_stories  %}
+                <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'story_detail' story.pk %}" style="color:#607d8b7d;">{{ story.full_name }}</a></td>
+                <td><a href="{% url 'myprofile' story.author.pk %}" style="color:#607d8b7d;">{{ story.author }}</a></td>
+                <td><a href="" class="btn btn-publish">Publish</a></td>
+                <td><a href="" class="btn btn-deny">Deny</a></td>
+            </tbody>
+                {% endfor %}
+        </table>
+        </div>
+        
+    {% endblock extended-dashboard %}

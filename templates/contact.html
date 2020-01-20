@@ -13,6 +13,9 @@
     padding-bottom: 0px;
     margin-top: 30px;
 }
+.contact-input{
+    background: #ffffff;
+}
 {% endblock %}
 
 
@@ -87,19 +90,19 @@
                     <fieldset>
 
                         <div>
-                            <input name="name" id="id_name" class="full-width" placeholder="your name" value="" type="text">
+                            <input name="name" id="id_name" style="background: #ffffff;" class="full-width contact-input" placeholder="your name" value="" type="text">
                         </div>
 
                         <div class="form-field">
-                            <input name="from_email" id="id_from_email" class="full-width" placeholder="abcd@gmail.com" value="" type="email">
+                            <input name="from_email" id="id_from_email" style="background: #ffffff;" class="full-width contact-input" placeholder="abcd@gmail.com" value="" type="email">
                         </div>
 
                         <div class="form-field">
-                            <input name="subject" id="id_subject" class="full-width" placeholder="my Stories" value="" type="text">
+                            <input name="subject" id="id_subject" style="background: #ffffff;" class="full-width contact-input" placeholder="my Stories" value="" type="text">
                         </div>
 
                         <div class="message form-field">
-                            <textarea name="message" id="id_message" class="full-width" placeholder="Your Message"></textarea>
+                            <textarea name="message" id="id_message" class="full-width contact-input" placeholder="Your Message"></textarea>
                         </div>
 
                         <button type="submit" class="submit btn btn--primary btn--large full-width">Send Message</button>

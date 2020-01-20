@@ -86,8 +86,12 @@
                         <li><a href="{% url 'create_story' %}">Add Story</a></li>
                     </ul>
                 </li>
-                
                 <li><a href="{% url 'explore' %}" title="">Explore</a></li>
+
+                {% if user.is_admin %}
+                    <li><a href="{% url 'unpublished_dashboard' %}" title="">Dashboard</a></li>
+                {% endif %}
+
                 <li><a href="{% url 'about' %}" title="">About</a></li>
                 <li><a href="{% url 'contact' %}" title="">Contact</a></li>
                     

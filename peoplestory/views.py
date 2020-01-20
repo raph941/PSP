@@ -208,11 +208,10 @@ class StoriesLikeToggle(RedirectView):
         
 
 def ExploreView(request):
-    my_stories_query = Stories.objects.all().order_by('?')
-    paginator = Paginator(my_stories_query, 18)
+    recent_stories = Stories.objects.all().order_by('-last_updated')[:9]
+    my_stories_query = Stories.objects.all().order_by('-views')
+    paginator = Paginator(my_stories_query, 6)
     page = request.GET.get('page', 1)
-
-    
 
     try:
         my_stories = paginator.page(page)
@@ -223,6 +222,11 @@ def ExploreView(request):
   
     context = {
         'my_stories': my_stories,
+        'recent_stories': recent_stories,
     }
 
     return render(request, 'explore.html', context)
+
+    
+
+

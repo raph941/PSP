@@ -26,6 +26,8 @@ class Stories(models.Model):
     comment_count = models.IntegerField(blank=True, default=0, verbose_name=('comment count'))
     views = models.PositiveIntegerField(default=0)
     likes = models.ManyToManyField(User, blank=True, related_name="story_likes")
+    published = models.BooleanField(default=False)
+    denied = models.BooleanField(default=False)
 
     def __str__(self):
         return f'story about : { self.full_name }'

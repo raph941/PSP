@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block headerlinks %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card.css' %}">
+{% endblock %}
+
+{% block style %}
+.row_entries{
+    margin: 0px;
+    max-width: -webkit-fill-available;
+    padding: 0px;
+}
+.card_custom{
+    padding: 10px;
+}
+.s-content{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.s-footer{
+    display: none;
+}
+.dashboard-container{
+    margin-top: 75px;
+    padding: 20px;
+    padding-top: 0px;
+    
+}
+.card-body{
+    padding: 1.25rem 1.437rem;
+}
+.card-custom{
+    margin-bottom: 20px;
+}
+.card-title{
+    color: #787878;
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.btn-publish{
+    border-color: #47a7f3;
+    line-height: 3rem;
+    height: 3rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: x-small;
+    color: #a2d3f9;
+    font-weight: lighter;
+}
+.btn-deny{
+    border-color: #dc3545;
+    line-height: 3rem;
+    height: 3rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: x-small;
+    color: #dc3545;
+    font-weight: lighter;
+}
+th{
+    font-size: 1.5rem;
+}
+.pic{
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-top: 10px;
+    height: 47px;
+    margin-top: 0px;
+}
+{% endblock %}
+
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 card card_custom" style="padding:10px; background:#f2f2f2;border:none;">
+
+        <div class="card card-custom" style="background: #2196f3d1;">
+            <div class="card-body">
+            <p class="card-title">Users</p>
+            <a href="{% url 'user_dashboard' %}">
+                <img src="{% static 'images/icons/users.png' %}" >
+            </a>
+
+            <span style="float: right;font-size: xx-large;">{{ all_users.count }}<span>
+            </span></span>
+            </div>
+        </div>
+        <div class="card card-custom" style="background: #c3f7c5;">
+            <div class="card-body">
+                <p class="card-title">Published Stories</p>
+                <a href="{% url 'published_dashboard' %}">
+                    <img src="{% static 'images/icons/published.png' %}" >
+                </a>
+
+                <span style="float: right;font-size: xx-large;">{{ published_stories.count }}<span>
+            </div>
+        </div>
+        <div class="card card-custom" style="background: #2196f361;">
+            <div class="card-body">
+                <p class="card-title">Unpublished Stories</p>
+                <a href="{% url 'unpublished_dashboard' %}">
+                    <img src="{% static 'images/icons/unpublished.png' %}" >
+                </a>
+
+                <span style="float: right;font-size: xx-large;">{{ unpublished_stories.count }}<span>
+            </div>
+        </div>
+        <div class="card card-custom" style="background: #ef423545;">
+            <div class="card-body">
+                <p class="card-title">Denied Stories</p>
+                <a href="{% url 'denied_dashboard' %}">
+                    <img src="{% static 'images/icons/denied.png' %}" >
+                </a>
+
+                <span style="float: right;font-size: xx-large;">{{ denied_stories.count }}<span>
+            </div>
+        </div>
+            
+
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 card card_custom" style="padding:10px; ">
+
+    {% block extended-dashboard %}
+    
+
+
+    {% endblock extended-dashboard %}
+
+        <div class="row"></div>
+    </div>
+<div>
+{% endblock content %}
+
+{% block javascript %}
+
+
+{% endblock %}

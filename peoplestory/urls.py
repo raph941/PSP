@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 from django.http import HttpResponse
 from django.shortcuts import render
 from . import views
+from . import dashboard_views
 
 
 urlpatterns = [
@@ -15,5 +16,11 @@ urlpatterns = [
     url(r"^(?P<pk>\d+)/Story/Like$", views.StoriesLikeToggle.as_view(), name="like"),
     url(r"^SearchResult/$", views.SearchResultView.as_view(), name="search_results"),
     url(r"^Explore/$", views.ExploreView, name="explore"),
+
+    #dashboard urls
+    url(r"^Dashboard/Upublished/$", dashboard_views.UnpublishedDashboardView, name="unpublished_dashboard"),
+    url(r"^Dashboard/Published/$", dashboard_views.PublishedDashboardView, name="published_dashboard"),
+    url(r"^Dashboard/Denied/$", dashboard_views.DeniedDashboardView, name="denied_dashboard"),
+    url(r"^Dashboard/User/$", dashboard_views.UserDashboardView, name="user_dashboard"),
 
 ]

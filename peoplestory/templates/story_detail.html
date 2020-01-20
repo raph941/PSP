@@ -149,7 +149,7 @@
             <div class="entry__author-about">
                 <h5 class="entry__author-name">
                     <span>Posted by</span>
-                    <a href="#0">{{ story.author.first_name }} {{ story.author.last_name }}</a>
+                    <a href="{% url 'myprofile' story.author.pk %}">{{ story.author.first_name }} {{ story.author.last_name }}</a>
                 </h5>
 
                 <div class="entry__author-desc">
