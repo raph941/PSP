@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import User
@@ -193,19 +194,44 @@ def StoryDetailView(request, pk):
 #     return HttpResponseRedirect(request.path_info)
 
 
-class StoriesLikeToggle(RedirectView):
-    def get_redirect_url(self, *args, **kwargs):
-        pk = self.kwargs.get("pk")
-        obj = get_object_or_404(Stories, pk=pk)
-        url_ = obj.get_absolute_url()
-        user = self.request.user
+# class StoriesLikeToggle(RedirectView):
+#     def get_redirect_url(self, *args, **kwargs):
+#         pk = self.kwargs.get("pk")
+#         obj = get_object_or_404(Stories, pk=pk)
+#         url_ = obj.get_absolute_url()
+#         user = self.request.user
+#         if user.is_authenticated:
+#             if user in obj.likes.all():
+#                 obj.likes.remove(user)
+#             else:
+#                 obj.likes.add(user)
+#         return url_
+        
+def StoriesLikeToggle(request, pk):
+    if request.method == 'GET':
+        story_id = request.GET['story_id']
+        obj = get_object_or_404(Stories, pk=story_id)
+        user = request.user
         if user.is_authenticated:
             if user in obj.likes.all():
+                liked = False
                 obj.likes.remove(user)
+                NewLikes = obj.likes.count()
             else:
+                liked = True
                 obj.likes.add(user)
-        return url_
+                NewLikes = obj.likes.count()
+            updated = True
+        data = {
+            "updated": updated,
+            "NewLikes": NewLikes,
+            "liked": liked
+        }
+        return JsonResponse(data)
+
         
+
+
 
 def ExploreView(request):
     recent_stories = Stories.objects.all().order_by('-last_updated')[:9]

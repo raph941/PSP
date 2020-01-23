@@ -127,8 +127,9 @@
                                     {{ story.views }}
                                     <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
                                 </a>
-                                <a href="#">
-                                    {{ story.views }}
+                                <a class="like_btn" data-href="{% url 'like' story.pk %}" requestuser-id="{{ request.user.pk }}"
+                                    story-id="{{ story.pk }}" like-count='{{ story.likes.count }}'>
+                                    <span class="likecount_span">{{ story.likes.count }}</span>
                                     <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
                                 </a>
                             </div>

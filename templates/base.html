@@ -43,7 +43,7 @@
                 <a href="{% url 'create_story' %}" class="dropdown-anchor">New Story</a>
                 <a href="{% url 'my_stories' %}" class="dropdown-anchor">Stories</a>
                 <a href="{% url 'myprofile' user.pk %}" class="dropdown-anchor">Profile</a>
-                <a href="" class="dropdown-anchor">Help</a>
+                {% comment %} <a href="" class="dropdown-anchor">Help</a> {% endcomment %}
                 <a href="{% url 'logout' %}" class="dropdown-anchor">Sign out</a>
 
             </div>
@@ -79,13 +79,13 @@
 
             <ul class="header__nav">
                 <li class="current"><a href="{% url 'home' %}" title="">Home</a></li>
-                <li class="has-children">
+                {% comment %} <li class="has-children">
                     <a href="#0" title="">My Stories</a>
                     <ul class="sub-menu">
                         <li><a href="{% url 'my_stories' %}">View Stories</a></li>
                         <li><a href="{% url 'create_story' %}">Add Story</a></li>
                     </ul>
-                </li>
+                </li> {% endcomment %}
                 <li><a href="{% url 'explore' %}" title="">Explore</a></li>
 
                 {% if user.is_admin %}
@@ -174,9 +174,38 @@
     <script src="{% static 'js/plugins.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/modernizr.js' %}"></script>
-    <script src="{% static 'js/dropdown.js' %}"></script>
-    {%block javascript%}{% endblock %}
-    
+    <script src="{% static 'js/dropdown.js' %}"></script>    
+    <script type="text/javascript"> 
+        $('.like_btn').click(function(e){ 
+            e.preventDefault();
+            var this_ = $(this)
+            var story_id = this_.attr("story-id");
+            var LikeCount = parseInt(this_.attr("like-count")) ;
+            var LikeUrl = this_.attr("data-href")
+
+            $.ajax({
+                url: LikeUrl,
+                method: "GET",
+                data: {
+                    "story_id":story_id,
+                    "LikeCount":LikeCount,
+                },
+
+                success: function(data){
+                    console.log(data)
+                    if (data.liked){
+                        LikeCount = data.NewLikes;
+                        $(".likecount_span").text(LikeCount);
+                        console.log(LikeCount);
+                    } else {
+                        LikeCount = data.NewLikes;
+                        $(".likecount_span").text(LikeCount);
+                        console.log(LikeCount);
+                    }
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

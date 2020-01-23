@@ -79,8 +79,11 @@
                             {{ story.views }}
                             <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
                         </a>
-                        <a href="{% url 'like' story.pk %}">
-                            {{ story.likes.count }}
+                        <a class="like_btn" data-href="{% url 'like' story.pk %}" requestuser-id="{{ request.user.pk }}"
+                            story-id="{{ story.pk }}" like-count='{{ story.likes.count }}' >
+                            <span class="likecount_span">
+                                {{ story.likes.count }}
+                            </span>
                             <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
 
                         </a>
@@ -230,7 +233,7 @@
                     {% csrf_token %}
 
                             <div class="message form-field">
-                                <textarea name="comment_content" id="id_comment_content" class="full-width" placeholder="Your Message*" required></textarea>
+                                <textarea style="background: white;" name="comment_content" id="id_comment_content" class="full-width" placeholder="Your Message*" required></textarea>
                             </div>
 
                             <input name="submit" id="submit" class="btn btn-wide btn--large full-width" value="Add Comment" type="submit">
@@ -301,3 +304,4 @@
     </section> <!-- end s-extra -->
 
 {% endblock content %}
+
