@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/alert.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="css/iziModal.min.css">
     {% block headerlinks %}{% endblock %}
     
 </head>
@@ -174,38 +175,45 @@
     <script src="{% static 'js/plugins.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/modernizr.js' %}"></script>
-    <script src="{% static 'js/dropdown.js' %}"></script>    
-    <script type="text/javascript"> 
-        $('.like_btn').click(function(e){ 
-            e.preventDefault();
-            var this_ = $(this)
-            var story_id = this_.attr("story-id");
-            var LikeCount = parseInt(this_.attr("like-count")) ;
-            var LikeUrl = this_.attr("data-href")
+    <script src="{% static 'js/dropdown.js' %}"></script>
 
-            $.ajax({
-                url: LikeUrl,
-                method: "GET",
-                data: {
-                    "story_id":story_id,
-                    "LikeCount":LikeCount,
-                },
+    {% block javascript %}{% endblock javascript %}
 
-                success: function(data){
-                    console.log(data)
-                    if (data.liked){
-                        LikeCount = data.NewLikes;
-                        $(".likecount_span").text(LikeCount);
-                        console.log(LikeCount);
-                    } else {
-                        LikeCount = data.NewLikes;
-                        $(".likecount_span").text(LikeCount);
-                        console.log(LikeCount);
+    {% block like_btn_script %}
+        <script type="text/javascript"> 
+            $('.like_btn').click(function(e){ 
+                e.preventDefault();
+                var this_ = $(this)
+                var story_id = this_.attr("story-id");
+                var LikeCount = parseInt(this_.attr("like-count")) ;
+                var LikeUrl = this_.attr("data-href")
+
+                $.ajax({
+                    url: LikeUrl,
+                    method: "GET",
+                    data: {
+                        "story_id":story_id,
+                        "LikeCount":LikeCount,
+                    },
+
+                    success: function(data){
+                        console.log(data)
+                        if (data.liked){
+                            LikeCount = data.NewLikes;
+                            pk = story_id
+                            $(".likecount_span_" + pk).text(LikeCount);
+                            console.log(LikeCount);
+                        } else {
+                            LikeCount = data.NewLikes;
+                            $(".likecount_span_" + pk).text(LikeCount);
+                            console.log(LikeCount);
+                        }
                     }
-                }
+                })
             })
-        })
-    </script>
+        </script>
+    {% endblock like_btn_script %}
+    
 </body>
 
 </html>

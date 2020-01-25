@@ -3,6 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from accounts.models import User
 from peoplestory.models import Stories
+from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 
@@ -76,7 +78,86 @@ def UserDashboardView(request):
         'denied_stories': denied_stories,
         'unpublished_stories': unpublished_stories,
         'users': users,
-        'all_users': all_users,
+        # 'all_users': all_users,
     }
 
     return render(request, 'user_dashboard.html', context)
+
+
+def StoryPublishToggle(request, pk):
+    if request.method == 'GET':
+        story_id = request.GET['story_id']
+        obj = get_object_or_404(Stories, pk=story_id)
+        obj.published = True
+        obj.denied = False
+        obj.save()
+        publish_status = obj.published
+        published_stories = Stories.objects.filter(published=True).filter(denied=False).count()
+        denied_stories = Stories.objects.filter(published=False).filter(denied=True).count()
+        unpublished_stories = Stories.objects.filter(published=False).filter(denied=False).count()
+
+        data = {
+            "publish_status": publish_status,
+            "published_stories": published_stories,
+            "denied_stories": denied_stories,
+            "unpublished_stories": unpublished_stories
+        }
+        
+        return JsonResponse(data)
+
+
+def StoryDenyToggle(request, pk):
+    if request.method == 'GET':
+        story_pk = request.GET['story_id']
+        obj = get_object_or_404(Stories, pk=story_pk)
+        obj.published = False
+        obj.denied = True
+        obj.save()
+        publish_status = obj.denied
+        published_stories = Stories.objects.filter(published=True).filter(denied=False).count()
+        denied_stories = Stories.objects.filter(published=False).filter(denied=True).count()
+        unpublished_stories = Stories.objects.filter(published=False).filter(denied=False).count()
+
+        data = {
+            "story_pk": story_pk,
+            "publish_status": publish_status,
+            "published_stories": published_stories,
+            "denied_stories": denied_stories,
+            "unpublished_stories": unpublished_stories
+        }
+        
+        return JsonResponse(data)
+
+
+def UserActivateToggle(request, pk):
+    # import pdb; pdb.set_trace()
+    # me=65
+    if request.method == 'GET':
+        user_pk = request.GET['user_primarykey']
+        obj = get_object_or_404(User, pk=user_pk)
+        obj.is_active = True
+        obj.save()
+        user_is_active = obj.is_active
+
+        data = {
+            "user_pk": user_pk,
+            "user_is_active": user_is_active,
+        }
+        
+        return JsonResponse(data)
+
+
+def UserDeactivateToggle(request, pk):
+    if request.method == 'GET':
+        user_pk = request.GET['user_primarykey']
+        obj = get_object_or_404(User, pk=user_pk)
+        obj.is_active = False
+        obj.save()
+        user_is_active = obj.is_active
+
+        data = {
+            "user_pk": user_pk,
+            "user_is_active": user_is_active,
+        }
+        
+        return JsonResponse(data)

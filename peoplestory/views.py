@@ -22,8 +22,6 @@ def home(request):
     paginator = Paginator(my_stories_query, 18)
     page = request.GET.get('page', 1)
 
-    
-
     try:
         my_stories = paginator.page(page)
     except PageNotAnInteger:
@@ -223,6 +221,7 @@ def StoriesLikeToggle(request, pk):
                 NewLikes = obj.likes.count()
             updated = True
         data = {
+            "story_id": story_id,
             "updated": updated,
             "NewLikes": NewLikes,
             "liked": liked

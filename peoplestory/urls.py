@@ -22,5 +22,9 @@ urlpatterns = [
     url(r"^Dashboard/Published/$", dashboard_views.PublishedDashboardView, name="published_dashboard"),
     url(r"^Dashboard/Denied/$", dashboard_views.DeniedDashboardView, name="denied_dashboard"),
     url(r"^Dashboard/User/$", dashboard_views.UserDashboardView, name="user_dashboard"),
+    url(r"^Dashboard/User/Publish/(?P<pk>\d+)$", dashboard_views.StoryPublishToggle, name="publish"),
+    url(r"^Dashboard/User/Deny/(?P<pk>\d+)$", dashboard_views.StoryDenyToggle, name="deny"),
+    url(r"^Dashboard/User/Activate/(?P<pk>\d+)$", dashboard_views.UserDeactivateToggle, name="deactivate"),
+    url(r"^Dashboard/User/Deactivate/(?P<pk>\d+)$", dashboard_views.UserActivateToggle, name="activate"),
 
 ]

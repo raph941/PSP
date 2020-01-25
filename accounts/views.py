@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import path, reverse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django import forms
 from django.contrib.auth import views as auth_views
@@ -41,11 +40,12 @@ def NewRegularUser(request):
 
 @login_required
 def MyProfile(request, pk): 
-    user = User.objects.get(pk=pk) 
+    user = get_object_or_404(User, pk=pk) 
     mystory = Stories.objects.filter(author=user)
-
+    # import pdb; pdb.set_trace()
     context = {
-       'mystory': mystory, 
+        'user': user,
+        'mystory': mystory, 
     }
     
     return render(request, "myprofile.html", context)

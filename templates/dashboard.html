@@ -4,6 +4,11 @@
 {% block headerlinks %}
     <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/card.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block style %}
@@ -70,6 +75,18 @@ th{
     height: 47px;
     margin-top: 0px;
 }
+.modal-btn-cancel{
+    padding-right: 20px;
+    padding-left: 20px;
+    border-color: #47a7f3;
+    border-radius: 5px;
+}
+.modal-btn-publish{
+    padding-right: 20px;
+    padding-left: 20px;
+    border-color:#c3f7c5;
+    border-radius: 5px;
+}
 {% endblock %}
 
 
@@ -95,7 +112,7 @@ th{
                     <img src="{% static 'images/icons/published.png' %}" >
                 </a>
 
-                <span style="float: right;font-size: xx-large;">{{ published_stories.count }}<span>
+                <span style="float: right;font-size: xx-large;" class="published_stories">{{ published_stories.count }}<span>
             </div>
         </div>
         <div class="card card-custom" style="background: #2196f361;">
@@ -105,7 +122,7 @@ th{
                     <img src="{% static 'images/icons/unpublished.png' %}" >
                 </a>
 
-                <span style="float: right;font-size: xx-large;">{{ unpublished_stories.count }}<span>
+                <span style="float: right;font-size: xx-large;" class="unpublished_stories">{{ unpublished_stories.count }}<span>
             </div>
         </div>
         <div class="card card-custom" style="background: #ef423545;">
@@ -115,7 +132,7 @@ th{
                     <img src="{% static 'images/icons/denied.png' %}" >
                 </a>
 
-                <span style="float: right;font-size: xx-large;">{{ denied_stories.count }}<span>
+                <span style="float: right;font-size: xx-large;" class="denied_stories">{{ denied_stories.count }}<span>
             </div>
         </div>
             
@@ -136,6 +153,6 @@ th{
 {% endblock content %}
 
 {% block javascript %}
+<script src="{% static 'js/dashboardajax.js' %}"></script>
 
-
-{% endblock %}
+{% endblock javascript %}

@@ -80,13 +80,10 @@
                             <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
                         </a>
                         <a class="like_btn" data-href="{% url 'like' story.pk %}" requestuser-id="{{ request.user.pk }}"
-                            story-id="{{ story.pk }}" like-count='{{ story.likes.count }}' >
-                            <span class="likecount_span">
-                                {{ story.likes.count }}
-                            </span>
-                            <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
-
-                        </a>
+                                    story-id="{{ story.pk }}" like-count='{{ story.likes.count }}'>
+                                    <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
+                                    <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
+                                </a>
                     </span>
                 </div>
             </div>
@@ -118,7 +115,9 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
                 <ul class="footer-social">
                     <li>
-                        <a href="#0"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://CodingForEntrepreneurs.com/">
+                            <i class="fab fa-facebook"></i>
+                        </a>
                     </li>
                     <li>
                         <a href="#0"><i class="fab fa-twitter"></i></a>

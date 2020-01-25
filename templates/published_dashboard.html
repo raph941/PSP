@@ -8,21 +8,46 @@
             <table class="table table-responsive table-responsive-xl " style="display: table;">
             <thead class="thead-inverse">
                 <tr>
-                <th>S/N</th>
-                <th>Name</th>                          
-                <th>Author</th>
-
+                    <th>S/N</th>
+                    <th>Name</th>                          
+                    <th>Author</th>
+                    <th>Deny</th>
                 </tr>
             </thead>
             <tbody>
                 {% for story in published_stories  %}
-                <tr>
-                <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'story_detail' story.pk %}" style="color:#607d8b7d">{{ story.full_name }}</a></td>
-                <td><a href="{% url 'myprofile' story.author.pk %}" style="color:#607d8b7d;">{{ story.author }}</a></td>
+                <tr class = "row_{{ story.pk }}">
+                    <td>{{ story.pk }}</td>
+                    <td><a href="{% url 'story_detail' story.pk %}" style="color:#607d8b7d">{{ story.full_name }}</a></td>
+                    <td><a href="{% url 'myprofile' story.author.pk %}" style="color:#607d8b7d;">{{ story.author }}</a></td>
+                    <td>
+                        <a href="#mydenyModal" class="btn btn-deny" role="button"  data-toggle="modal">Deny
+                        </a>
+                    
+                
 
+                    <!-- DenyModal HTML -->
+                        <div id="mydenyModal" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <p class="are_you_sure">Are you sure you want to Reject this story</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm modal-btn-cancel" data-dismiss="modal" >
+                                            Cancel
+                                        </button>
+                                        <button type="button" class="btn btn-sm modal-btn-publish deny" story-id="{{ story.pk }}" 
+                                            data_href="{% url 'deny' story.pk %}" data-dismiss="modal">Confirm
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
-                {% endfor %}
+            {% endfor %}
             </table>
         </div>
         
