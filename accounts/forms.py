@@ -44,6 +44,7 @@ class AdminUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         User.is_admin = True
+        User.is_regular = False
         fields = ('username', 'first_name', 'last_name', 'date_of_birth', 'email', 
             'phone_number', 'nationality', 'profile_pic', 'password1', 'password2')
 

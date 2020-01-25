@@ -5,6 +5,6 @@
  show popular stories (DONE)
  edit info on the about / Contact page
  work on like button
- social media share button on detail page
- Ajaxify forms
- Enable sendgid for password retrieval
+ social media share button on detail page (DONE)
+ Ajaxify forms (DONE)
+ Enable sendgid for password retrieval 

@@ -38,6 +38,33 @@ def NewRegularUser(request):
 
     return render(request, 'signup_regular.html', {'form': form})
 
+
+def NewAdminUser(request):
+    form = AdminUserCreationForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.is_regular = False
+            user.is_admin = True
+            user.save()
+            phone_number = form.cleaned_data.get('phone_number')
+            date_of_birth = form.cleaned_data.get('date_of_birth')
+            nationality = form.cleaned_data.get('nationality')
+            bio = form.cleaned_data.get('bio')
+            profile_pic = form.cleaned_data.get('profile_pic')
+
+            UserProfile.objects.create(phone_number=phone_number, date_of_birth=date_of_birth,
+                                         nationality=nationality, bio=bio,  
+                                         profile_pic=profile_pic, user=user)
+            messages.success(request, "successfully Created")
+            return redirect('login')
+        else:
+            messages.error(request, "user was not successfully Created")
+            form = RegularUserCreationForm()
+
+    return render(request, 'signup_regular.html', {'form': form})
+
 @login_required
 def MyProfile(request, pk): 
     user = get_object_or_404(User, pk=pk) 

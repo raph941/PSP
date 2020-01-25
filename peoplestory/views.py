@@ -17,7 +17,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
 
 
-
 def home(request):
     my_stories_query = Stories.objects.all().order_by('?')
     paginator = Paginator(my_stories_query, 18)
@@ -158,7 +157,6 @@ def MyStory(request):
 
     return render(request, 'my_stories.html', context)
 
-
 class StoryDeleteView(DeleteView):
     model = Stories
     success_url = reverse_lazy('my_stories')
@@ -190,23 +188,6 @@ def StoryDetailView(request, pk):
     return render(request, 'story_detail.html', context)
 
 
-# def StoryLikeRedirectView(request, pk):
-#     story = Stories.objects.get(pk=pk)
-#     return HttpResponseRedirect(request.path_info)
-
-
-# class StoriesLikeToggle(RedirectView):
-#     def get_redirect_url(self, *args, **kwargs):
-#         pk = self.kwargs.get("pk")
-#         obj = get_object_or_404(Stories, pk=pk)
-#         url_ = obj.get_absolute_url()
-#         user = self.request.user
-#         if user.is_authenticated:
-#             if user in obj.likes.all():
-#                 obj.likes.remove(user)
-#             else:
-#                 obj.likes.add(user)
-#         return url_
 login_required   
 def StoriesLikeToggle(request, pk):
     if request.method == 'GET':
@@ -232,9 +213,6 @@ def StoriesLikeToggle(request, pk):
         return JsonResponse(data)
 
         
-
-
-
 def ExploreView(request):
     recent_stories = Stories.objects.all().order_by('-last_updated')[:9]
     my_stories_query = Stories.objects.all().order_by('-views')

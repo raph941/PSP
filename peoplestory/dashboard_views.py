@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 
 
-
+@login_required
 def UnpublishedDashboardView(request):
     published_stories = Stories.objects.filter(published=True).filter(denied=False)
     denied_stories = Stories.objects.filter(published=False).filter(denied=True)
@@ -24,6 +24,7 @@ def UnpublishedDashboardView(request):
     return render(request, 'unpublished_dashboard.html', context)
 
 
+@login_required
 def PublishedDashboardView(request):
     published_stories = Stories.objects.filter(published=True).filter(denied=False)
     denied_stories = Stories.objects.filter(published=False).filter(denied=True)
@@ -39,6 +40,7 @@ def PublishedDashboardView(request):
     return render(request, 'published_dashboard.html', context)
 
 
+@login_required
 def DeniedDashboardView(request):
     published_stories = Stories.objects.filter(published=True).filter(denied=False)
     denied_stories = Stories.objects.filter(published=False).filter(denied=True)
@@ -54,6 +56,7 @@ def DeniedDashboardView(request):
     return render(request, 'denied_dashboard.html', context)
 
 
+@login_required
 def UserDashboardView(request):
     published_stories = Stories.objects.filter(published=True).filter(denied=False)
     denied_stories = Stories.objects.filter(published=False).filter(denied=True)
@@ -84,6 +87,7 @@ def UserDashboardView(request):
     return render(request, 'user_dashboard.html', context)
 
 
+@login_required
 def StoryPublishToggle(request, pk):
     if request.method == 'GET':
         story_id = request.GET['story_id']
@@ -106,6 +110,7 @@ def StoryPublishToggle(request, pk):
         return JsonResponse(data)
 
 
+@login_required
 def StoryDenyToggle(request, pk):
     if request.method == 'GET':
         story_pk = request.GET['story_id']
@@ -129,9 +134,8 @@ def StoryDenyToggle(request, pk):
         return JsonResponse(data)
 
 
+@login_required
 def UserActivateToggle(request, pk):
-    # import pdb; pdb.set_trace()
-    # me=65
     if request.method == 'GET':
         user_pk = request.GET['user_primarykey']
         obj = get_object_or_404(User, pk=user_pk)
@@ -147,6 +151,7 @@ def UserActivateToggle(request, pk):
         return JsonResponse(data)
 
 
+@login_required
 def UserDeactivateToggle(request, pk):
     if request.method == 'GET':
         user_pk = request.GET['user_primarykey']
