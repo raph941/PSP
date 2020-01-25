@@ -80,11 +80,11 @@
                             <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
                         </a>
                         <a class="like_btn" data-href="{% url 'like' story.pk %}" requestuser-id="{{ request.user.pk }}"
-                                    story-id="{{ story.pk }}" like-count='{{ story.likes.count }}'>
-                                    <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
-                                    <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
-                                </a>
-                    </span>
+                            story-id="{{ story.pk }}" like-count='{{ story.likes.count }}'>
+                            <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
+                            <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
+                        </a>
+            </span>
                 </div>
             </div>
 
@@ -112,19 +112,18 @@
 
             </div>
 
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 " style="z-index: 1;">
                 <ul class="footer-social">
-                    <li>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://CodingForEntrepreneurs.com/">
-                            <i class="fab fa-facebook"></i>
-                        </a>
+                    <li style="margin-right: 0px;">
+                        <span class="fb-share-button" data-href="{{ request.build_absolute_uri }}" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></span>
+                    </li>
+                    <li style="vertical-align: -webkit-baseline-middle;">
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Read how {{ story.full_name }} shaped my life " data-url="{{ request.build_absolute_uri }}" data-hashtags="#peopleshapingpeople" data-lang="en" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     </li>
                     <li>
-                        <a href="#0"><i class="fab fa-twitter"></i></a>
+                    <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">Share via Whatsapp</a>
                     </li>
-                    <li>
-                        <a href="#0"><i class="fab fa-instagram"></i></a>
-                    </li>
+                    
                 </ul>
             </div>
 

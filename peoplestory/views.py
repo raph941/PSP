@@ -1,3 +1,4 @@
+from urllib.parse import quote_plus
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -169,6 +170,7 @@ def StoryDetailView(request, pk):
     story.views += 1
     story.save()
     form = CommentForm(request.POST)
+    share_string = quote_plus(story.story_caption)
 
     if form.is_valid():
         comment = form.save(commit=False)
@@ -182,6 +184,7 @@ def StoryDetailView(request, pk):
     context = {
         'story': story,
         'form': form,
+        'share_string': share_string
     }
 
     return render(request, 'story_detail.html', context)

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>{% block title %}People Shaping People{% endblock %}</title>
-    <meta name="description" content="">
+    <meta name="description" content="Share Amazing Stories About Those That Have Shaped Your Life">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -24,6 +24,10 @@
 
 <body id="top">
     {% block body %}
+    <!-- for Facebook share button -->
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0"></script>
+    <!--end of facebook share button plugins-->
 
     <!-- header -->
     {% include 'partials/messages.html' %}
