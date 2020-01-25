@@ -207,7 +207,7 @@ def StoryDetailView(request, pk):
 #             else:
 #                 obj.likes.add(user)
 #         return url_
-        
+login_required   
 def StoriesLikeToggle(request, pk):
     if request.method == 'GET':
         story_id = request.GET['story_id']

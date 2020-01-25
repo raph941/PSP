@@ -58,7 +58,10 @@
     margin-left: auto;
     margin-right: auto;
 }
-
+.whatsapp-btn{
+    border:0px;
+    padding:0px;
+}
 {% endblock %}
 
 
@@ -79,12 +82,16 @@
                             {{ story.views }}
                             <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
                         </a>
+                        {% if user.is_authenticated %}
                         <a class="like_btn" data-href="{% url 'like' story.pk %}" requestuser-id="{{ request.user.pk }}"
                             story-id="{{ story.pk }}" like-count='{{ story.likes.count }}'>
                             <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
                             <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
                         </a>
-            </span>
+                        {% else %}
+                            <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
+                            likes
+                        {% endif %}
                 </div>
             </div>
 
@@ -117,11 +124,11 @@
                     <li style="margin-right: 0px;">
                         <span class="fb-share-button" data-href="{{ request.build_absolute_uri }}" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></span>
                     </li>
-                    <li style="vertical-align: -webkit-baseline-middle;">
+                    <li style="vertical-align: -webkit-baseline-middle;margin-right: 0px;">
                     <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Read how {{ story.full_name }} shaped my life " data-url="{{ request.build_absolute_uri }}" data-hashtags="#peopleshapingpeople" data-lang="en" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     </li>
                     <li>
-                    <a href="whatsapp://send?text=Read how {{ story.fullname }} shaped my life {{ request.build_absolute_uri }}!" data-action="share/whatsapp/share">share on whatsapp</a>
+                        <a class="btn whatsapp-btn" href="whatsapp://send?text=Read how {{ story.fullname }} shaped my life {{ request.build_absolute_uri }}!" data-action="share/whatsapp/share"><img src="{% static 'images/icons/whatsapp.png' %}" alt="whatsapp"></a>
                     </li>
                     
                 </ul>
