@@ -41,6 +41,7 @@
     line-height: 1.667;
     margin-bottom: 0.6rem;
     color: #000000;
+    background: #a9a9a961;
 }
 .posted_by_section{
     border: solid rgba(0, 0, 0, 0.1);
@@ -61,6 +62,14 @@
 .whatsapp-btn{
     border:0px;
     padding:0px;
+}
+.no_comment{
+    text-align: center;
+    margin-top: 18px;
+    background: #c1c1c1;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 500;
 }
 {% endblock %}
 
@@ -202,9 +211,7 @@
 
                                     <div class="comment__meta">
                                         <div class="comment__time">{{ comment.comment_date }}</div>
-                                        <div class="comment__reply">
-                                            <a class="comment-reply-link" href="#0">Reply</a>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
@@ -217,7 +224,7 @@
                         </li> <!-- end comment level 1 -->
                         {% endfor %}
                 {% else %}
-                <p>No Comment</p>
+                <h2 class="no_comment">No Comment</h2>
                 {% endif %}
 
 
@@ -227,6 +234,7 @@
                 </div> <!-- end col-full -->
             </div> <!-- end comments -->
 
+            {% if user.is_authenticated %}
             <div class="row comment-respond story_detail_comment_input">
 
                 <!-- START respond -->
@@ -255,6 +263,7 @@
                 <!-- END respond-->
 
             </div> <!-- end comment-respond -->
+            {% endif %}
 
         </div> <!-- end comments-wrap -->
 
@@ -269,41 +278,17 @@
 
             <div class="col-seven md-six tab-full popular">
                 <h3>Popular Stories</h3>
-
+                    {% for story in popular_stories  %}
+                        <ul>
+                            <li><a href="{% url 'story_detail' story.pk %}"><h3 style="color:#673ab7">{{ story.full_name }}</h3></a></li>
+                        </ul>
+                    {% endfor %}
                 <div class="block-1-2 block-m-full popular__posts">
 
                 </div> <!-- end popular_posts -->
             </div> <!-- end popular -->
 
-            <div class="col-four md-six tab-full end">
-                <div class="row">
-                    <div class="col-six md-six mob-full categories">
-                        <h3>Categories</h3>
-        
-                        <ul class="linklist">
-                            <li><a href="#0">Lifestyle</a></li>
-                            <li><a href="#0">Travel</a></li>
-                            <li><a href="#0">Recipes</a></li>
-                            <li><a href="#0">Management</a></li>
-                            <li><a href="#0">Health</a></li>
-                            <li><a href="#0">Creativity</a></li>
-                        </ul>
-                    </div> <!-- end categories -->
-        
-                    <div class="col-six md-six mob-full sitelinks">
-                        <h3>Site Links</h3>
-        
-                        <ul class="linklist">
-                            <li><a href="#0">Home</a></li>
-                            <li><a href="#0">Blog</a></li>
-                            <li><a href="#0">Styles</a></li>
-                            <li><a href="#0">About</a></li>
-                            <li><a href="#0">Contact</a></li>
-                            <li><a href="#0">Privacy Policy</a></li>
-                        </ul>
-                    </div> <!-- end sitelinks -->
-                </div>
-            </div>
+            
         </div> <!-- end row -->
 
     </section> <!-- end s-extra -->

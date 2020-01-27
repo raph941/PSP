@@ -40,18 +40,17 @@
                             <div class="entry__background" style="background-image:url('/static/images/thumbs/featured/featured-watch.jpg');"></div>
                             
                             <div class="entry__content">
-                                <span class="entry__category"><a href="#0">The Art</a></span>
+                                <span class="entry__category"><a>The Art</a></span>
 
-                                <h1><a href="#0" title="">"True Friendship comes when the silence between two people is comfortable"</a></h1>
+                                <h1><a href="#0" title="">"A single rose can be my garden… a single friend, my world".</a></h1>
 
                                 <div class="entry__info">
                                     <a href="#0" class="entry__profile-pic">
-                                        <img class="avatar" src="{% static 'images/avatars/user-03.jpg' %}" alt="">
+                                        <img class="avatar" src="{% static 'images/avatar/face2.jpg' %}" alt="">
                                     </a>
 
                                     <ul class="entry__meta">
-                                        <li><a href="#0">David Tyson</a></li>
-                                        <li>June 13, 2018</li>
+                                        <li><a>Leo Buscaglia</a></li>
                                     </ul>
                                 </div>
                             </div> <!-- end entry__content -->
@@ -67,18 +66,17 @@
                             <div class="entry__background" style="background-image:url('/static/images/thumbs/featured/featured-beetle.jpg');"></div>
 
                             <div class="entry__content">
-                                <span class="entry__category"><a href="#0">LifeStyle</a></span>
+                                <span class="entry__category"><a>LifeStyle</a></span>
 
                                 <h1><a href="#0" title=""> Celebrate True Friendship Today, In a Special Form. "Write something beautiful" </a></h1>
 
                                 <div class="entry__info">
-                                    <a href="#0" class="entry__profile-pic">
-                                        <img class="avatar" src="{% static 'images/avatars/user-03.jpg' %}" alt="">
+                                    <a class="entry__profile-pic">
+                                        <img class="avatar" src="{% static 'images/avatar/face1.jpg' %}" alt="">
                                     </a>
 
                                     <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>June 12, 2018</li>
+                                        <li><a>Atomen Edom</a></li>
                                     </ul>
                                 </div>
                             </div> <!-- end entry__content -->
@@ -114,7 +112,7 @@
                         <div class="item-entry__text">
                             <div class="item-entry__cat">
                                 
-                                <a href="#">
+                                <a>
                                     {{ story.views }}
                                     <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
                                 </a>
@@ -125,16 +123,16 @@
                                 </a>
                             </div>
 
-                            <h1 class="item-entry__title"><a href="">{{ story.full_name }}</a></h1>
+                            <h1 class="item-entry__title"><a href="{% url 'story_detail' story.pk %}">{{ story.full_name }}</a></h1>
                             <ul class="entry__header-meta story_detail_date">
                                 <li class="byline">
                                     By
-                                    <a href="">{{ story.author }}</a>
+                                    <a href="{% url 'myprofile' story.author.pk %}">{{ story.author }}</a>
                                 </li>
                             </ul>
                              
                             <div class="item-entry__date">
-                                <a href="">{{ story.last_updated }}</a>
+                                <a>{{ story.last_updated }}</a>
                             </div>
                         </div>
                     </div> 

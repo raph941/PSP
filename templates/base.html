@@ -41,12 +41,18 @@
 
         {% if user.is_authenticated %} 
         <span class="dropdown">
+            {% if request.user.userprofile.profile_pic %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
                 <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ request.user.userprofile.profile_pic.url }}" alt="image" >
             </a>
+            {% else %}
+            <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
+                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{% static 'images/face.png' %}" alt="image" >
+            </a>
+            {% endif %}
             <div id="myDropdown" class="dropdown-content">
                 <a href="{% url 'create_story' %}" class="dropdown-anchor">New Story</a>
-                <a href="{% url 'my_stories' %}" class="dropdown-anchor">Stories</a>
+                <a href="{% url 'my_stories' %}" class="dropdown-anchor">My Stories</a>
                 <a href="{% url 'myprofile' user.pk %}" class="dropdown-anchor">Profile</a>
                 {% comment %} <a href="" class="dropdown-anchor">Help</a> {% endcomment %}
                 <a href="{% url 'logout' %}" class="dropdown-anchor">Sign out</a>
@@ -137,13 +143,13 @@
                     <div class="col-six" style="padding-left: 0px;">
                         <ul class="footer-social">
                             <li>
-                                <a href="#0"><i class="fab fa-facebook"></i></a>
+                                <a><i class="fab fa-facebook"></i></a>
                             </li>
                             <li>
-                                <a href="#0"><i class="fab fa-twitter"></i></a>
+                                <a><i class="fab fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="#0"><i class="fab fa-instagram"></i></a>
+                                <a ><i class="fab fa-instagram"></i></a>
                             </li>
                         </ul>
                     </div>

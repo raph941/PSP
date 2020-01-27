@@ -8,3 +8,4 @@
  social media share button on detail page (DONE)
  Ajaxify forms (DONE)
  Enable sendgid for password retrieval 
+ redis  cache engine

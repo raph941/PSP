@@ -17,7 +17,6 @@
         </thead>
             <tbody>
             {% for user in users  %}
-    
             <tr>
                 <td>{{ forloop.counter }}</td>
                     {% if user.userprofile.profile_pic %}
@@ -29,6 +28,7 @@
 
                 <td>
                     <span class="activate_{{ user.pk }} parent">
+                        <!-- Activate button HTML -->
                         <a class="btn btn-publish activate_btn" user_primarykey="{{ user.pk }}" data_href="{% url 'activate' user.pk %}"  
                             role="button" data-toggle="modal" href="#myActivateModal">Activate</a>
                     

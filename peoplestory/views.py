@@ -169,6 +169,7 @@ def StoryDetailView(request, pk):
     story.save()
     form = CommentForm(request.POST)
     share_string = quote_plus(story.story_caption)
+    popular_stories = Stories.objects.all().order_by('-views')[:5]
 
     if form.is_valid():
         comment = form.save(commit=False)
@@ -182,7 +183,8 @@ def StoryDetailView(request, pk):
     context = {
         'story': story,
         'form': form,
-        'share_string': share_string
+        'share_string': share_string,
+        'popular_stories': popular_stories
     }
 
     return render(request, 'story_detail.html', context)

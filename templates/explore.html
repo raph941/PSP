@@ -49,7 +49,7 @@
                         <div class="item-entry__text">
                             <div class="item-entry__cat">
                                 
-                                <a href="#">
+                                <a>
                                     {{ story.views }}
                                     <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
                                 </a>
@@ -58,16 +58,14 @@
                                     <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
                                     <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
                                 </a>
-                                <a href="{% url 'story_delete_confirm' story.pk %}">
-                                    <img src="{% static 'images/icons/icons-delete.png' %}" alt="image">
-                                </a>
+                               
                             </div>
 
-                            <h1 class="item-entry__title"><a href="">{{ story.full_name }}</a></h1>
+                            <h1 class="item-entry__title"><a href="{% url 'story_detail' story.pk %}">{{ story.full_name }}</a></h1>
                             
                              
                             <div class="item-entry__date">
-                                <a href="">{{ story.last_updated }}</a>
+                                <a>{{ story.last_updated }}</a>
                             </div>
                         </div>
                     </div> 
@@ -112,7 +110,7 @@
 
         <div class="row narrow">
             <div class="col-full s-content__header" data-aos="fade-up">
-                <p class="display-1 display-1--with-line-sep explore-subtitle">Popular Stories</p>
+                <p class="display-1 display-1--with-line-sep explore-subtitle">Recent Stories</p>
             </div>
         </div>
         
@@ -133,7 +131,7 @@
                         <div class="item-entry__text">
                             <div class="item-entry__cat">
                                 
-                                <a href="#">
+                                <a>
                                     {{ story.views }}
                                     <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
                                 </a>
@@ -141,16 +139,14 @@
                                     {{ story.likes.count }}
                                     <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
                                 </a>
-                                <a href="{% url 'story_delete_confirm' story.pk %}">
-                                    <img src="{% static 'images/icons/icons-delete.png' %}" alt="image">
-                                </a>
+                               
                             </div>
 
-                            <h1 class="item-entry__title"><a href="">{{ story.full_name }}</a></h1>
+                            <h1 class="item-entry__title"><a href="{% url 'story_detail' story.pk %}">{{ story.full_name }}</a></h1>
                             
                              
                             <div class="item-entry__date">
-                                <a href="">{{ story.last_updated }}</a>
+                                <a>{{ story.last_updated }}</a>
                             </div>
                         </div>
                     </div> 

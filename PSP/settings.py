@@ -45,8 +45,25 @@ INSTALLED_APPS = [
 
 ]
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+#setting up for saving email in your local directory
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+#setting for gmail smtp server
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'raph941@gmail.com'
+EMAIL_HOST_PASSWORD = 'nigerians'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = 'peopleshapingpeople.herokuapp.com <noreply@peopleshapingpeople.herokuapp.com>'
+
+#settings to send mail to admin when there is a server error
+ADMIN = [
+    ('Raphael', 'raph941@gmail.com'),
+]
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
