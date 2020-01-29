@@ -53,8 +53,8 @@ INSTALLED_APPS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'raph941@gmail.com'
-EMAIL_HOST_PASSWORD = 'nigerians'
+EMAIL_HOST_USER = 'peopleshapingpeople@gmail.com'
+EMAIL_HOST_PASSWORD = 'peopleshapingpeople1234'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
@@ -62,7 +62,7 @@ DEFAULT_FROM_EMAIL = 'peopleshapingpeople.herokuapp.com <noreply@peopleshapingpe
 
 #settings to send mail to admin when there is a server error
 ADMIN = [
-    ('Raphael', 'raph941@gmail.com'),
+    ('PSP', 'peopleshapingpeople@gmail.com'),
 ]
 
 MIDDLEWARE = [

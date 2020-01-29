@@ -12,6 +12,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
 from django.db.models import Q, Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 
 
 from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
@@ -68,13 +69,12 @@ def Contact(request):
 
     if request.method == 'POST':          
         if form.is_valid():
-            name = form.cleaned_data['name']
-            subject = form.cleaned_data['subject']
+            subject = form.cleaned_data['name']
             from_email = form.cleaned_data['from_email']
             message = form.cleaned_data['message']
 
             try:
-                send_mail(subject, message, from_email, ['raph941@gmail.com'])
+                send_mail(from_email, message, from_email, ['peopleshapingpeople@gmail.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
 

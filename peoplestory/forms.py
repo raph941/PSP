@@ -22,6 +22,7 @@ class NewStoryForm(forms.ModelForm):
         }
 
     def save(self):
+        import pdb; pdb.set_trace()
         story = super(NewStoryForm, self).save(commit=False)
 
         x = self.cleaned_data.get('x')
@@ -53,5 +54,4 @@ class CommentForm(forms.ModelForm):
 class ContactForm(forms.Form):
     name = forms.CharField(required = True)
     from_email = forms.EmailField(required=True)
-    subject = forms.CharField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
