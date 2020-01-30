@@ -54,29 +54,31 @@ $('.deny').click(function(e){
     })
 })
 
-$('.activate').click(function(e){
-    e.preventDefault();
-    var this_ = $(this)
-    var user_primarykey = $(".activate_btn").attr("user_primarykey")
-    var ActivateUrl = this_.attr("data_href")
-    console.log(user_primarykey)
+$(document).ready(function() {
+    $('.activate_5').click(function(e){
+        e.preventDefault();
+        var this_ = $(this)
+        var user_primarykey = this_.attr("user_primarykey")
+        var ActivateUrl = this_.attr("data_href")
+        console.log(user_primarykey)
 
-    $.ajax({
-        url: ActivateUrl,
-        method: "GET",
-        data: {
-            "user_primarykey":user_primarykey,
-        },
+        $.ajax({
+            url: ActivateUrl,
+            method: "GET",
+            data: {
+                "user_primarykey":user_primarykey,
+            },
 
-        success: function(data){
-            // console.log(data)
-            var pk = data.user_pk;
+            success: function(data){
+                console.log(data)
+                var pk = data.user_pk;
+                console.log
 
-            $(".activate_" + pk).text("activated");
-           
-        }
-    })
-})
+                $(".activate_btn_" + pk).text("activated");
+            }
+        });
+    });
+});
 
 $('.deactivate').click(function(e){ 
     e.preventDefault();

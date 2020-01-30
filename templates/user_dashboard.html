@@ -27,13 +27,14 @@
                 <td><a href="{% url 'myprofile' user.pk %}" style="color:#607d8b7d;">{{ user.first_name }} {{ user.last_name }}</a></td>
 
                 <td>
-                    <span class="activate_{{ user.pk }} parent">
+                    <span class="parent">
                         <!-- Activate button HTML -->
-                        <a class="btn btn-publish activate_btn" user_primarykey="{{ user.pk }}" data_href="{% url 'activate' user.pk %}"  
-                            role="button" data-toggle="modal" href="#myActivateModal">Activate</a>
+                        <span class="activate_btn_{{ user.pk}}">
+                        <a class="btn btn-publish " role="button" data-toggle="modal" href="#myActivateModal_{{ user.pk }}">Activate</a>
+                        </span>
                     
                         <!-- Activate Modal HTML -->
-                        <div id="myActivateModal" class="modal fade" tabindex="-1">
+                        <div id="myActivateModal_{{ user.pk }}" class="modal fade" tabindex="-1">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -43,7 +44,9 @@
                                         <button type="button" class="btn btn-sm modal-btn-cancel" data-dismiss="modal" >
                                             Cancel
                                         </button>
-                                        <button type="button" class="btn btn-sm modal-btn-publish activate activate_{{ user.pk }}" data-modal="{{ user.pk }}" data_href="{% url 'activate' user.pk %}" data-dismiss="modal">Activate
+                                        <button type="button" class="btn btn-sm modal-btn-publish activate_{{ user.pk }}" data-modal="{{ user.pk }}" data_href="{% url 'activate' user.pk %}" data-dismiss="modal"
+                                            user_primarykey="{{ user.pk }}" data_href="{% url 'activate' user.pk %}">
+                                                Activate
                                         </button>
                                     </div>
                                 </div>
@@ -57,7 +60,7 @@
                         <a class="btn btn-deny deactivate_btn" user_primarykey="{{ user.pk }}" data_href="{% url 'deactivate' user.pk %}"
                             href="#myDeactivateModal" role="button"  data-toggle="modal">Deactivate</a>
 
-                        <!-- Activate Modal HTML -->
+                        <!-- Deactivate Modal HTML -->
                         <div id="myDeactivateModal" class="modal fade" tabindex="-1">
                             <div class="modal-dialog">
                                 <div class="modal-content">
