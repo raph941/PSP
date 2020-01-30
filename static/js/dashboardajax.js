@@ -55,11 +55,15 @@ $('.deny').click(function(e){
 })
 
 $(document).ready(function() {
-    $('.activate_5').click(function(e){
+    $('.activate').click(function(e){
         e.preventDefault();
         var this_ = $(this)
+        var id = this_.attr('id').split('_')[1];
         var user_primarykey = this_.attr("user_primarykey")
         var ActivateUrl = this_.attr("data_href")
+        // var id = $('btn-activate').attr("id")
+        // console.log(id)
+        
         console.log(user_primarykey)
 
         $.ajax({
@@ -82,9 +86,10 @@ $(document).ready(function() {
 
 $('.deactivate').click(function(e){ 
     e.preventDefault();
-    var user_primarykey = $(".deactivate_btn").attr("user_primarykey")
-    var DeactivateUrl = $(".deactivate_btn").attr("data_href")
-    console.log(user_primarykey)
+    var this_ = $(this)
+    var id = this_.attr('id').split('_')[1];
+    var user_primarykey = this_.attr("user_primarykey")
+    var DeactivateUrl = this_.attr("data_href")
 
     $.ajax({
         url: DeactivateUrl,
@@ -97,7 +102,7 @@ $('.deactivate').click(function(e){
             console.log(data)
             var pk = data.user_pk;
 
-            $(".deactivate_" + pk).text("deactivated");
+            $(".deactivate_btn_" + pk).text("deactivated");
            
         }
     })
