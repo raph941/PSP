@@ -1,8 +1,11 @@
-$('.publish').click(function(e){ 
-    e.preventDefault();
-    var this_ = $(this)
-    var story_id = this_.attr("story-id")
-    var PublishUrl = this_.attr("data_href")
+$(document).ready(function() {
+    $('.publish').click(function(e){
+        e.preventDefault();
+        var this_ = $(this)
+        var story_id = this_.attr('id').split('_')[1];
+        var PublishUrl = this_.attr("data_href")
+        //var id = $('btn-activate').attr("id")
+        console.log(story_id)
 
         $.ajax({
         url: PublishUrl,
@@ -24,33 +27,37 @@ $('.publish').click(function(e){
         }
     })
 })
+})
 
-$('.deny').click(function(e){ 
-    e.preventDefault();
-    var this_ = $(this)
-    var story_id = this_.attr("story-id")
-    var DenyUrl = this_.attr("data_href")
-    console.log(story_id)
+$(document).ready(function() {
+        $('.deny').click(function(e){
+            e.preventDefault();
+            var this_ = $(this)
+            var story_id = this_.attr('id').split('_')[1];
+            var DenyUrl = this_.attr("data_href")
+            //var id = $('btn-activate').attr("id")
+            console.log(story_id)
 
-    $.ajax({
-        url: DenyUrl,
-        method: "GET",
-        data: {
-            "story_id":story_id,
-        },
+        $.ajax({
+            url: DenyUrl,
+            method: "GET",
+            data: {
+                "story_id":story_id,
+            },
 
-        success: function(data){
-            console.log(data)
-            var pk = data.story_pk;
-            var published_count = data.published_stories;
-            var unpublished = data.unpublished_stories;
-            var denied = data.denied_stories;
+            success: function(data){
+                console.log(data)
+                var pk = data.story_pk;
+                var published_count = data.published_stories;
+                var unpublished = data.unpublished_stories;
+                var denied = data.denied_stories;
 
-            $(".row_" + pk).text("");
-            $(".published_stories").text(published_count);
-            $(".unpublished_stories").text(unpublished);
-            $(".denied_stories").text(denied);
-        }
+                $(".row_" + pk).text("");
+                $(".published_stories").text(published_count);
+                $(".unpublished_stories").text(unpublished);
+                $(".denied_stories").text(denied);
+            }
+        })
     })
 })
 
@@ -78,7 +85,9 @@ $(document).ready(function() {
                 var pk = data.user_pk;
                 console.log
 
-                $(".activate_btn_" + pk).text("activated");
+                $(".activate_btn_" + pk).text("Activated");
+
+
             }
         });
     });
@@ -102,7 +111,7 @@ $('.deactivate').click(function(e){
             console.log(data)
             var pk = data.user_pk;
 
-            $(".deactivate_btn_" + pk).text("deactivated");
+            $(".deactivate_btn_" + pk).text("Deactivated");
            
         }
     })

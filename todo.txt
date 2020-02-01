@@ -3,9 +3,9 @@
  enable pagination/ infinite scroll (DONE)
  Administrative accounts priviledges (DONE)
  show popular stories (DONE)
- edit info on the about / Contact page
- work on like button
+ edit info on the about / Contact page 
+ work on like button (DONE)
  social media share button on detail page (DONE)
  Ajaxify forms (DONE)
- Enable sendgid for password retrieval 
+ Enable sendgid for password retrieval (DONE)
  redis  cache engine

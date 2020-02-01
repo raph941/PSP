@@ -24,33 +24,40 @@
                 <td><a href="{% url 'myprofile' story.author.pk %}" style="color:#607d8b7d;">{{ story.author }}</a></td>
                 
                 <td>
-                    <a class="btn btn-publish " href="#mypublishModal" role="button"  data-toggle="modal">Publish
-                    </a>
-                    <!-- Publish Modal HTML -->
-                    <div id="mypublishModal" class="modal fade" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <p class="are_you_sure">Are you sure you want to publish this Story</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-sm modal-btn-cancel" data-dismiss="modal" >
-                                        Cancel
-                                    </button>
-                                    <button type="button" class="btn btn-sm modal-btn-publish publish" story-id="{{ story.pk }}" 
-                                        data_href="{% url 'publish' story.pk %}" data-dismiss="modal">Publish
-                                    </button>
+                        <!-- Publish button HTML -->
+                        <span class="deny_btn_{{ story.pk}}">
+                            <a class="btn btn-publish" role="button" data-toggle="modal" href="#myPublishModal_{{ story.pk }}">Publish</a>
+                        </span>
+                
+                        <!-- Publish Modal HTML -->
+                            <div id="myPublishModal_{{ story.pk }}" class="modal fade" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <p class="are_you_sure">Are you sure you want to publish this Story</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm modal-btn-cancel" data-dismiss="modal" >
+                                                Cancel
+                                            </button>
+                                            <button type="button" class="btn btn-sm modal-btn-publish publish" id='publish_{{ story.pk }}' data_href="{% url 'publish' story.pk %}" data-dismiss="modal" story_pk="{{ story.pk }}">
+                                                Confirm
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 </td>
 
                 <td>
-                    <a href="#mydenyModal" class="btn btn-deny" role="button"  data-toggle="modal">Deny
-                    </a>
+                    <!-- Deny button HTML -->
+
+                    <span class="deny_btn_{{ story.pk}}">
+                        <a class="btn btn-deny" role="button" data-toggle="modal" href="#myDenyModal_{{ story.pk }}">Deny</a>
+                    </span>
+                
                     <!-- DenyModal HTML -->
-                        <div id="mydenyModal" class="modal fade" tabindex="-1">
+                        <div id="myDenyModal_{{ story.pk }}" class="modal fade" tabindex="-1">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -60,8 +67,8 @@
                                         <button type="button" class="btn btn-sm modal-btn-cancel" data-dismiss="modal" >
                                             Cancel
                                         </button>
-                                        <button type="button" class="btn btn-sm modal-btn-publish deny" story-id="{{ story.pk }}" 
-                                            data_href="{% url 'deny' story.pk %}" data-dismiss="modal">Confirm
+                                        <button type="button" class="btn btn-sm modal-btn-publish deny" id='deny_{{ story.pk }}' data_href="{% url 'deny' story.pk %}" data-dismiss="modal" story_pk="{{ story.pk }}">
+                                            Confirm
                                         </button>
                                     </div>
                                 </div>

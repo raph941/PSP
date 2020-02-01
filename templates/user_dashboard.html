@@ -28,10 +28,17 @@
 
                 <td>
                     <span class="parent">
+                    {% if user.is_active %}
                         <!-- Activate button HTML -->
                         <span class="activate_btn_{{ user.pk}}">
-                        <a class="btn btn-publish " role="button" data-toggle="modal" href="#myActivateModal_{{ user.pk }}">Activate</a>
+                        <a class="btn btn-publish " role="button" data-toggle="modal" href="#myActivateModal_{{ user.pk }}"><i class="fas fa-check"></i></a>
                         </span>
+                    {% else %}
+                        <!-- Activate button HTML -->
+                        <span class="activate_btn_{{ user.pk}}">
+                            <a class="btn btn-publish " role="button" data-toggle="modal" href="#myActivateModal_{{ user.pk }}">Activate</a>
+                        </span>
+                    {% endif %}
                     
                         <!-- Activate Modal HTML -->
                         <div id="myActivateModal_{{ user.pk }}" class="modal fade" tabindex="-1">
@@ -57,10 +64,17 @@
 
                 <td>
                     <span class="parent">
+                    {% if user.is_active %}
                         <!-- Deactivate button HTML -->
                         <span class="deactivate_btn_{{ user.pk}}">
-                        <a class="btn btn-publish " role="button" data-toggle="modal" href="#myDeactivateModal_{{ user.pk }}">Dectivate</a>
+                        <a class="btn btn-deactivate" role="button" data-toggle="modal" href="#myDeactivateModal_{{ user.pk }}">Deactivate</a>
                         </span>
+                    {% else %}
+                        <!-- Deactivate button HTML -->
+                        <span class="deactivate_btn_{{ user.pk}}">
+                        <a class="btn btn-deactivate" role="button" data-toggle="modal" href="#myDeactivateModal_{{ user.pk }}"><i class="fas fa-check"></i></a>
+                        </span>
+                    {% endif %}
                     
                         <!-- Activate Modal HTML -->
                         <div id="myDeactivateModal_{{ user.pk }}" class="modal fade" tabindex="-1">
