@@ -33,6 +33,12 @@
                 <input name="image" id="id_image" class="full-width new_story_input" accept="image/*" type="file">
             </div>
 
+            <!--hidden fields to retrieve image croipping properties-->
+            <input type="hidden" name="x" step="any" id="id_x">
+            <input type="hidden" name="y" step="any" id="id_y">
+            <input type="hidden" name="width" step="any" id="id_width">
+            <input type="hidden" name="height" step="any" id="id_height">
+
             <div class="form-field">
                 <input name="story_caption" style="background: white;" id="id_story_caption" class="full-width new_story_input" placeholder="a sentence to describe your Story" value="" type="text">
             </div>
@@ -62,6 +68,7 @@
             </div>
             </div>
     </form> 
+
 
     </div>
 </section>

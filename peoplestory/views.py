@@ -13,7 +13,8 @@ from django.contrib import messages
 from django.db.models import Q, Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-
+from PIL import Image
+from django.core.files import File
 
 from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
 
@@ -94,10 +95,23 @@ def Contact(request):
 def CreateStoryView(request):  
     form = NewStoryForm(request.POST, request.FILES)
 
-    if request.method == 'POST':      
+    if request.method == 'POST':   
+ 
         if form.is_valid():
             story = form.save(commit=False)
-            # story.author = request.user
+            story.author = request.user
+
+            x = form.cleaned_data.get('x')
+            y = form.cleaned_data.get('y')
+            width = form.cleaned_data.get('width')
+            height = form.cleaned_data.get('height')
+
+            image_obj = Image.open(story.image)
+            cropped_image = image_obj.crop((x, y, width, height))
+            resized_image = cropped_image.resize((300, 320), Image.ANTIALIAS)
+            resized_image.save(story.image)
+            story.image = resized_image
+ 
             story.save()
             messages.success(request, 'Your story has been successfully createed')
 
