@@ -15,6 +15,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from PIL import Image
 from django.core.files import File
+from django.core.files.base import ContentFile
+from io import BytesIO
 
 from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
 
@@ -109,9 +111,12 @@ def CreateStoryView(request):
             image_obj = Image.open(story.image)
             cropped_image = image_obj.crop((x, y, width, height))
             resized_image = cropped_image.resize((300, 320), Image.ANTIALIAS)
-            resized_image.save(story.image)
-            story.image = resized_image
- 
+
+            thumb_io = BytesIO()
+            filename = story.image.name
+            resized_image.save(thumb_io, image_obj.format)
+            story.image.save(filename, ContentFile(thumb_io.getvalue()), save=False)
+
             story.save()
             messages.success(request, 'Your story has been successfully createed')
 
