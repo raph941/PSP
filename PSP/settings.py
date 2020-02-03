@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 from django.contrib.messages import constants as messages
 import os
-
+import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -105,13 +105,23 @@ AUTH_USER_MODEL = 'accounts.User'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd9mhk43idnatk8',
+            'USER': 'lrftxeetwuwrgl',
+            'PASSWORD': '5b0c2e89fabd25c569e1fd803f49be3d51a4992cd04a4644d46708b9fda2daec',
+            'HOST': 'ec2-174-129-18-210.compute-1.amazonaws.com',
+            'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -177,7 +187,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-#heroku settings
-# django_heroku.settings(locals())
+# heroku settings
+django_heroku.settings(locals())
 
 
