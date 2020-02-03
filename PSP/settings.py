@@ -27,7 +27,7 @@ SECRET_KEY = 'o0!*i(cl#(r3(ku0tg#y_ewq_f!(ek%r_*p=leha&o+fwy_#n1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'peopleshapingpeople.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'peopleshapingpeople.herokuapp.com', 'peopleshapingpeople.com']
 
 
 # Application definition
