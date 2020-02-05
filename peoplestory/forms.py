@@ -5,6 +5,7 @@ from django.core.files import File
 from django import forms
 
 from peoplestory.models import Stories, Comment
+from cloudinary.models import CloudinaryField
 
 
 class NewStoryForm(forms.ModelForm):
