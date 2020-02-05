@@ -14,7 +14,6 @@ GENDER = [
 class User(AbstractUser):
     is_regular = models.NullBooleanField(default=False, db_index=True)
     is_admin = models.NullBooleanField(default=False, db_index=True)
-    email = models.EmailField(verbose_name='email address',max_length=255, unique=True)
 
 
 class UserProfile(models.Model):

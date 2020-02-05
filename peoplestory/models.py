@@ -3,7 +3,6 @@ from accounts.models import User, UserProfile
 from django.utils.html import mark_safe
 from markdown import markdown
 from django.urls import reverse
-from cloudinary.models import CloudinaryField
 
 #story approval status
 APPROVED = 'APPROVED'
@@ -23,7 +22,7 @@ class Stories(models.Model):
     story_caption = models.CharField(max_length=255)
     story = models.TextField()
     last_updated = models.DateTimeField(auto_now_add=True)
-    image = CloudinaryField('image')    
+    image = models.ImageField(upload_to='story_images/', default='default.jpg')    
     comment_count = models.IntegerField(blank=True, default=0, verbose_name=('comment count'))
     views = models.PositiveIntegerField(default=0)
     likes = models.ManyToManyField(User, blank=True, related_name="story_likes")
