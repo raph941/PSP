@@ -11,8 +11,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 from django.contrib.messages import constants as messages
 import os
+<<<<<<< HEAD
 import django_heroku
 import cloudinary
+=======
+
+>>>>>>> master
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -188,8 +192,8 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-# heroku settings
-django_heroku.settings(locals())
+#heroku settings
+# django_heroku.settings(locals())
 
 #configurations for claudinary API
 cloudinary.config(

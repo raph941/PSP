@@ -38,8 +38,20 @@ def NewRegularUser(request):
             messages.success(request, "successfully Created")
             return redirect('login')
         else:
-            messages.error(request, "user was not successfully Created")
             form = RegularUserCreationForm()
+
+            #to vary the message to be shown to the user based on the nature of validationerror they make
+            username = request.POST['username']
+            mail = request.POST['email']
+            password1 = request.POST['password1']
+            password2 = request.POST['password2']
+
+            if User.objects.filter(email=mail).exists():
+                messages.error(request, "A user with thesame Email already exists, if it's you please proceed to Login")
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "A user with thesame Username already exists")
+            if password1 and password1 != password2:
+                messages.error(request, "passwords did not match")
 
     return render(request, 'signup_regular.html', {'form': form})
 

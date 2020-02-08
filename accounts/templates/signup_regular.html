@@ -27,6 +27,23 @@
 
 {% block boxcontent %}
 
+{% comment %} messages {% endcomment %}
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" style="
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    height: 65px;
+    padding: 10px;
+    padding-top: 15px;">
+    
+    {{ message }}
+  </div>
+{% endfor %}
+{% comment %} end of messages {% endcomment %}
+
+
 <form class="login100-form " method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     
@@ -101,8 +118,6 @@
             </button>
         </div>
 </form>  
-
-
 
 {% endblock %}
        
