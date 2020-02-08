@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 from django.contrib.messages import constants as messages
 import os
+<<<<<<< HEAD
+import django_heroku
+import cloudinary
+=======
 
+>>>>>>> master
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -42,7 +47,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'peoplestory',
-
+     'cloudinary',
 ]
 
 #setting up for saving email in your local directory
@@ -112,6 +117,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#             'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'd9mhk43idnatk8',
+#             'USER': 'lrftxeetwuwrgl',
+#             'PASSWORD': '5b0c2e89fabd25c569e1fd803f49be3d51a4992cd04a4644d46708b9fda2daec',
+#             'HOST': 'ec2-174-129-18-210.compute-1.amazonaws.com',
+#             'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -180,4 +195,10 @@ MESSAGE_TAGS = {
 #heroku settings
 # django_heroku.settings(locals())
 
+#configurations for claudinary API
+cloudinary.config(
+  cloud_name = 'people-shaping-people',  
+  api_key = '366739532594952',  
+  api_secret = '2js_h6zi2K-PI5Lz64OEiWKYNl0'  
+)
 

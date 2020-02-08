@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load cloudinary %}
 
 {% block headerlinks %}
     <link href="{% static 'css/cropper.min.css' %}" rel="stylesheet">
@@ -37,7 +38,7 @@
             <input type="hidden" name="x" step="any" id="id_x">
             <input type="hidden" name="y" step="any" id="id_y">
             <input type="hidden" name="width" step="any" id="id_width">
-            <input type="hidden" name="height" step="any" id="id_height">
+            <input type="hidden" name="height" step="any" id="id_height"> 
 
             <div class="form-field">
                 <input name="story_caption" style="background: white;" id="id_story_caption" class="full-width new_story_input" placeholder="a sentence to describe your Story" value="" type="text">
@@ -66,7 +67,7 @@
                 </div>
                 </div>
             </div>
-            </div>
+            </div> 
     </form> 
 
 
@@ -118,7 +119,7 @@
             });
         }
     });
-    </script>
+    </script> 
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}" ></script>
     <script type="text/javascript" src="{% static 'tinymce/tinymce.min.js' %}" ></script>
     <script type="text/javascript" src="{% static 'tinymce/init-tinymce.js' %}" ></script>

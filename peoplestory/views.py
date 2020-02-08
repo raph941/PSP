@@ -17,6 +17,7 @@ from PIL import Image
 from django.core.files import File
 from django.core.files.base import ContentFile
 from io import BytesIO
+import cloudinary
 
 from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
 
@@ -109,20 +110,24 @@ def CreateStoryView(request):
             height = form.cleaned_data.get('height')
 
             image_obj = Image.open(story.image)
-            cropped_image = image_obj.crop((x, y, width, height))
+            cropped_image = image_obj.crop((x, y, width+x, height+y))
             resized_image = cropped_image.resize((300, 320), Image.ANTIALIAS)
-
             thumb_io = BytesIO()
-            filename = story.image.name
             resized_image.save(thumb_io, image_obj.format)
-            story.image.save(filename, ContentFile(thumb_io.getvalue()), save=False)
-
+            
+            #save to cloudinary
+            response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "story_image")
+            image_url = response['secure_url']
+            story.image_url = image_url
+            story.image.delete()            
+            
             story.save()
+            
             messages.success(request, 'Your story has been successfully createed')
 
             return redirect('my_stories')
         else:
-            messages.warning(request, 'Your story creation was Uncessessful')
+            messages.warning(request, 'Your story creation was Unsucessful')
     else:
         form = NewStoryForm()
 
