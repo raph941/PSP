@@ -111,7 +111,7 @@ def CreateStoryView(request):
 
             image_obj = Image.open(story.image)
             cropped_image = image_obj.crop((x, y, width+x, height+y))
-            resized_image = cropped_image.resize((300, 320), Image.ANTIALIAS)
+            resized_image = cropped_image.resize((400, 420), Image.ANTIALIAS)
             thumb_io = BytesIO()
             resized_image.save(thumb_io, image_obj.format)
             
@@ -129,6 +129,7 @@ def CreateStoryView(request):
         else:
             messages.warning(request, 'Your story creation was Unsucessful')
     else:
+
         form = NewStoryForm()
 
     return render(request, 'create_story.html', {'form': form})
