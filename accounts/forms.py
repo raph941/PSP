@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 from .models import User, UserProfile
+from cloudinary.forms import CloudinaryFileField
 
 
 MALE = 'Male'
@@ -21,7 +22,14 @@ class RegularUserCreationForm(UserCreationForm):
     email = forms.EmailField(max_length = 254, required=False, help_text='enter a valid email address.')
     phone_number = forms.CharField( max_length=30, required=False)
     nationality = forms.CharField( max_length=30, required=False)
-    profile_pic = forms.ImageField(max_length=254, required=False)
+    profile_pic = CloudinaryFileField(
+        options = {
+            'crop': 'thumb',
+            'width': 420,
+            'height': 400,
+            'folder': 'Regular profile_pic'
+       }
+    )
     bio = forms.CharField( max_length=2555, required=False)
 
     class Meta:
@@ -39,7 +47,14 @@ class AdminUserCreationForm(UserCreationForm):
     email = forms.EmailField(max_length = 254, required=False, help_text='enter a valid email address.')
     phone_number = forms.CharField( max_length=30, required=False)
     nationality = forms.CharField( max_length=30, required=False)
-    profile_pic = forms.ImageField(max_length=254, required=False)
+    profile_pic = CloudinaryFileField(
+        options = {
+            'crop': 'thumb',
+            'width': 420,
+            'height': 400,
+            'folder': 'Admin profile_pic'
+       }
+    )
 
     class Meta:
         model = User
