@@ -3,7 +3,6 @@ from accounts.models import User, UserProfile
 from django.utils.html import mark_safe
 from markdown import markdown
 from django.urls import reverse
-from cloudinary.models import CloudinaryField
 
 
 #story approval status
