@@ -13,6 +13,7 @@ from django.contrib.messages import constants as messages
 import os
 import django_heroku
 import cloudinary
+from decouple import config, Csv
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -23,12 +24,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'o0!*i(cl#(r3(ku0tg#y_ewq_f!(ek%r_*p=leha&o+fwy_#n1'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'peopleshapingpeople.herokuapp.com', 'www.peopleshapingpeople.com']
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
 
 
 # Application definition
@@ -51,15 +54,14 @@ INSTALLED_APPS = [
 # EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 #setting for gmail smtp server
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'peopleshapingpeople@gmail.com'
-EMAIL_HOST_PASSWORD = 'peopleshapingpeople1234'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-DEFAULT_FROM_EMAIL = 'peopleshapingpeople.herokuapp.com <noreply@peopleshapingpeople.herokuapp.com>'
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 #settings to send mail to admin when there is a server error
 ADMIN = [
@@ -115,12 +117,12 @@ DATABASES = {
 
 # DATABASES = {
 #             'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'd9mhk43idnatk8',
-#             'USER': 'lrftxeetwuwrgl',
-#             'PASSWORD': '5b0c2e89fabd25c569e1fd803f49be3d51a4992cd04a4644d46708b9fda2daec',
-#             'HOST': 'ec2-174-129-18-210.compute-1.amazonaws.com',
-#             'PORT': '5432',
+#             'ENGINE': config('ENGINE'),
+#             'NAME': config('NAME'),
+#             'USER': config('USER'),
+#             'PASSWORD': config('PASSWORD'),
+#             'HOST': config('HOST'),
+#             'PORT': config('PORT'),
 #     }
 # }
 
@@ -193,8 +195,8 @@ MESSAGE_TAGS = {
 
 #configurations for claudinary API
 cloudinary.config(
-  cloud_name = 'people-shaping-people',  
-  api_key = '366739532594952',  
-  api_secret = '2js_h6zi2K-PI5Lz64OEiWKYNl0'  
+  cloud_name = config('cloud_name'),  
+  api_key = config('api_key'),  
+  api_secret = config('api_secret'),  
 )
 

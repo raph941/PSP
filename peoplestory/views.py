@@ -116,11 +116,14 @@ def CreateStoryView(request):
             resized_image.save(thumb_io, image_obj.format)
             
             #save to cloudinary
-            response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "story_image")
-            image_url = response['secure_url']
+            try:
+                response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "story_image")
+                image_url = response['secure_url']  
+            except:
+                image_url = "https://res.cloudinary.com/people-shaping-people/image/upload/v1581281253/Default%20Images/fantasies-4063346_640_fbaaqb.jpg"
+            
             story.image_url = image_url
             story.image.delete()            
-            
             story.save()
             
             messages.success(request, 'Your story has been successfully createed')
