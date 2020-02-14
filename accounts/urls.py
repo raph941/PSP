@@ -9,4 +9,6 @@ urlpatterns = [
     url(r"^SignUp/Admin/$", views.NewAdminUser, name="admin_signup"),
     url(r"^MyProfile/(?P<pk>\d+)/$", views.MyProfile, name="myprofile"),  
     url(r"^MyProfile/ProfileUpdate/(?P<pk>\d+)$", views.UserProfileUpdateView, name="profile_update"),  
+    url(r"^TopAuthors/$", views.TopAuthors, name="top_authors"),
+    url(r"^TopAuthor/SearchResult/$", views.AuthorSearchResultView.as_view(), name="author_search_results"),
 ]

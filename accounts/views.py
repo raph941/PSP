@@ -7,6 +7,12 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django import forms
 from django.contrib.auth import views as auth_views
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+from django.db.models import Value as V
+from django.views.generic import ListView
+from django.db.models.functions import Concat
+
 
 from .forms import *
 from .models import UserProfile, User
@@ -113,3 +119,49 @@ def UserProfileUpdateView(request, pk):
         'upu_form': upu_form,
     }
     return render(request, "profile_update.html", context)
+
+
+@login_required
+def TopAuthors(request):
+    queryset = User.objects.all().order_by('?')   
+    paginator = Paginator(queryset, 10)
+    page = request.GET.get('page', 1)
+
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+  
+    context = {
+        'users': users
+    }
+
+    return render(request, 'top_authors.html', context)
+
+
+class AuthorSearchResultView(ListView):
+    template_name = 'author_search_results.html'
+    context_object_name = 'searched_result'
+    paginate_by = 5
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['query'] = self.request.GET.get('q')
+        return context
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query is not None:
+            or_lookup_authors = (
+                Q(full_name__icontains=query) |
+                Q(first_name__icontains=query) |
+                Q(last_name__icontains=query)
+                )
+            authors_result = User.objects.annotate(
+                        full_name=Concat('first_name', V(' '), 'last_name')
+                    ).filter(or_lookup_authors)
+
+            return authors_result
+        return User.objects.none()          

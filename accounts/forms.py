@@ -16,13 +16,13 @@ GENDER = [
 
 
 class RegularUserCreationForm(UserCreationForm):
-    first_name = forms.CharField( max_length=30, required=False)
-    last_name = forms.CharField( max_length=30, required=False)
+    first_name = forms.CharField( max_length=30, required=True)
+    last_name = forms.CharField( max_length=30, required=True)
     date_of_birth = forms.DateField()
     email = forms.EmailField(max_length = 254, required=False, help_text='enter a valid email address.')
     phone_number = forms.CharField( max_length=30, required=False)
-    nationality = forms.CharField( max_length=30, required=False)
-    profile_pic = CloudinaryFileField(
+    nationality = forms.CharField( max_length=30, required=True)
+    profile_pic = CloudinaryFileField(required=False,
         options = {
             'crop': 'thumb',
             'width': 420,

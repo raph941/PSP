@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block headerlinks %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+{% endblock %}
+
+
+{% block style %}
+.s-content{
+    background:white;
+    min-height: -webkit-fill-available;
+}
+.display-1{
+    font-size:3rem;
+    float: left;
+}
+.list-group{
+    min-width: -webkit-fill-available;
+}
+.search_div{
+    float: right;
+}
+{% endblock %}
+
+
+{% block content %}
+<section class="s-content">
+    <div class="row entries-wrap wide">
+
+        <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--top-padding" >
+
+        <div class="row narrow" >
+            <div class="col-full s-content__header" data-aos="fade-up" style="padding-left: 0px;">
+                <span class="display-1 explore-subtitle">Populare Authors</span>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 search_div">
+
+        <form role="search" method="get" action="{% url 'author_search_results' %}">
+            <input type="text" class="form-control " aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                placeholder="search author's name" name="q"
+                style="padding: 0px;
+                        padding-left:inherit;
+                        height: 3.5rem;
+                        background: #251d2d36;
+                        border: 1px solid #f2f3f5;
+                        border-radius: 7px;">
+        </form>
+
+            </div>
+            </div>
+        </div>
+        
+
+        <div class="row entries-wrap add-top-padding wide">
+            <div class="entries">
+
+
+    <div class="list-group">
+    {% for user in users %}
+        <a href="{% url 'myprofile' user.pk %}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }} 
+                <span class="badge badge-primary badge-pill">{{ user.stories_set.count }} Stories</span></h5>
+                <small class="text-muted">{{user.last_login}}</small>
+            </div>
+            <p class="mb-1">{{ user.userprofile.truncated_bio }}</p>
+            <small class="text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i>{{ user.userprofile.nationality }}</small>
+        </a>
+    {% endfor %}
+    </div>
+
+    <!--pagination-->
+    <div class="row pagination-wrap">
+        <div class="col-full">
+            <nav class="pgn" data-aos="fade-up">
+
+                {% if users.has_other_pages %}
+                <ul>
+                    {% if users.has_previous %}
+                        <li><a class="pgn__prev" href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="disabled pgn__prev"><span>&laquo;</span></li>
+                    {% endif %}
+
+                    {% for i in users.paginator.page_range %}
+                    {% if users.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if users.has_next %}
+                    <li><a class="disabled pgn__next" href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                    <li class="disabled pgn__next"><span>&raquo;</span></li>
+                    {% endif %}
+
+                </ul>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+<!--end pagination-->
+
+    </section> <!-- end s-content -->
+
+    </div>
+</section>
+
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock %}
