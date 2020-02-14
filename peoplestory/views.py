@@ -121,12 +121,13 @@ def CreateStoryView(request):
                 image_url = response['secure_url']  
             except:
                 image_url = "https://res.cloudinary.com/people-shaping-people/image/upload/v1581281253/Default%20Images/fantasies-4063346_640_fbaaqb.jpg"
+                messages.warning(request, 'your image upload failed, you can resolve this by editing your story to add prefered image.')
             
             story.image_url = image_url
             story.image.delete()            
             story.save()
             
-            messages.success(request, 'Your story has been successfully createed')
+            messages.success(request, 'Your story has been successfully created')
 
             return redirect('my_stories')
         else:
