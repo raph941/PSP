@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block headerlinks %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     
 {% endblock %}
 
@@ -43,19 +43,25 @@ footer{
     font-weight: 600;
     color: #2f85d9;
 }
+.stories_title{
+    color:#2f85d9;
+}
  {% endblock %}
 
 
 {% block content %}
 
     <section class=" s-content--top-padding s-content--narrow profile_section">
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10 picture-aside">
-            <div class="">
-
-            </div>
-            <img class="profile_pic"
-                src="{{ user.userprofile.profile_pic.url }}" alt="">
-                <p style="color: rgba(0, 0, 0, 0.5);">@{{ user.username }}</p>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10 picture-aside" >
+            
+            {% if user.userprofile.profile_pic %}
+                <img class="profile_pic" src="{{ user.userprofile.profile_pic.url }}" alt="">
+            {% else %}
+                <img class="profile_pic" src="{% static 'images/head-659651_1920.png' %}" alt="">
+            {% endif %}
+                <p style="color: rgba(0, 0, 0, 0.5);">@{{ user.username }}
+                   <a href="#"> <i class="fas fa-envelope" style="padding-left:10px;"></i> </a>
+                </p>
 
                 
 
@@ -79,8 +85,10 @@ footer{
                 </ul>
             {% if user == request.user %}
                 <div class="col-12">
-                    <a href="{% url 'profile_update' user.pk %}" class="btn btn-sm col" style="float:right;">
+                    <a href="{% url 'profile_update' user.pk %}" class="btn btn-outline-primary btn-lg btn-block " style="float:right;">
+                    <span style="font-size:initial;">
                         Edit Profile
+                    </span>
                     </a>
                 </div>
             {% endif %}
@@ -101,6 +109,17 @@ footer{
                         
                     {% endif %}
                 </p>
+            </div>
+            <div>
+                <h2 class="entry__header-title stories_title">Stories</h2>    
+                <ul class="list-group">
+                    {% for story in mystory %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="{% url 'story_detail' story.pk %}">{{ story.full_name }}</a>
+                            <span class="badge badge-primary badge-pill">{{ story.views }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
 

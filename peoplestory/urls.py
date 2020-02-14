@@ -16,6 +16,7 @@ urlpatterns = [
     url(r"^(?P<pk>\d+)/Story/Like$", views.StoriesLikeToggle, name="like"),
     url(r"^SearchResult/$", views.SearchResultView.as_view(), name="search_results"),
     url(r"^Explore/$", views.ExploreView, name="explore"),
+    
 
     #dashboard urls
     url(r"^Dashboard/Upublished/$", dashboard_views.UnpublishedDashboardView, name="unpublished_dashboard"),

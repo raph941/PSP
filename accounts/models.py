@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
 from cloudinary.models import CloudinaryField
+from django.utils.text import Truncator
 
 
 MALE = 'Male'
@@ -23,7 +24,12 @@ class UserProfile(models.Model):
     phone_number = models.CharField( max_length=50, blank=True, null=True)
     date_of_birth = models.DateField(auto_now=False, auto_now_add=False)
     nationality = models.CharField( max_length=50, null=True, blank=True)
-    profile_pic = CloudinaryField('image') 
+    profile_pic = CloudinaryField('image', null=True, blank=True) 
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+    @property
+    def truncated_bio(self):
+        truncated_bio = Truncator(self.bio)
+        return truncated_bio.chars(60)

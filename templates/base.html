@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="{% static 'css/vendor.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/alert.css' %}">
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="css/iziModal.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome/css/fontawesome-all.min.css' %}">
+    
     {% block headerlinks %}{% endblock %}
     
 </head>
@@ -47,7 +47,11 @@
             </a>
             {% else %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
-                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="image" >
+                {% comment %} <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="image" > {% endcomment %}
+                
+                <!--temporary image link-->
+                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{% static 'images/face.png' %}" alt="image" >
+
             </a>
             {% endif %}
             <div id="myDropdown" class="dropdown-content">
@@ -64,7 +68,6 @@
         {% else %}
             <a href="{% url 'login' %}" class="navbar-profile-pic login-txt" >
                  <p style="vertical-align: middle; margin-top: 20px;" >Login</p>
-            </a>
         {% endif %}
 
         <a class="header__search-trigger" href="#0"></a>
@@ -97,7 +100,13 @@
                         <li><a href="{% url 'create_story' %}">Add Story</a></li>
                     </ul>
                 </li> {% endcomment %}
-                <li><a href="{% url 'explore' %}" title="">Explore</a></li>
+                <li class="has-children">
+                    <a href="#0" title="">Explore</a>
+                    <ul class="sub-menu">
+                        <li><a href="{% url 'explore' %}">Popular Stories</a></li>
+                        <li><a href="{% url 'top_authors' %}">Top Authors</a></li>
+                    </ul>
+                </li>
 
                 {% if user.is_admin %}
                     <li><a href="{% url 'unpublished_dashboard' %}" title="">Dashboard</a></li>
@@ -106,6 +115,7 @@
 
                 <li><a href="{% url 'about' %}" title="">About</a></li>
                 <li><a href="{% url 'contact' %}" title="">Contact</a></li>
+                
                     
 
             </ul> <!-- end header__nav -->
