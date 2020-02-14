@@ -46,7 +46,8 @@ INSTALLED_APPS = [
 
     'accounts',
     'peoplestory',
-     'cloudinary',
+    'cloudinary',
+    'ChatApp',
 ]
 
 #setting up for saving email in your local directory
