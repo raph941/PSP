@@ -19,6 +19,13 @@
 </head>
 
 <style>
+.message_icn{
+    color: blue;
+    float: right;
+    right:55px;
+    position: relative;
+    margin-top: 25px;
+}
     {% block style %}{% endblock %}
 </style>
 
@@ -38,13 +45,24 @@
                 <img src="{% static 'images/ppp.png' %}" alt="Homepage">
             </a>
         </div> <!-- end header__logo -->
+        
+
+        <!--message icon for navbar-->
+        {% if user.is_authenticated %}
+            <a href="{% url 'message_url' %}"> <i class="fas fa-envelope message_icn"></i> 
+            </a>
+        {% else %}
+        {% endif %}
+        <!--end of message icon-->
 
         {% if user.is_authenticated %} 
         <span class="dropdown">
             {% if request.user.userprofile.profile_pic %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
-                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ request.user.userprofile.profile_pic.url }}" alt="image" >
+                {% comment %} <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ request.user.userprofile.profile_pic.url }}" alt="image" > {% endcomment %}
+                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{% static 'images/face.png' %}" alt="image" >
             </a>
+
             {% else %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
                 {% comment %} <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="image" > {% endcomment %}
@@ -53,7 +71,7 @@
                 <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{% static 'images/face.png' %}" alt="image" >
 
             </a>
-            {% endif %}
+        {% endif %}
             <div id="myDropdown" class="dropdown-content">
                 <a href="{% url 'create_story' %}" class="dropdown-anchor">New Story</a>
                 <a href="{% url 'my_stories' %}" class="dropdown-anchor">My Stories</a>
@@ -66,11 +84,13 @@
         </span>
             
         {% else %}
-            <a href="{% url 'login' %}" class="navbar-profile-pic login-txt" >
+            <a href="{% url 'login' %}" class="navbar-profile-pic login-txt"  style="right:40px;">
                  <p style="vertical-align: middle; margin-top: 20px;" >Login</p>
         {% endif %}
-
-        <a class="header__search-trigger" href="#0"></a>
+        
+         
+        <a class="header__search-trigger" href="#0" style="right:90px;"></a>
+        
 
         <div class="header__search">
             <form role="search" method="get" class="header__search-form" action="{% url 'search_results' %}">
@@ -195,8 +215,9 @@
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/plugins.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/modernizr.js' %}"></script>
     <script src="{% static 'js/dropdown.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
 
     {% block javascript %}{% endblock javascript %}
 

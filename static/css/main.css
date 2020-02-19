@@ -2048,7 +2048,7 @@ body.search-is-visible {
 
 .header__nav li a {
   display: block;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.85);
   -webkit-transition: color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;
 }
@@ -4259,7 +4259,7 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
   margin: 3px 0 0 0;
   padding: 0;
   position: absolute;
-  right: 50px;
+  right: 5px;
 }
 .login-txt{
   font-size: 1.2rem;
@@ -4298,7 +4298,7 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
 
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgb(0, 0, 0);;
   text-decoration: none;
   display: block;
   font-size: small;
