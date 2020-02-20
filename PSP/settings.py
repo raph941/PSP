@@ -115,15 +115,21 @@ AUTH_USER_MODEL = 'accounts.User'
 #     }
 # }
 
+# DATABASES = {
+#             'default': {
+#             'ENGINE': config('ENGINE'),
+#             'NAME': config('NAME'),
+#             'USER': config('USER'),
+#             'PASSWORD': config('PASSWORD'),
+#             'HOST': config('HOST'),
+#             'PORT': config('PORT'),
+#     }
+# }
+
 DATABASES = {
-            'default': {
-            'ENGINE': config('ENGINE'),
-            'NAME': config('NAME'),
-            'USER': config('USER'),
-            'PASSWORD': config('PASSWORD'),
-            'HOST': config('HOST'),
-            'PORT': config('PORT'),
-    }
+    'default': config(
+        default=config('DATABASE_URL')
+    )
 }
 
 # Password validation
