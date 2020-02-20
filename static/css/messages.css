@@ -200,7 +200,7 @@ width: 46%;
 }
 
 .input_msg_write input {
-background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+background: rgba(255, 255, 255, 0.64);
 border: medium none;
 color: #4c4c4c;
 font-size: 15px;
@@ -233,7 +233,7 @@ padding: 0 0 50px 0;
 }
 
 .msg_history {
-height: 516px;
+height: 480px;
 overflow-y: auto;
 }
 

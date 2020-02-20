@@ -11,6 +11,46 @@
 .messaging{
 	margin-top: 65px;
 }
+.btnn{
+	display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    padding: 10px;
+    border-radius: 30px;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 1.5rem;
+    border-radius: .5rem;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.back-arrow-icon{
+	border: 1px solid #0275d8;
+    border-radius: 4px;
+	padding: 5px;
+}
+a:link { 
+    text-decoration: none; 
+        } 
+a:hover { 
+    text-decoration: none; 
+        } 
+
+@media screen and (max-width: 600px){
+	.mesgs{
+		display: none;
+		width: 100%
+	}
+	.inbox_people{
+		width: 100%;
+	}
+}
 {% endblock %}
 
 
@@ -27,18 +67,7 @@
 		</div>
 	  </div>
 
-	  <div class="inbox_chat scroll">
-		{% comment %} <div class="chat_list active_chat">
-		  <div class="chat_people">
-			<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-			<div class="chat_ib">
-			  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-			  <p>Test, which is a new approach to have all solutions 
-				astrology under one roof.</p>
-			</div>
-		  </div>
-		</div> {% endcomment %}
-
+	  <div class="inbox_chat scroll" >
 		{% for user in conv_partners %}
 
 		<div class="chat_list chat_list_{{ user.pk }}" user-pk="{{ user.pk }}">
@@ -68,11 +97,22 @@
 	<!--end on conversation list sidebar-->
 
 	<!--Start of chat side-->
-	<div class="mesgs">
+	<div class="mesgs" style="padding-top: 10px;">
+	<a href="#" class="arrow_icon_a" >
+		<i class="fas fa-angle-double-left back-arrow-icon"></i>
+	</a>
+		
 		<div class="msg_history">
+		{% if conv_partners %}
 			<span class = "initial_display">
 				<p>Click on a convesation to begin a chat...</p>
 			</span>
+		{% else %}
+			<span class = "initial_display">
+				<p>You have not open conversations......</p>
+				<a class="btnn btn-primary" href="{% url 'top_authors' %}">Search Authors</a>
+			</span>
+		{% endif %}
 
 			<div class = "chat_div">
 				<!--content of this div is manipulated with JavaScript-->
@@ -113,6 +153,22 @@
 			var partner_image = this_.attr("image-url")
 			$('.chat_list').removeClass("active_chat"); 
 			$('.chat_list_' + user_pk).addClass("active_chat");
+
+			//start: this is for enhansing the media queries function for smaller screen
+				if ($('.header').width() <= 600 ){
+						$('.inbox_people').hide()
+						$('.mesgs').show()
+						$('.arrow_icon_a').show()
+					}
+				$('.arrow_icon_a').click(function(e){ 
+					$('.mesgs').hide()
+					$('.inbox_people').show()
+				})
+				if ($('.header').width() >= 600 ){
+						$('.arrow_icon_a').hide()
+					}
+				
+			//end: end of media queries enhancement	
 			
 			$.ajax({
 				url: Url,
@@ -124,7 +180,7 @@
 					json_obj = JSON.parse(data)
 					$(".chat_div").empty();
 					$.each(json_obj, function () {
-						var sentmsgHTML = $('<div><div class="incoming_msg_img"> <img src=" ' + partner_image + ' " alt="sunil"> </div> <div class="received_msg"><div class="received_withd_msg"><p>' + this.fields.content + 
+						var sentmsgHTML = $('<div><div class="incoming_msg_img"> <img style="border-radius:50%;" src=" ' + partner_image + ' " alt="sunil"> </div> <div class="received_msg"><div class="received_withd_msg"><p>' + this.fields.content + 
 											'</p><span class="time_date"> ' + this.fields.sent_at + '</span></div></div> </div>')
 						var recievedmsgHTML = $('<div class="outgoing_msg"><div class="sent_msg"><p>' + this.fields.content + '</p><span class="time_date"> ' + this.fields.sent_at + '</span></div></div> ')
 
@@ -181,6 +237,14 @@
 						});
 				}
 			});
+	});
+
+	$(window).ready(function(){
+
+       if ($('.header').width() >= 600) {  
+            $('.arrow_icon_a').hide()
+       }     
+
 	});
 	
 </script>

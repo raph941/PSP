@@ -12,9 +12,12 @@ from django.db.models import Q
 from django.db.models import Value as V
 from django.views.generic import ListView
 from django.db.models.functions import Concat
+from directmessages.apps import Inbox 
+from django.http import JsonResponse
 
 
 from .forms import *
+from directmessages.forms import MessageForm
 from .models import UserProfile, User
 from peoplestory.models import Stories
 
@@ -92,7 +95,7 @@ def NewAdminUser(request):
 def MyProfile(request, pk): 
     user = get_object_or_404(User, pk=pk) 
     mystory = Stories.objects.filter(author=user)
-    # import pdb; pdb.set_trace()
+
     context = {
         'user': user,
         'mystory': mystory, 

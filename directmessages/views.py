@@ -45,3 +45,22 @@ def MessagePostView(request):
         post_data = serializers.serialize("json", message_obj)
 
         return JsonResponse(post_data, safe=False)
+
+
+@login_required
+def MessagePostFromProfileView(request):
+    if request.method == 'POST':
+        msg_content = request.POST['message']
+        reciever_pk = request.POST['recipient']
+        user1 = request.user
+        user2 = User.objects.get(pk=reciever_pk)
+        post_data = Inbox.send_message(user1, user2, msg_content)
+        if post_data[1] == 200:
+            data = {
+                'status': 'success'
+            }
+        else:
+            data = {
+                'status': 'failed',
+            }
+        return JsonResponse(data, safe=False)
