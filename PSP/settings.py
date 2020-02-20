@@ -13,6 +13,7 @@ from django.contrib.messages import constants as messages
 import os
 import django_heroku
 import cloudinary
+import dj_database_url
 from decouple import config, Csv
 
 
@@ -127,7 +128,7 @@ AUTH_USER_MODEL = 'accounts.User'
 # }
 
 DATABASES = {
-    'default': config(
+    'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
 }
