@@ -57,7 +57,7 @@ footer{
             {% if user.userprofile.profile_pic %}
                 <img class="profile_pic" src="{{ user.userprofile.profile_pic.url }}" alt="">
             {% else %}
-                <img class="profile_pic" src="{% static 'images/head-659651_1920.png' %}" alt="">
+                <img class="profile_pic" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="">
             {% endif %}
                 <p style="color: rgba(0, 0, 0, 0.5);">@{{ user.username }}
                    <a href="#"> <i class="fas fa-envelope" style="padding-left:10px;"></i> </a>
@@ -71,24 +71,22 @@ footer{
             </h1>
                 <ul style="color: rgba(0, 0, 0, 0.5); list-style-type:none; float: left;">
                     <li style="float: left;"><span>
-                        <img src="{% static 'images/icons/location.png' %}" alt="icon"/>
+                        <i class="fas fa-map-marker-alt"></i>
                         {{ user.userprofile.nationality }}
                     </span></li>
                     <li style="float: left;"><span>
-                        <img src="{% static 'images/icons/email.png' %}" alt="icon"/>
+                        <i class="fas fa-at"></i>
                         {{ user.email }}
                     </span></li>
                     <li style="float: left;"><span>
-                        <img src="{% static 'images/icons/phone.png' %}" alt="icon"/>
+                        <i class="fas fa-phone"></i>
                         {{ user.userprofile.phone_number }}
                     </span></li>
                 </ul>
             {% if user == request.user %}
                 <div class="col-12">
-                    <a href="{% url 'profile_update' user.pk %}" class="btn btn-outline-primary btn-lg btn-block " style="float:right;">
-                    <span style="font-size:initial;">
+                    <a href="{% url 'profile_update' user.pk %}" class=" col-lg-6 col-md-6 col-sm-6 col-xs-8">
                         Edit Profile
-                    </span>
                     </a>
                 </div>
             {% endif %}
@@ -110,7 +108,7 @@ footer{
                     {% endif %}
                 </p>
             </div>
-            <div>
+            <div style="margin-bottom: 65px;">
                 <h2 class="entry__header-title stories_title">Stories</h2>    
                 <ul class="list-group">
                     {% for story in mystory %}

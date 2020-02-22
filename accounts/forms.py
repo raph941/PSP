@@ -71,6 +71,14 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class UserProfileUpdateForm(forms.ModelForm):
+    profile_pic = CloudinaryFileField(required=False,
+        options = {
+            'crop': 'thumb',
+            'width': 420,
+            'height': 400,
+            'folder': 'Regular profile_pic'
+       }
+    )
     class Meta:
         model = UserProfile
         fields = ('phone_number', 'nationality', 'profile_pic', 'bio')

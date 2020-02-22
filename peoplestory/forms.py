@@ -25,10 +25,19 @@ class NewStoryForm(forms.ModelForm):
 
 
 class UpdateStoryForm(forms.ModelForm):
+    x = forms.FloatField()
+    y = forms.FloatField()
+    width = forms.FloatField()
+    height = forms.FloatField()
 
     class Meta:
         model = Stories
-        fields = ['full_name', 'story_caption', 'story', 'image']
+        fields = ['full_name', 'story_caption', 'story', 'image', 'x', 'y', 'width', 'height']
+        widgets = {
+            'file': forms.FileInput(attrs={
+                'accept': 'image/*'  # this is not an actual validation! don't rely on that!
+            })
+        }
 
 
 class CommentForm(forms.ModelForm):
