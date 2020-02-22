@@ -39,9 +39,7 @@ def NewRegularUser(request):
             UserProfile.objects.create(phone_number=phone_number, date_of_birth=date_of_birth,
                                          nationality=nationality, bio=bio,  
                                          profile_pic=profile_pic, user=user)
-
             
-            messages.success(request, "successfully Created")
             return redirect('login')
         else:
             form = RegularUserCreationForm()
@@ -108,7 +106,14 @@ def UserProfileUpdateView(request, pk):
         upu_form = UserProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
         if uu_form.is_valid and upu_form.is_valid():
             uu_form.save()
-            upu_form.save()
+            form = upu_form.save(commit=False)
+            if request.POST.get('profile_pic'):
+                form.save()
+            else:
+                form.profile_pic = request.user.userprofile.profile_pic
+                form.save()
+                
+
             return redirect('myprofile', pk)
     else:
         uu_form = UserUpdateForm(instance=request.user)

@@ -7,6 +7,11 @@
 
 
 {% block style %}
+@media only screen and (max-width: 400px){
+.s-content{
+    padding-top: 50px;
+}
+}
 .s-content{
     background:white;
     min-height: -webkit-fill-available;
@@ -42,7 +47,7 @@
             <input type="text" class="form-control " aria-label="Small" aria-describedby="inputGroup-sizing-sm"
                 placeholder="search author's name" name="q"
                 style="padding: 0px;
-                        padding-left:inherit;
+                        padding-left:10px;
                         height: 3.5rem;
                         background: #251d2d36;
                         border: 1px solid #f2f3f5;

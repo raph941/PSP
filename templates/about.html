@@ -3,6 +3,7 @@
 
 {% block headerlinks %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 {% endblock %}
@@ -10,6 +11,13 @@
 {% block style %}
 .about-title{
     padding-bottom: 0px;
+}
+.s-content{
+    background-color: white;
+}
+.hr{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 {% endblock %}
 
@@ -22,102 +30,100 @@
 
         <div class="row narrow">
             <div class="col-full s-content__header">
-                <h1 class="display-1 display-1--with-line-sep about-title">About "How Friends Shaped My Life" </h1>
+                <h1 class="tracking-in-expand-fwd">About "How Friends Shaped My Life" </h1>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-full s-content__main">
+            <div>
                 <p>
-                <img class="col-six" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1580744585/About/about-1000_j5tueb.jpg" 
-                    
-                     sizes="(max-width: 2000px) 100vw, 2000px" alt="">
-                </p>
                 <p class="lead">
-                    Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor 
-                    sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim 
-                    mollit amet anim veniam dolor dolor irure velit commodo.
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        To build the world, you need nations; to build communities you need people and to build people, you need friends. 
+                        Friendship has a huge impact in the well being many people virtually more than anything. Having social connects and interactions
+                        improve lives and are even tied to longevity. Friendship transcends the click of a button to ‘add friends’ on a social media network. 
+                        Our most powerful connections are the ones we stay in touch with in the real world. 
                 </p>
             </div>
             <div class="col-twelve">
             <div class="row">
 
-                <h2>My Story</h2>
-
+                <h3 style="margin-top:3rem;">The Book</h3>
+                <img class="col-six scale-up-center" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1582323062/About/psp_book_isjibx.jpg" 
+                    
+                     sizes="(max-width: 2000px) 100vw, 2000px" alt="" style="padding-left: 0px;height:35rem;padding-bottom: 20px">
                 <p>
-                Odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti 
-                dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique 
-                sunt in culpa. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis 
+                This book is a captivating, interesting and appealing narrative; it is a memoir that is based personal reflections 
+                on friendships between the author and many people, events and places. It seeks to redefine what friendship actually 
+                means as a knowledge gap and how it should be perceived. Just as much as a gardener works to maintain the beauty of 
+                plants, outdoor grounds and trees in a garden, you will find in it words that seek to encourage the habit of 
+                maintaining positive and fruitful friendships. The author pulls together a wide collection of people via memories, 
+                true life experiences and insights thereby exploring friendship in a thoughtful and engaging way
                 
-                <p>
-                Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor 
-                sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat enim 
-                mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco. Lorem 
-                ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat aute.
                 </p>
             </div>
-                <hr>
+                <hr class="hr">
 
-                <div class="row block-1-2 block-tab-full">
+            <div class="row block-1-2 block-tab-full">
+            
                     <div class="col-block">
                         <h4 class="quarter-top-margin">Why "How Friends Shaped My Life"</h4>
-                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                        <p>To offer you a unique and valuable outlook on friendship, and redefine the true meaning and worth of human relationships.</p>
                     </div>
 
                     <div class="col-block">
                         <h4 class="quarter-top-margin">The Mission.</h4>
-                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
+                        <ol>
+                            <li>Socially connect thousands of people and positively transform its readers.  </li>
+                            <li>Make a great difference by broadening the reader’s perspectives on friendship. </li>
+                            <li>Connect the past, present and future by passing information, wisdom and knowledge to others. </li>
+                        </ol>
+                        
                     </div>
-
-                    <div class="col-block">
-                        <h4 class="quarter-top-margin">The Vision.</h4>
-                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
-                    </div>
-
-                    <div class="col-block">
-                        <h4 class="quarter-top-margin">Core Values.</h4>
-                        <p>Lorem ipsum Nisi amet fugiat eiusmod et aliqua ad qui ut nisi Ut aute anim mollit fugiat qui sit ex occaecat et eu mollit nisi pariatur fugiat deserunt dolor veniam reprehenderit aliquip magna nisi consequat aliqua veniam in aute ullamco Duis laborum ad non pariatur sit.</p>
-                    </div>
-
                 </div>
             </div> <!-- s-content__main -->
         </div> <!-- end row -->
+        <div class="row">
+                <h3 style="margin-top:3rem;">Author</h3>
+                <img class="col-six scale-up-center" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1580744585/About/about-1000_j5tueb.jpg" 
+                    
+                     sizes="(max-width: 2000px) 100vw, 2000px" alt="" style="padding-left: 0px;    height: 37rem;">
+                <p>
+                Atomen Edom was born in Jos on the 24th of April 1980. He hails from Nasarawa State and is Eggon by tribe. 
+                He attended Police Children School in Jos, graduated in 1991 and completed his secondary school education at 
+                Government Science School, Kuru in Plateau State in 1997. He obtained a Bachelor of Science degree in 2004 and a 
+                Master of Science degree in 2008 in Architecture with MPHIL/PH.D Architecture (in view) from the prestigious 
+                University of Jos, Plateau State, Nigeria. 
+                
+                </p>
+        <div>
 
-                <div class="container row block-1-2 block-tab-full">
-                    <div class="col-12">
-                        <h4 class="quarter-top-margin">Image Gallary</h4>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a href="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="fancybox" rel="ligthbox">
-                            <img  src="https://res.cloudinary.com/raph941/image/upload/v1580729271/PSP/Atomen_PSP_Logo_Spot_Negative_x1usvz.jpg" class="zoom img-fluid "  alt="">
-                        
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a href="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"  class="fancybox" rel="ligthbox">
-                            <img  src="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="zoom img-fluid"  alt="">
-                        </a>
-                    </div>
-                    
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a href="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="fancybox" rel="ligthbox">
-                            <img  src="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="zoom img-fluid "  alt="">
-                        </a>
-                    </div>
-                    
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a href="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="fancybox" rel="ligthbox">
-                            <img  src="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="zoom img-fluid "  alt="">
-                        </a>
-                    </div>
-                    
-                    
-                </div>
+        <div class="col-12" style="margin-top: 6rem;">
+            <h4 class="quarter-top-margin">Image Gallary</h4>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a href="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="fancybox" rel="ligthbox">
+                <img  src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="zoom img-fluid "  alt="">
+            
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a href="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"  class="fancybox" rel="ligthbox">
+                <img  src="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="zoom img-fluid"  alt="">
+            </a>
+        </div>
+        
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a href="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="fancybox" rel="ligthbox">
+                <img  src="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="zoom img-fluid "  alt="">
+            </a>
+        </div>
+        
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a href="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="fancybox" rel="ligthbox">
+                <img  src="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="zoom img-fluid "  alt="">
+            </a>
+        </div>
+
 
             
         

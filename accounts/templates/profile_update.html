@@ -63,15 +63,15 @@ footer{
             </h1>
                 <ul style="color: rgba(0, 0, 0, 0.5); list-style-type:none; float: left;">
                     <li style="float: left;"><span>
-                        <img src="{% static 'images/icons/location.png' %}" alt="icon"/>
+                        <i class="fas fa-map-marker-alt"></i>
                         {{ user.userprofile.nationality }}
                     </span></li>
                     <li style="float: left;"><span>
-                        <img src="{% static 'images/icons/email.png' %}" alt="icon"/>
+                        <i class="fas fa-at"></i>
                         {{ user.email }}
                     </span></li>
                     <li style="float: left;"><span>
-                        <img src="{% static 'images/icons/phone.png' %}" alt="icon"/>
+                        <i class="fas fa-phone"></i>
                         {{ user.userprofile.phone_number }}
                     </span></li>
                 </ul>
@@ -111,6 +111,9 @@ footer{
                     </div>
                     <div>
                         <input name="nationality" id="id_nationality" class="full-width new_story_input" value="{{ user.userprofile.nationality }}" type="text">
+                    </div>
+                    <div>
+                        <input name="profile_pic" id="id_profile_pic" class="full-width new_story_input" type="file">
                     </div>
                     
                     

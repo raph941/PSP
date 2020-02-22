@@ -148,6 +148,25 @@ def UpdateStoryView(request, pk):
         if form.is_valid():
             story = form.save(commit=False)
             story.author = request.user
+
+            x = form.cleaned_data.get('x')
+            y = form.cleaned_data.get('y')
+            width = form.cleaned_data.get('width')
+            height = form.cleaned_data.get('height')
+
+            image_obj = Image.open(story.image)
+            cropped_image = image_obj.crop((x, y, width+x, height+y))
+            resized_image = cropped_image.resize((400, 420), Image.ANTIALIAS)
+            thumb_io = BytesIO()
+            resized_image.save(thumb_io, image_obj.format)
+            
+
+            response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "story_image")
+            image_url = response['secure_url']  
+            
+            story.image_url = image_url
+            story.image.delete()            
+
             story.save()
             messages.success(request, 'Your story has been successfully Updated')
 

@@ -7,6 +7,15 @@
 
 
 {% block style %}
+@media only screen and (max-width: 400px){
+.s-content{
+    padding-top: 50px;
+}
+.hr{
+    display: none;
+}
+}
+
 
 .article_class{
     margin-top: 50px;
@@ -71,6 +80,27 @@
     border-radius: 10px;
     font-weight: 500;
 }
+.s-content{
+    padding-bottom: 0px;
+}
+.s-extra{
+    padding-top:0px;
+    padding-bottom:0px;
+}
+.ol{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #f2f3f5;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+
+}
+.comments-wrap{
+    margin-top: 0px;
+    padding-bottom: 0px;
+}
 {% endblock %}
 
 
@@ -83,19 +113,19 @@
         <article class="entry format-standard article_class story_detail_article">
             
 
-            <div class="entry__media col-lg-4 col-md-4 col-sm-4 col-xs-8 story_detail_image">
+            <div class="entry__media col-lg-4 col-md-4 col-sm-4 col-xs-8 story_detail_image slide-in-fwd-center">
                 <div class="entry__post-thumb">
                     <img src="{{ story.image_url}}" alt="">
                     <span class="sideelement">
                         <a href="#">
                             {{ story.views }}
-                            <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
+                            <i class="fas fa-eye" style="color: black;"></i>
                         </a>
                         {% if user.is_authenticated %}
                         <a class="like_btn" data-href="{% url 'like' story.pk %}" requestuser-id="{{ request.user.pk }}"
                             story-id="{{ story.pk }}" like-count='{{ story.likes.count }}'>
                             <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
-                            <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
+                            <i class="fas fa-thumbs-up" style="color: black;"></i>
                         </a>
                         {% else %}
                             <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
@@ -106,18 +136,18 @@
 
 
             <div class="entry__header col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
-                <h1 class="entry__header-title display-1 my_story_title story_detail_title" 
+                <h1 class="entry__header-title display-1 my_story_title story_detail_title focus-in-contract-bck" 
                 style="margin-bottom: 0px;">
                     {{ story.full_name }}
                 </h1>
                 {% if story.author == request.user %}
-                        <a href="{% url 'edit_story' story.pk %}" class="btn btn-primary" style="float:right;">
+                        <a href="{% url 'edit_story' story.pk %}" class="btn btn-primary col-lg-3 col-md-3 col-sm-3 col-xs-8" style="float:right;">
                             Edit Story
                         </a>
                 {% endif %}
 
 
-                <hr>
+                <hr class="hr">
                 <ul class="entry__header-meta story_detail_date">
                     <li class="date">{{ story.last_updated }}</li>
                     <li class="byline">
@@ -137,7 +167,8 @@
                     <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Read how {{ story.full_name }} shaped my life " data-url="{{ request.build_absolute_uri }}" data-hashtags="#peopleshapingpeople" data-lang="en" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     </li>
                     <li>
-                        <a class="btn whatsapp-btn" href="whatsapp://send?text=Read how {{ story.fullname }} shaped my life {{ request.build_absolute_uri }}!" data-action="share/whatsapp/share"><img src="{% static 'images/icons/whatsapp.png' %}" alt="whatsapp"></a>
+                        <a href="whatsapp://send?text=Read how {{ story.fullname }} shaped my life {{ request.build_absolute_uri }}!" data-action="share/whatsapp/share"><i class="fab fa-whatsapp"></i></a>
+                        
                     </li>
                     
                 </ul>
@@ -156,7 +187,7 @@
             </div>
 
 
-        <div class="entry__author posted_by_section col-lg-4 col-md-4 col-sm-4 col-xs-12 " style="margin-bottom: 20px;">
+        <div class="entry__author posted_by_section col-lg-4 col-md-4 col-sm-4 col-xs-12 slide-in-fwd-center" style="margin-bottom: 20px;">
         {% if story.author.userprofile.profile_pic %}
             <img src="{{ story.author.userprofile.profile_pic.url }}" alt="">
         {% endif %}
@@ -193,7 +224,7 @@
                     <h3 class="h2">{{ story.comments.count }} Comments </h3>
 
                     <!-- START commentlist -->
-                    <ol class="commentlist">
+                    <ol class="commentlist ol">
 
                         {% for comment in story.comments.all %}
                         <li class="depth-1 comment">
@@ -244,7 +275,7 @@
                     {% csrf_token %}
 
                             <div class="message form-field">
-                                <textarea style="background: white;" name="comment_content" id="id_comment_content" class="full-width" placeholder="Your Message*" required></textarea>
+                                <textarea name="comment_content" id="id_comment_content" class="full-width" placeholder="Your Message*" required></textarea>
                             </div>
 
                             <input name="submit" id="submit" class="btn btn-wide btn--large full-width" value="Add Comment" type="submit">

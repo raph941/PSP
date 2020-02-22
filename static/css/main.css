@@ -752,7 +752,6 @@ textarea,
 select {
   display: block;
   height: 6.6rem;
-  padding: 1.8rem 0;
   border: 0;
   outline: none;
   color: rgba(0, 0, 0, 0.8);
@@ -2048,7 +2047,7 @@ body.search-is-visible {
 
 .header__nav li a {
   display: block;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgb(0, 0, 0);
   -webkit-transition: color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;
 }
@@ -2398,7 +2397,7 @@ body.search-is-visible {
 .s-featured {
   padding: 15rem 0 10.2rem;
   padding-top: 90px;
-  background-color: #f2f2f2;
+  background-color: white;
 }
 
 .featured-slider {
@@ -2543,7 +2542,6 @@ body.search-is-visible {
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
   opacity: .4;
-  background-color: #000000;
   z-index: 1;
 }
 
@@ -2824,7 +2822,7 @@ body.search-is-visible {
  *
  * ------------------------------------------------------------------- */
 .s-content {
-  background-color: #f2f2f2;
+  background-color: white;
   padding-top: 5rem;
   padding-bottom: 7.2rem;
 }
@@ -3896,8 +3894,6 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
  * ## comments 
  * ------------------------------------------------------------------- */
 .comments-wrap {
-  padding: 4.5rem 0 7.2rem;
-  margin-top: 10.2rem;
   margin-top: 15px;
 }
 
@@ -3942,7 +3938,6 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
   list-style: none;
   margin: 0;
   padding: 1.8rem 0 0 0;
-  padding-left: 14%;
 }
 
 .comment__avatar {
@@ -4298,7 +4293,7 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
 
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgb(0, 0, 0);
   text-decoration: none;
   display: block;
   font-size: small;
