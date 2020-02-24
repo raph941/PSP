@@ -26,7 +26,30 @@
     position: relative;
     margin-top: 25px;
 }
-    {% block style %}{% endblock %}
+.message_notification_icn{
+    float: right;
+    right:55px;
+    position: relative;
+    margin-top: 25px;
+}
+.badgee:after {
+    content: "{{ request.user.userprofile.unread_messages.count }}";
+    position: absolute;
+    background: rgb(234, 52, 52);
+    height: 2rem;
+    top: 1.3rem;
+    right: 5rem;
+    width: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 1rem;
+    border-radius: 50%;
+    color: white;
+    border: 1px solid #e24444;
+    z-index: 2;
+}
+
+{% block style %}{% endblock %}
 </style>
 
 <body id="top">
@@ -49,8 +72,12 @@
 
         <!--message icon for navbar-->
         {% if user.is_authenticated %}
-            <a href="{% url 'message_url' %}"> <i class="fas fa-envelope message_icn"></i> 
-            </a>
+            {% if request.user.userprofile.unread_messages.count > 0 %}
+                <a href="{% url 'message_url' %}"><span class="badgee "></span> <i class="fas fa-envelope message_icn "></i> </a>
+            {% else %}
+                <a href="{% url 'message_url' %}"></span> <i class="fas fa-envelope message_icn "></i> </a>
+            {% endif %}            
+
         {% else %}
         {% endif %}
         <!--end of message icon-->
@@ -75,7 +102,7 @@
             <div id="myDropdown" class="dropdown-content">
                 <a href="{% url 'create_story' %}" class="dropdown-anchor">New Story</a>
                 <a href="{% url 'my_stories' %}" class="dropdown-anchor">My Stories</a>
-                <a href="{% url 'myprofile' user.pk %}" class="dropdown-anchor">Profile</a>
+                <a href="{% url 'myprofile' request.user.pk %}" class="dropdown-anchor">Profile</a>
                 {% comment %} <a href="" class="dropdown-anchor">Help</a> {% endcomment %}
                 <a href="{% url 'logout' %}" class="dropdown-anchor">Sign out</a>
 

@@ -26,7 +26,13 @@ def ConversationToggleView(request):
     if request.method == 'GET':
         user_id = request.GET['user_pk']
         user2 = User.objects.get(pk=user_id)
-        msg_obj = Inbox.get_conversation(request.user, user2, limit=None, reversed=False, mark_read=True)        
+
+        temp_msg_obj = Inbox.get_conversation(request.user, user2, limit=None, reversed=False, mark_read=False) 
+        if temp_msg_obj.last().sender == request.user:
+            msg_obj = Inbox.get_conversation(request.user, user2, limit=None, reversed=False, mark_read=False) 
+        else:
+            msg_obj = Inbox.get_conversation(request.user, user2, limit=None, reversed=False, mark_read=True) 
+            
         data = serializers.serialize("json", msg_obj)
            
         return JsonResponse(data, safe=False)
@@ -41,7 +47,7 @@ def MessagePostView(request):
         user2 = User.objects.get(pk=reciever_pk)
 
         Inbox.send_message(user1, user2, msg_content)
-        message_obj = Inbox.get_conversation(user1, user2, limit=None, reversed=False, mark_read=True)        
+        message_obj = Inbox.get_conversation(user1, user2, limit=None, reversed=False, mark_read=False)        
         post_data = serializers.serialize("json", message_obj)
 
         return JsonResponse(post_data, safe=False)

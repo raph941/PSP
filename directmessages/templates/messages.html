@@ -68,6 +68,7 @@ a:hover {
 	  </div>
 
 	  <div class="inbox_chat scroll" >
+	  
 		{% for user in conv_partners %}
 
 		<div class="chat_list chat_list_{{ user.pk }}" user-pk="{{ user.pk }}">
@@ -78,15 +79,23 @@ a:hover {
 				<div class="chat_img" > <img class="chat_img_{{ user.pk }}" src="{% static 'images/face.png' %}" alt="sunil"> </div>
 			{% endif %}
 			<div class="chat_ib">
-			  <h5>
-			  <a class="con_fullname" style="color:black;" href="#" data-href="{% url 'conversation_url' %}" pkey={{ user.pk }}
-			  	username = {{ user.username }} image-url="{% static 'images/face.png' %}">
-			  	 {{ user.first_name }} {{ user.last_name }}
-			  </a>
+			  <h5 class="h5">
+				<a class="con_fullname" style="color:black;" href="#" data-href="{% url 'conversation_url' %}" pkey={{ user.pk }}
+					username = {{ user.username }} image-url="{% static 'images/face.png' %}">
+					{{ user.first_name }} {{ user.last_name }} 
+					{% if user.userprofile.online == True %}
+                        <i class="fas fa-circle" style="color: #22f722;font-size: 1rem;"></i>
+					{% else %}
+					{% endif %}
+					
+				</a>
 			  	<span class="chat_date">
-			  		<span class="badge badge-primary badge-pill">1</span>
+				{% if user.userprofile.unread_messages_from_me.count > 0 %}
+					<span class="badge badge-danger badge-pill" pk={{ user.pk }}>{{ user.userprofile.unread_messages_from_me.count }}</span>
+				{% else %}
+				{% endif %}
 				</span></h5>
-			  <p>Click to view conversation</p>
+			  <p>{{ user.userprofile.last_msg_from_user }}</p>
 			</div>
 		  </div>
 		</div>
@@ -153,6 +162,7 @@ a:hover {
 			var partner_image = this_.attr("image-url")
 			$('.chat_list').removeClass("active_chat"); 
 			$('.chat_list_' + user_pk).addClass("active_chat");
+			$('.active_chat').children(".chat_people").children('.chat_ib').children('.h5').children('.chat_date').children('.badge').hide()
 
 			//start: this is for enhansing the media queries function for smaller screen
 				if ($('.header').width() <= 600 ){
@@ -239,11 +249,25 @@ a:hover {
 			});
 	});
 
+	//handles hiding the arrow icon on larger screens
 	$(window).ready(function(){
 
        if ($('.header').width() >= 600) {  
             $('.arrow_icon_a').hide()
        }     
+
+	});
+
+	//handles case of resize
+	$(window).resize(function() {
+		if ($('.header').width() >= 600) {  
+			$('.arrow_icon_a').hide()
+			$('.inbox_people').show()
+       	}else{
+			$('.mesgs').hide()
+			$('.arrow_icon_a').hide()
+			$('.inbox_people').show()
+		   }
 
 	});
 	

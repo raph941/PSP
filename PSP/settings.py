@@ -78,6 +78,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'directmessages.middleware.RequestMiddleware',
+    'accounts.activeuser_middleware.OnlineNowMiddleware',
 ]
 
 ROOT_URLCONF = 'PSP.urls'
@@ -127,23 +129,6 @@ DATABASES = {
 #     }
 # }
 
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
 
 
 # Internationalization
@@ -201,3 +186,18 @@ cloudinary.config(
   api_secret = config('api_secret'),  
 )
 
+
+#cache settings
+# Setup caching per Django docs. In actuality, you'd probably use memcached instead of local memory.
+CACHES = { 'default': { 
+            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache', 
+            'LOCATION': '/var/tmp/django_cache', 
+            } 
+        }
+
+# Number of seconds of inactivity before a user is marked offline
+USER_ONLINE_TIMEOUT = 300
+
+# Number of seconds that we will keep track of inactive users for before 
+# their last seen is removed from the cache
+USER_LASTSEEN_TIMEOUT = 60 * 60 * 24 * 7
