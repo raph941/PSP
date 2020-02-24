@@ -36,6 +36,7 @@ urlpatterns = [
 
     path('accounts/', include('accounts.urls')),
     path('Stories/', include('peoplestory.urls')),
+    path('DM/', include('directmessages.urls')),
     #authentication urls
     url('^', include('django.contrib.auth.urls')),
 

@@ -2047,7 +2047,11 @@ body.search-is-visible {
 
 .header__nav li a {
   display: block;
+<<<<<<< HEAD
   color: rgb(0, 0, 0);
+=======
+  color: rgba(0, 0, 0, 0.85);
+>>>>>>> 59adee1dcbff87f100ef122605e50a13f6857db1
   -webkit-transition: color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;
 }
@@ -4254,7 +4258,7 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
   margin: 3px 0 0 0;
   padding: 0;
   position: absolute;
-  right: 50px;
+  right: 5px;
 }
 .login-txt{
   font-size: 1.2rem;

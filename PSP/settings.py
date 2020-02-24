@@ -47,7 +47,8 @@ INSTALLED_APPS = [
 
     'accounts',
     'peoplestory',
-     'cloudinary',
+    'cloudinary',
+    'directmessages',
 ]
 
 #setting up for saving email in your local directory
@@ -78,6 +79,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'directmessages.middleware.RequestMiddleware',
+    'accounts.activeuser_middleware.OnlineNowMiddleware',
 ]
 
 ROOT_URLCONF = 'PSP.urls'
@@ -109,12 +112,12 @@ AUTH_USER_MODEL = 'accounts.User'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # DATABASES = {
 #             'default': {
@@ -127,11 +130,11 @@ AUTH_USER_MODEL = 'accounts.User'
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+# }
 
 
 # Internationalization
@@ -189,3 +192,18 @@ cloudinary.config(
   api_secret = config('api_secret'),  
 )
 
+
+#cache settings
+# Setup caching per Django docs. In actuality, you'd probably use memcached instead of local memory.
+CACHES = { 'default': { 
+            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache', 
+            'LOCATION': '/var/tmp/django_cache', 
+            } 
+        }
+
+# Number of seconds of inactivity before a user is marked offline
+USER_ONLINE_TIMEOUT = 300
+
+# Number of seconds that we will keep track of inactive users for before 
+# their last seen is removed from the cache
+USER_LASTSEEN_TIMEOUT = 60 * 60 * 24 * 7
