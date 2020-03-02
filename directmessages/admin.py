@@ -1,4 +1,4 @@
-from .models import Message
+from .models import Message, ChatRoom
 from django.contrib import admin
 
 class MessageAdmin(admin.ModelAdmin):
@@ -6,3 +6,9 @@ class MessageAdmin(admin.ModelAdmin):
     list_display = ('id', 'sender', 'content', )
 
 admin.site.register(Message, MessageAdmin)
+
+class ChatRoomAdmin(admin.ModelAdmin):
+    model = ChatRoom
+    list_display = ('id', 'first', 'second', 'timestamp',)
+
+admin.site.register(ChatRoom, ChatRoomAdmin)

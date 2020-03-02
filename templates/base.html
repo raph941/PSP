@@ -74,9 +74,9 @@
         <!--message icon for navbar-->
         {% if user.is_authenticated %}
             {% if request.user.userprofile.unread_messages.count > 0 %}
-                <a href="{% url 'message_url' %}"><span class="badgee "></span> <i class="fas fa-envelope message_icn "></i> </a>
+                <a href="{% url 'message_url' %}" class="message-icon"><span class="badgee"></span> <i class="fas fa-envelope message_icn "></i> </a>
             {% else %}
-                <a href="{% url 'message_url' %}"></span> <i class="fas fa-envelope message_icn "></i> </a>
+                <a href="{% url 'message_url' %}" class="message-icon"></span> <i class="fas fa-envelope message_icn "></i> </a>
             {% endif %}            
 
         {% else %}
@@ -141,13 +141,6 @@
 
             <ul class="header__nav">
                 <li class="current"><a href="{% url 'home' %}" title="">Home</a></li>
-                {% comment %} <li class="has-children">
-                    <a href="#0" title="">My Stories</a>
-                    <ul class="sub-menu">
-                        <li><a href="{% url 'my_stories' %}">View Stories</a></li>
-                        <li><a href="{% url 'create_story' %}">Add Story</a></li>
-                    </ul>
-                </li> {% endcomment %}
                 <li class="has-children">
                     <a href="#0" title="">Explore</a>
                     <ul class="sub-menu">
@@ -247,7 +240,12 @@
 
 
     {% block javascript %}{% endblock javascript %}
-
+    <script>
+    $('.message-icon').click(function(e){ 
+        $('.badgee').hide()
+    });
+        
+    </script>
     {% block like_btn_script %}
         <script type="text/javascript"> 
             $('.like_btn').click(function(e){ 

@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from .models import Message
+from .models import Message, ChatRoom
 from .signals import message_read, message_sent
 from django.core.exceptions import ValidationError
 from django.utils import timezone
@@ -25,8 +25,9 @@ class MessagingService(object):
 
         if sender == recipient:
             raise ValidationError("You can't send messages to yourself.")
+        room, created = ChatRoom.objects.get_or_new(sender, recipient)
 
-        message = Message(sender=sender, recipient=recipient, content=str(message))
+        message = Message(sender=sender, recipient=recipient, content=str(message), room=room)
         message.save()
 
         message_sent.send(sender=message, from_user=message.sender, to=message.recipient)
@@ -89,6 +90,11 @@ class MessagingService(object):
         # To abolish duplicates
         return list(set(contacts))
 
+    #conversation room
+    def get_conversation_room(self, user1, user2):
+        users = [user1, user2]
+        room = ChatRoom.objects.all().filter(user1__in=users, user2__in=users)
+        return room
     
 
     def get_conversation(self, user1, user2, limit=None, reversed=False, mark_read=False):
