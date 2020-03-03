@@ -1,10 +1,20 @@
 {% extends 'registration/login.html' %}
 {% load static %}
 {% load cloudinary %}
+{% block headerlinks %}
+    <link rel="stylesheet" href="{% static 'css/font-awesome/css/fontawesome.min.css' %}">
+{% endblock %}
+
 {% block style %}
     <style>
     #id_email{
         backgound: blue;
+    }
+    .backtohome{
+    padding: 20px;
+    color: green;
+    font-size: medium;
+    text-decoration: overline;
     }
     </style>
 {% endblock %}
@@ -97,6 +107,10 @@
                 Submit
             </button>
         </div>
+
+        <a href="{% url 'home' %}" class="backtohome">
+            BackToHome
+        </a>
 </form>  
 
 {% endblock %}
