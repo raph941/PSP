@@ -20,7 +20,25 @@
 </head>
 
 <style>
-    {% block style %}{% endblock %}
+{% block style %}{% endblock %}
+.signup_icon{
+    float: right;
+    padding-top: 20px;
+    padding-right: 5px;
+    color: black;
+}
+.nav-link{
+    right: 10px;
+}
+.header__search-trigger-authenticated {
+    right: 50px;
+}
+
+@media only screen and (max-width: 900px){
+.search-trigger-mod {
+    right: 90px;
+}
+}
 </style>
 
 <body id="top">
@@ -48,30 +66,29 @@
             </a>
             {% else %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
-                {% comment %} <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="image" > {% endcomment %}
-                
-                <!--temporary image link-->
-                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{% static 'images/face.png' %}" alt="image" >
-
+                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="image" >
             </a>
             {% endif %}
             <div id="myDropdown" class="dropdown-content">
                 <a href="{% url 'create_story' %}" class="dropdown-anchor">New Story</a>
                 <a href="{% url 'my_stories' %}" class="dropdown-anchor">My Stories</a>
                 <a href="{% url 'myprofile' user.pk %}" class="dropdown-anchor">Profile</a>
-                {% comment %} <a href="" class="dropdown-anchor">Help</a> {% endcomment %}
                 <a href="{% url 'logout' %}" class="dropdown-anchor">Sign out</a>
 
             </div>
 
         </span>
-            
+        <a class="header__search-trigger header__search-trigger-authenticated" href="#0"></a>
         {% else %}
             <a href="{% url 'login' %}" class="navbar-profile-pic login-txt" >
                  <p style="vertical-align: middle; margin-top: 20px;" >Login</p>
-        {% endif %}
+            </a>
+            <a href="{% url 'signup' %}">
+                <i class="fas fa-user-plus signup_icon"></i>
+            </a>
 
-        <a class="header__search-trigger" href="#0"></a>
+            <a class="header__search-trigger search-trigger-mod" href="#0"></a>
+        {% endif %}
 
         <div class="header__search">
             <form role="search" method="get" class="header__search-form" action="{% url 'search_results' %}">
@@ -94,13 +111,6 @@
 
             <ul class="header__nav">
                 <li class="current"><a href="{% url 'home' %}" title="">Home</a></li>
-                {% comment %} <li class="has-children">
-                    <a href="#0" title="">My Stories</a>
-                    <ul class="sub-menu">
-                        <li><a href="{% url 'my_stories' %}">View Stories</a></li>
-                        <li><a href="{% url 'create_story' %}">Add Story</a></li>
-                    </ul>
-                </li> {% endcomment %}
                 <li class="has-children">
                     <a href="#0" title="">Explore</a>
                     <ul class="sub-menu">
