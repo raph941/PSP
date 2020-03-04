@@ -34,10 +34,7 @@
                 </a>
             </div>
         </div>
-        <p class="lead">i live in this world, i thrive, flourish and excel not because i am the best or because i am perfect,
-                    i reach were i am today because God has brougt me in contact with some people. These people shaped
-                    my life, and these are their stories
-        </p>
+        
         
         <div class="row entries-wrap add-top-padding wide">
             <div class="entries">
@@ -67,9 +64,18 @@
                                 <a href="{% url 'story_delete_confirm' story.pk %}">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
+                                {% if story.published == True %}
+                                    <span >
+                                        <p style="font-size: 2rem;margin-bottom: 0px;display: inline;color: #1877f2;"><i class="fas fa-check"></i>Approved</p>
+                                    </span>
+                                {% else %}
+                                    <span >
+                                        <p style="font-size: 2rem;margin-bottom: 0px;display: inline;color: #1877f2;"><i class="fas fa-check"></i>Pending</p>
+                                    </span>
+                                {% endif %}
                             </div>
 
-                            <h1 class="item-entry__title"><a href="">{{ story.full_name }}</a></h1>
+                            <h1 class="item-entry__title"><a href="{% url 'story_detail' story.pk %}">{{ story.full_name }}</a></h1>
                             
                              
                             <div class="item-entry__date">
