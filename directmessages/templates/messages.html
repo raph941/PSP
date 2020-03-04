@@ -47,9 +47,9 @@
     transition: all .2s ease-in-out;
 }
 .back-arrow-icon{
-	border: 1px solid #0275d8;
-    border-radius: 4px;
-	padding: 5px;
+    border: none;
+    padding: 5px;
+    padding-right: 20px;
 }
 a:link { 
     text-decoration: none; 
@@ -92,7 +92,7 @@ a:hover {
 			{% if user.userprofile.profile_pic %}
 				<div class="chat_img"> <img src="{% static 'images/face.png' %}" alt="sunil"> </div>
 			{% else %}
-				<div class="chat_img" > <img class="chat_img_{{ user.pk }}" src="{% static 'images/face.png' %}" alt="sunil"> </div>
+				<a href="{% url 'myprofile' user.pk %}"><div class="chat_img" > <img class="chat_img_{{ user.pk }}" src="{% static 'images/face.png' %}" alt="sunil"> </div></a>
 			{% endif %}
 			<div class="chat_ib">
 			  <h5 class="h5">
@@ -105,15 +105,16 @@ a:hover {
 					{% endif %}
 					
 				</a>
-			  	<span class="chat_date">
-				{% if user.userprofile.unread_messages_from_me.count > 0 %}
-					<span class="badge badge-danger badge-pill" pk={{ user.pk }} badge-no="{{ user.userprofile.unread_messages_from_me.count }}">
-						{{ user.userprofile.unread_messages_from_me.count }}
-					</span>
-				{% else %}
-				{% endif %}
-				</span></h5>
-			  <p>{{ user.userprofile.last_msg_from_user }}</p>
+			  	<span class="chat_date chat_date_{{ user.pk }}">
+					{% if user.userprofile.unread_messages_from_me.count > 0 %}
+						<span class="badge badge-primary badge-pill" pk={{ user.pk }} badge-no="{{ user.userprofile.unread_messages_from_me.count }}">
+							{{ user.userprofile.unread_messages_from_me.count }}
+						</span>
+					{% else %}
+					{% endif %}
+				</span>
+			 </h5>
+			  <p class="p">{{ user.userprofile.last_msg_from_user }}</p>
 			</div>
 		  </div>
 		</div>
@@ -125,9 +126,9 @@ a:hover {
 
 	<!--Start of chat side-->
 	<div class="mesgs" style="padding-top: 10px;padding-left:5px">
-	<a href="#" class="arrow_icon_a" >
+	{% comment %} <a href="#" class="arrow_icon_a" >
 		<i class="fas fa-angle-double-left back-arrow-icon"></i>
-	</a>
+	</a> {% endcomment %}
 		
 		<div class="msg_history">
 		{% if conv_partners %}
@@ -173,9 +174,9 @@ a:hover {
 
 	//start: this is for enhansing the media queries function for smaller screen
 			if ($('.header').width() <= 600 ){
-					$('.inbox_people').hide()
-					$('.mesgs').show()
-					$('.arrow_icon_a').show()
+					$('.inbox_people').show()
+					$('.mesgs').hide()
+					$('.arrow_icon_a').hide()
 				}
 				$('.arrow_icon_a').click(function(e){ 
 					$('.mesgs').hide()
@@ -223,15 +224,9 @@ a:hover {
 					$('.mesgs').show()
 					$('.arrow_icon_a').show()
 				}
-				$('.arrow_icon_a').click(function(e){ 
-					$('.mesgs').hide()
-					$('.inbox_people').show()
-				})
-				if ($('.header').width() >= 600 ){
-						$('.arrow_icon_a').hide()
-					}
-				
-			
+			else{
+					$('.arrow_icon_a').hide()
+			}	
 			//end: end of media queries enhancement	
 			
 			$.ajax({
@@ -244,12 +239,12 @@ a:hover {
 					json_obj = JSON.parse(data)
 					$(".chat_div").empty();
 					if ( partner_onlinestatus == 'True' ){
-						var testHTML = $('<div class="test headind_srch"><span><img style="border-radius:50%;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + ': <span style="padding-left:10px;">online</span></span></div> ')
+						var headHTML = $('<div class="test headind_srch"><span><img style="border-radius:50%;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + ': <span style="padding-left:10px;">online</span></span></div> ')
 					}else {
-						var testHTML = $('<div class="test headind_srch"><span><img style="border-radius:50%;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + '</span></div> ')
+						var headHTML = $('<div class="test headind_srch"><span><a href="#" class="arrow_icon_a" ><i class="fas fa-angle-double-left back-arrow-icon"></i></a></span><span><img style="border-radius:50%;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + '</span></div> ')
 					}
 					
-					$(".chat_div").append(testHTML);
+					$(".chat_div").append(headHTML);
 					$.each(json_obj, function () {
 						var recievedmsgHTML = $('<div> <div class="received_msg"><div class="received_withd_msg"><p>' + this.fields.content + '</p><span class="time_date"> ' + this.fields.sent_at + '</span></div></div> </div>')
 						var sentmsgHTML = $('<div class="outgoing_msg"><div class="sent_msg"><p>' + this.fields.content + '</p><span class="time_date"> ' + this.fields.sent_at + '</span></div></div> ')
@@ -263,7 +258,16 @@ a:hover {
 					});
 					var height = parseInt($('.chat_div').height());
 					$( ".msg_history" ).scrollTop(height)
-					
+					if ($('.header').width() <= 600 ){
+							$('.arrow_icon_a').show()
+						}
+					else{
+							$('.arrow_icon_a').hide()	
+						}
+					$('.arrow_icon_a').click(function(e){ 
+						$('.mesgs').hide()
+						$('.inbox_people').show()
+					})
 			}
 			})
 			
@@ -339,39 +343,87 @@ a:hover {
 		var reciever 			= $( ".chat_list.active_chat" ).attr("user-pk")
 		var partner_image 		= $( ".chat_list.active_chat" ).children(".chat_people").children('.chat_img').children('img').attr('src')
 		var recievedmsgHTML		= $('<div> <div class="received_msg"><div class="received_withd_msg"><p>' + chatDataMsg.message + '</p><span class="time_date"> ' + chatDataMsg.sent_at + '</span></div></div> </div>')
-		var sentmsgHTML 	= $('<div class="outgoing_msg"><div class="sent_msg"><p>' + chatDataMsg.message + '</p><span class="time_date"> ' + chatDataMsg.sent_at + '</span></div></div> ')
+		var sentmsgHTML 		= $('<div class="outgoing_msg"><div class="sent_msg"><p>' + chatDataMsg.message + '</p><span class="time_date"> ' + chatDataMsg.sent_at + '</span></div></div> ')
+		var activeChatPk        = $('.active_chat').attr('user-pk')
+		var msgTxt 				= chatDataMsg.message
+		var shortText 			= jQuery.trim(msgTxt).substring(0, 30).trim(this) + "...";
+		var badgeHTML 			= '<span class="badge badge-pill" style="background-color: #634fd9;">new</span>'
 
-		if (chatDataMsg.sender == reciever) {
+		if (activeChatPk == chatDataMsg.recipient || activeChatPk == chatDataMsg.sender) {
+			if (chatDataMsg.sender == reciever) {
 				$(".chat_div").append(recievedmsgHTML);
 			}
-		else{
+			else{
 				$(".chat_div").append(sentmsgHTML);
-			}
+			}	
+		}
+		else{
+			$(".chat_date_"+ chatDataMsg.sender).html(badgeHTML)
+			$(".chat_date_"+ chatDataMsg.sender).parent(".h5").parent(".chat_ib").children(".p").html(shortText)
+		}
 
 		var height 				= parseInt($('.chat_div').height());
 		$('.form').trigger("reset");
 		$( ".msg_history" ).scrollTop(height)
-		}
+	}
 
 
 	socket.onopen = function(e){
 		console.log("open", e)
+
 		$('.msg_send_btn').off("click").click(function(event){ 
+		// this event would be triggered when the user sends the message
 			event.preventDefault();
 			var message 		= $("#id_content").val();
 			var reciever 		= $( ".chat_list.active_chat" ).attr("user-pk")
 			finalData 			= {
+								"purpose": "post-msg",
 								"message": message,
 								"reciever": reciever,
 								"sender": "{{ request.user.pk }}",
 								'csrfmiddlewaretoken': '{{ csrf_token }}'
 								}
-
 			if (message.length > 0){
 				socket.send(JSON.stringify(finalData))
 									}
-			});
-		}
+		});
+
+		$( "#id_content" ).off("click").click(function() {
+		// this event would be triggered when the user clicks on the input box to send message and it sends data to mark all peevious messages as read
+			var me 				= {{ user.pk }};
+			var other_guy 		=  $( ".chat_list.active_chat" ).attr("user-pk");
+			input_click_data	= {
+								"purpose": "input-click-event",
+								"me": me,
+								"other_guy": other_guy
+								 }
+			socket.send(JSON.stringify(input_click_data))
+		});
+
+		$( ".con_fullname" ).click(function() {
+		// this event would be triggerd when the user clicks on the full name of the conversation parters on the conversation list
+			var me 				= {{ user.pk }};
+			var other_guy 		=  $( ".chat_list.active_chat" ).attr("user-pk");
+			input_click_data	= {
+								"purpose": "fullname-click-event",
+								"me": me,
+								"other_guy": other_guy
+								 }
+			socket.send(JSON.stringify(input_click_data))
+		});
+
+		$( ".chat_div" ).hover(function() {
+		//this event is triggered whenever a user hovers on the container of the messages and it sends data in order to mark all the present messages in the conversation as raed
+			var me 				= {{ user.pk }};
+			var other_guy 		=  $( ".chat_list.active_chat" ).attr("user-pk");
+			input_click_data	= {
+								"purpose": "hover-event",
+								"me": me,
+								"other_guy": other_guy
+								 }
+			socket.send(JSON.stringify(input_click_data))
+		});
+	}
 
 
 	socket.onerror = function(e){
