@@ -106,7 +106,7 @@
         <span class="dropdown">
             {% if request.user.userprofile.profile_pic %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
-                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ user.userprofile.profile_pic.url }}" alt="image" >
+                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ request.user.userprofile.profile_pic.url }}" alt="image" >
             </a>
 
             {% else %}
