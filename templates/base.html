@@ -20,6 +20,25 @@
 </head>
 
 <style>
+.signup_icon{
+    float: right;
+    right: 10px;
+    padding-top: 20px;
+    padding-right: 5px;
+    color: black;
+}
+.nav-link{
+    right: 10px;
+}
+.header__search-trigger-authenticated {
+    right: 90px;
+}
+
+@media only screen and (max-width: 900px){
+.search-trigger-mod {
+    right: 90px;
+}
+}
 .message_icn{
     color: blue;
     float: right;
@@ -87,38 +106,32 @@
         <span class="dropdown">
             {% if request.user.userprofile.profile_pic %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
-                {% comment %} <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ request.user.userprofile.profile_pic.url }}" alt="image" > {% endcomment %}
-                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{% static 'images/face.png' %}" alt="image" >
+                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ user.userprofile.profile_pic.url }}" alt="image" >
             </a>
 
             {% else %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
-                {% comment %} <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="image" > {% endcomment %}
-                
-                <!--temporary image link-->
-                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{% static 'images/face.png' %}" alt="image" >
-
+                 <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="image" >
             </a>
         {% endif %}
             <div id="myDropdown" class="dropdown-content">
                 <a href="{% url 'create_story' %}" class="dropdown-anchor">New Story</a>
                 <a href="{% url 'my_stories' %}" class="dropdown-anchor">My Stories</a>
                 <a href="{% url 'myprofile' request.user.pk %}" class="dropdown-anchor">Profile</a>
-                {% comment %} <a href="" class="dropdown-anchor">Help</a> {% endcomment %}
                 <a href="{% url 'logout' %}" class="dropdown-anchor">Sign out</a>
-
             </div>
-
         </span>
-            
+        <a class="header__search-trigger header__search-trigger-authenticated" href="#0"></a>
         {% else %}
-            <a href="{% url 'login' %}" class="navbar-profile-pic login-txt"  style="right:40px;">
+            <a href="{% url 'login' %}" class="navbar-profile-pic login-txt"  style="right:49px;">
                  <p style="vertical-align: middle; margin-top: 20px;" >Login</p>
-        {% endif %}
-        
+            </a>
+            <a href="{% url 'signup' %}">
+                <i class="fas fa-user-plus signup_icon"></i>
+            </a>
          
-        <a class="header__search-trigger" href="#0" style="right:90px;"></a>
-        
+        <a class="header__search-trigger search-trigger-mod" href="#0"></a>
+        {% endif %}
 
         <div class="header__search">
             <form role="search" method="get" class="header__search-form" action="{% url 'search_results' %}">
