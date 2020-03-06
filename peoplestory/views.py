@@ -23,7 +23,7 @@ from .forms import NewStoryForm, CommentForm, ContactForm, UpdateStoryForm
 
 
 def home(request):
-    my_stories_query = Stories.objects.all().order_by('?')
+    my_stories_query = Stories.objects.filter(published=True).filter(denied=False).order_by('?')
     paginator = Paginator(my_stories_query, 18)
     page = request.GET.get('page', 1)
 
@@ -127,7 +127,7 @@ def CreateStoryView(request):
             story.image.delete()            
             story.save()
             
-            messages.success(request, 'Your story has been successfully created')
+            messages.success(request, 'Your story has been successfully created Not it would be reviewed and published Soon')
 
             return redirect('my_stories')
         else:
@@ -264,8 +264,8 @@ def StoriesLikeToggle(request, pk):
 
         
 def ExploreView(request):
-    recent_stories = Stories.objects.all().order_by('-last_updated')[:9]
-    my_stories_query = Stories.objects.all().order_by('-views')
+    recent_stories = Stories.objects.filter(published=True).filter(denied=False).order_by('-last_updated')[:9]
+    my_stories_query = Stories.objects.filter(published=True).filter(denied=False).order_by('-views')
     paginator = Paginator(my_stories_query, 6)
     page = request.GET.get('page', 1)
 

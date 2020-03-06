@@ -34,9 +34,6 @@ def NewRegularUser(request):
             date_of_birth = form.cleaned_data.get('date_of_birth')
             nationality = form.cleaned_data.get('nationality')
             bio = form.cleaned_data.get('bio')
-
-            
-
             profile_pic = form.cleaned_data.get('profile_pic')
 
             UserProfile.objects.create(phone_number=phone_number, date_of_birth=date_of_birth,

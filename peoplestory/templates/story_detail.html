@@ -131,13 +131,21 @@
                             <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
                             likes
                         {% endif %}
+                        {% if story.author == request.user %}
+                            {% if story.published == True %}
+                                <span >
+                                    <p style="font-size: 2rem;margin-bottom: 0px;display: inline;color: #1877f2;"><i class="fas fa-check"></i>Approved</p>
+                                </span>
+                            {% else %}
+                            {% endif %}
+                        {% endif %}
                 </div>
             </div>
 
 
             <div class="entry__header col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
                 <h1 class="entry__header-title display-1 my_story_title story_detail_title focus-in-contract-bck" 
-                style="margin-bottom: 0px;">
+                style="margin-bottom: 0px;font-size: 4rem;">
                     {{ story.full_name }}
                 </h1>
                 {% if story.author == request.user %}
@@ -168,11 +176,11 @@
                     </li>
                     <li>
                         <a href="whatsapp://send?text=Read how {{ story.fullname }} shaped my life {{ request.build_absolute_uri }}!" data-action="share/whatsapp/share"><i class="fab fa-whatsapp"></i></a>
-                        
                     </li>
                     
                 </ul>
             </div>
+            
 
             <div class="story_detail_text col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
                 <blockquote><p style="font-size: 1.7rem;">

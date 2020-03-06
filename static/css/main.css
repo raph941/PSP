@@ -4268,6 +4268,7 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
+  right: 45px;
 }
 
 /* profile picture dropdown style*/
