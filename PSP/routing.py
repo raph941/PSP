@@ -6,7 +6,6 @@ from channels.security.websocket import AllowedHostsOriginValidator
 from directmessages.consumers import ChatConsumer
 
 application = ProtocolTypeRouter({
-    # (http->django views is added by default)
     'websocket': AllowedHostsOriginValidator(
         AuthMiddlewareStack(
             URLRouter(
