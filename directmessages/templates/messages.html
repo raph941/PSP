@@ -78,8 +78,11 @@ a:hover {
   	<!--start of conversation list sidebar-->
 	<div class="inbox_people">
 	  <div class="headind_srch">
-		<div class="recent_heading">
-		  <h4>Messages</h4>
+		<div class="">
+		  <h4 style="display:inline">Messages </h4>
+		  <a style="float:right;right:0px;" href="{% url 'top_authors' %}">
+		  <img src="{% static 'images/icons/icons8-upload-mail-50.png' %}" >
+		  </a>
 		</div>
 	  </div>
 
@@ -90,21 +93,34 @@ a:hover {
 		<div class="chat_list chat_list_{{ user.pk }}" user-pk="{{ user.pk }}">
 		  <div class="chat_people">
 			{% if user.userprofile.profile_pic %}
-				<div class="chat_img"> <img src="{% static 'images/face.png' %}" alt="sunil"> </div>
+				<div class="chat_img"> <img style="border-radius: 50%;" src="{{ user.userprofile.profile_pic.url }}" alt="sunil"> </div>
 			{% else %}
-				<a href="{% url 'myprofile' user.pk %}"><div class="chat_img" > <img class="chat_img_{{ user.pk }}" src="{% static 'images/face.png' %}" alt="sunil"> </div></a>
+				<a href="{% url 'myprofile' user.pk %}"><div class="chat_img" > <img class="chat_img_{{ user.pk }}" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="sunil"> </div></a>
 			{% endif %}
 			<div class="chat_ib">
 			  <h5 class="h5">
+			  	{% if user.userprofile.profile_pic %}
 				<a class="con_fullname" style="color:black;" href="#" data-href="{% url 'conversation_url' %}" pkey={{ user.pk }}
-					username = {{ user.username }} full-name="{{ user.first_name }} {{ user.last_name }}" image-url="{% static 'images/face.png' %}" online="{{ user.userprofile.online }}">
+					username = {{ user.username }} full-name="{{ user.first_name }} {{ user.last_name }}" image-url="{{ user.userprofile.profile_pic.url }}" online="{{ user.userprofile.online }}">
 					{{ user.first_name }} {{ user.last_name }} 
 					{% if user.userprofile.online == True %}
                         <i class="fas fa-circle" style="color: #22f722;font-size: 1rem;"></i>
 					{% else %}
 					{% endif %}
-					
 				</a>
+				{% else %}
+				<a class="con_fullname" style="color:black;" href="#" data-href="{% url 'conversation_url' %}" pkey={{ user.pk }}
+					username = {{ user.username }} full-name="{{ user.first_name }} {{ user.last_name }}" image-url="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" online="{{ user.userprofile.online }}">
+					{{ user.first_name }} {{ user.last_name }} 
+					{% if user.userprofile.online == True %}
+                        <i class="fas fa-circle" style="color: #22f722;font-size: 1rem;"></i>
+					{% else %}
+					{% endif %}
+				</a>
+				{% endif %}
+					
+					
+				
 			  	<span class="chat_date chat_date_{{ user.pk }}">
 					{% if user.userprofile.unread_messages_from_me.count > 0 %}
 						<span class="badge badge-primary badge-pill" pk={{ user.pk }} badge-no="{{ user.userprofile.unread_messages_from_me.count }}">
@@ -239,9 +255,9 @@ a:hover {
 					json_obj = JSON.parse(data)
 					$(".chat_div").empty();
 					if ( partner_onlinestatus == 'True' ){
-						var headHTML = $('<div class="test headind_srch"><span><img style="border-radius:50%;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + ': <span style="padding-left:10px;">online</span></span></div> ')
+						var headHTML = $('<div class="test headind_srch"><span><a href="#" class="arrow_icon_a" ><i class="fas fa-angle-double-left back-arrow-icon"></i></a></span><span><img style="border-radius:50%;height: -webkit-fill-available;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + ': <span style="padding-left:10px;">online</span></span></div> ')
 					}else {
-						var headHTML = $('<div class="test headind_srch"><span><a href="#" class="arrow_icon_a" ><i class="fas fa-angle-double-left back-arrow-icon"></i></a></span><span><img style="border-radius:50%;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + '</span></div> ')
+						var headHTML = $('<div class="test headind_srch"><span><a href="#" class="arrow_icon_a" ><i class="fas fa-angle-double-left back-arrow-icon"></i></a></span><span><img style="border-radius:50%;height: -webkit-fill-available;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + '</span></div> ')
 					}
 					
 					$(".chat_div").append(headHTML);
