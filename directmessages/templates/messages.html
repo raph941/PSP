@@ -390,22 +390,7 @@ a:hover {
 	socket.onopen = function(e){
 		console.log("open", e)
 
-		$('.msg_send_btn').off("click").click(function(event){ 
-		// this event would be triggered when the user sends the message
-			event.preventDefault();
-			var message 		= $("#id_content").val();
-			var reciever 		= $( ".chat_list.active_chat" ).attr("user-pk")
-			finalData 			= {
-								"purpose": "post-msg",
-								"message": message,
-								"reciever": reciever,
-								"sender": "{{ request.user.pk }}",
-								'csrfmiddlewaretoken': '{{ csrf_token }}'
-								}
-			if (message.length > 0){
-				socket.send(JSON.stringify(finalData))
-									}
-		});
+		
 
 		$( "#id_content" ).off("click").click(function() {
 		// this event would be triggered when the user clicks on the input box to send message and it sends data to mark all peevious messages as read
@@ -431,17 +416,7 @@ a:hover {
 			socket.send(JSON.stringify(input_click_data))
 		});
 
-		$( ".chat_div" ).hover(function() {
-		//this event is triggered whenever a user hovers on the container of the messages and it sends data in order to mark all the present messages in the conversation as raed
-			var me 				= {{ user.pk }};
-			var other_guy 		=  $( ".chat_list.active_chat" ).attr("user-pk");
-			input_click_data	= {
-								"purpose": "hover-event",
-								"me": me,
-								"other_guy": other_guy
-								 }
-			socket.send(JSON.stringify(input_click_data))
-		});
+		
 	}
 
 
