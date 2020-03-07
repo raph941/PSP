@@ -170,7 +170,7 @@ a:hover {
 			<div class="input_msg_write">
 				<form method="Post" class="form" post-href="{% url 'msg_post_url' %}" style="margin-bottom: 0px;height: 50px;">
 					{% csrf_token %}
-					<input id="id_content" type="text" class="write_msg" placeholder="Type a message" />
+					<input id="id_content" type="text" class="write_msg" placeholder="Type a message" autocomplete="off"/>
 					<button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
 				</form>
 			</div>
