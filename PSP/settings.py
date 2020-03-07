@@ -15,7 +15,6 @@ import django_heroku
 import cloudinary
 import dj_database_url
 from decouple import config, Csv
-from channels_redis.core import RedisChannelLayer
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -222,7 +221,7 @@ USER_LASTSEEN_TIMEOUT = 60 * 60 * 24 * 7
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "RedisChannelLayer",
+        "BACKEND": "asgi_redis.RedisChannelLayer",
         "CONFIG": {
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
