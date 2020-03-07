@@ -66,6 +66,9 @@ a:hover {
 	.inbox_people{
 		width: 100%;
 	}
+	.type_msg{
+		margin: 5px
+	}
 }
 {% endblock %}
 
@@ -158,14 +161,14 @@ a:hover {
 			</span>
 		{% endif %}
 
-			<div class = "chat_div">
+			<div class = "chat_div" style="padding-top:65px;">
 				<!--content of this div is manipulated with JavaScript-->
 
 			</div> 
 		</div>
 		<div class="type_msg" >
 			<div class="input_msg_write">
-				<form method="Post" class="form" post-href="{% url 'msg_post_url' %}">
+				<form method="Post" class="form" post-href="{% url 'msg_post_url' %}" style="margin-bottom: 0px;height: 50px;">
 					{% csrf_token %}
 					<input id="id_content" type="text" class="write_msg" placeholder="Type a message" />
 					<button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>

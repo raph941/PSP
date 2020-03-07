@@ -200,7 +200,7 @@ width: 46%;
 }
 
 .input_msg_write input {
-background: rgba(255, 255, 255, 0.64);
+background: rgb(255, 255, 255);
 border: medium none;
 color: #4c4c4c;
 font-size: 15px;
@@ -215,10 +215,6 @@ position: relative;
 }
 
 .msg_send_btn {
-background: #05728f none repeat scroll 0 0;
-border:none;
-border-radius: 50%;
-color: #fff;
 cursor: pointer;
 font-size: 15px;
 height: 33px;
