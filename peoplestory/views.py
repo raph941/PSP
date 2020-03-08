@@ -98,87 +98,97 @@ def Contact(request):
 def CreateStoryView(request):  
     form = NewStoryForm(request.POST, request.FILES)
 
-    if request.method == 'POST':   
- 
+    if request.method == 'POST':  
         if form.is_valid():
             story = form.save(commit=False)
             story.author = request.user
+            if story.image:
+                x = form.cleaned_data.get('x')
+                y = form.cleaned_data.get('y')
+                width = form.cleaned_data.get('width')
+                height = form.cleaned_data.get('height')
 
-            x = form.cleaned_data.get('x')
-            y = form.cleaned_data.get('y')
-            width = form.cleaned_data.get('width')
-            height = form.cleaned_data.get('height')
-
-            image_obj = Image.open(story.image)
-            cropped_image = image_obj.crop((x, y, width+x, height+y))
-            resized_image = cropped_image.resize((400, 420), Image.ANTIALIAS)
-            thumb_io = BytesIO()
-            resized_image.save(thumb_io, image_obj.format)
-            
-            #save to cloudinary
-            try:
-                response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "story_image")
-                image_url = response['secure_url']  
-            except:
+                image_obj = Image.open(story.image)
+                cropped_image = image_obj.crop((x, y, width+x, height+y))
+                resized_image = cropped_image.resize((400, 420), Image.ANTIALIAS)
+                thumb_io = BytesIO()
+                resized_image.save(thumb_io, image_obj.format)
+                
+                #save to cloudinary
+                try:
+                    response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "story_image")
+                    image_url = response['secure_url']  
+                except:
+                    image_url = "https://res.cloudinary.com/people-shaping-people/image/upload/v1581281253/Default%20Images/fantasies-4063346_640_fbaaqb.jpg"
+                    messages.warning(request, 'your image upload failed, you can resolve this by editing your story to add prefered image.')
+                
+                story.image_url = image_url
+                story.image.delete()            
+                story.save()
+                
+                messages.success(request, 'Your story has been successfully created Not it would be reviewed and published Soon')
+            else:
                 image_url = "https://res.cloudinary.com/people-shaping-people/image/upload/v1581281253/Default%20Images/fantasies-4063346_640_fbaaqb.jpg"
-                messages.warning(request, 'your image upload failed, you can resolve this by editing your story to add prefered image.')
-            
-            story.image_url = image_url
-            story.image.delete()            
-            story.save()
-            
-            messages.success(request, 'Your story has been successfully created Not it would be reviewed and published Soon')
+                story.image_url = image_url
+                story.save()
 
             return redirect('my_stories')
         else:
-            messages.warning(request, 'Your story creation was Unsucessful')
-    else:
-
-        form = NewStoryForm()
+            form = NewStoryForm()
+            messages.warning(request, 'Your story creation was Unsucessful') 
 
     return render(request, 'create_story.html', {'form': form})
 
 
 @login_required
 def UpdateStoryView(request, pk):
-    story = Stories.objects.get(pk=pk)  
-    form = UpdateStoryForm(request.POST, request.FILES, instance=story)
+    story_instance = Stories.objects.get(pk=pk)  
+    form = UpdateStoryForm(request.POST, request.FILES, instance=story_instance)
 
     if request.method == 'POST':          
         if form.is_valid():
             story = form.save(commit=False)
             story.author = request.user
 
-            x = form.cleaned_data.get('x')
-            y = form.cleaned_data.get('y')
-            width = form.cleaned_data.get('width')
-            height = form.cleaned_data.get('height')
+            if story.image:
+                x = form.cleaned_data.get('x')
+                y = form.cleaned_data.get('y')
+                width = form.cleaned_data.get('width')
+                height = form.cleaned_data.get('height')
 
-            image_obj = Image.open(story.image)
-            cropped_image = image_obj.crop((x, y, width+x, height+y))
-            resized_image = cropped_image.resize((400, 420), Image.ANTIALIAS)
-            thumb_io = BytesIO()
-            resized_image.save(thumb_io, image_obj.format)
-            
+                image_obj = Image.open(story.image)
+                cropped_image = image_obj.crop((x, y, width+x, height+y))
+                resized_image = cropped_image.resize((400, 420), Image.ANTIALIAS)
+                thumb_io = BytesIO()
+                resized_image.save(thumb_io, image_obj.format)
+                
+                #save to cloudinary
+                try:
+                    response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "story_image")
+                    image_url = response['secure_url']  
+                except:
+                    image_url = story_instance.image_url
+                    messages.warning(request, 'your image upload failed, you can resolve this by editing your story to add prefered image.')
+                
+                story.image_url = image_url
+                story.image.delete()            
+                story.save()
+                
+                messages.success(request, 'Your story has been successfully created Not it would be reviewed and published Soon')
+            else:
+                image_url = story_instance.image_url
+                story.image_url = image_url
+                story.save()
 
-            response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "story_image")
-            image_url = response['secure_url']  
-            
-            story.image_url = image_url
-            story.image.delete()            
-
-            story.save()
-            messages.success(request, 'Your story has been successfully Updated')
 
             return redirect('story_detail', pk)
         else:
+            form = UpdateStoryForm(instance=story_instance)
             messages.warning(request, 'Your story creation was Not Uncessessful')
-    else:
-        form = UpdateStoryForm(instance=story)
 
     context = {
         'form': form,
-        'story': story,
+        'story': story_instance,
     }
 
     return render(request, 'edit_story.html', context)

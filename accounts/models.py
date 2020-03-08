@@ -22,6 +22,7 @@ GENDER = [
 class User(AbstractUser):
     is_regular = models.NullBooleanField(default=False, db_index=True)
     is_admin = models.NullBooleanField(default=False, db_index=True)
+    email = models.EmailField(max_length=254, blank=True, unique=True)
 
 
 class UserProfile(models.Model):
@@ -30,7 +31,8 @@ class UserProfile(models.Model):
     phone_number = models.CharField( max_length=50, blank=True, null=True)
     date_of_birth = models.DateField(auto_now=False, auto_now_add=False)
     nationality = models.CharField( max_length=50, null=True, blank=True)
-    profile_pic = CloudinaryField('image', null=True, blank=True) 
+    profile_pic = models.ImageField(upload_to="profile_pic", null=True, blank=True)
+    profile_pic_url = models.CharField(max_length=2000, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'

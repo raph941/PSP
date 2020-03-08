@@ -196,8 +196,8 @@
 
 
         <div class="entry__author posted_by_section col-lg-4 col-md-4 col-sm-4 col-xs-12 slide-in-fwd-center" style="margin-bottom: 20px;">
-        {% if story.author.userprofile.profile_pic %}
-            <img src="{{ story.author.userprofile.profile_pic.url }}" alt="">
+        {% if story.author.userprofile.profile_pic_url %}
+            <img src="{{ story.author.userprofile.profile_pic_url }}" alt="">
         {% endif %}
 
             <div class="entry__author-about" >
@@ -238,7 +238,7 @@
                         <li class="depth-1 comment">
 
                             <div class="comment__avatar">
-                                <img class="avatar" src="{{ comment.comment_author.userprofile.profile_pic.url }}" alt="" width="50" height="50">
+                                <img class="avatar" src="{{ comment.comment_author.userprofile.profile_pic_url }}" alt="" width="50" height="50">
                             </div>
 
                             <div class="comment__content">

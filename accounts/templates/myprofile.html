@@ -58,8 +58,8 @@ footer{
     <section class=" s-content--top-padding s-content--narrow profile_section">
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10 picture-aside" >
             
-            {% if user.userprofile.profile_pic %}
-                <img class="profile_pic" src="{{ user.userprofile.profile_pic.url }}" alt="">
+            {% if user.userprofile.profile_pic_url %}
+                <img class="profile_pic" src="{{ user.userprofile.profile_pic_url }}" alt="">
             {% else %}
                 <img class="profile_pic" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="">
             {% endif %}

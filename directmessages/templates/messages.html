@@ -95,16 +95,16 @@ a:hover {
 
 		<div class="chat_list chat_list_{{ user.pk }}" user-pk="{{ user.pk }}">
 		  <div class="chat_people">
-			{% if user.userprofile.profile_pic %}
-				<div class="chat_img"> <img style="border-radius: 50%;" src="{{ user.userprofile.profile_pic.url }}" alt="sunil"> </div>
+			{% if user.userprofile._url %}
+				<div class="chat_img"> <img style="border-radius: 50%;" src="{{ user.userprofile.profile_pic_url }}" alt="sunil"> </div>
 			{% else %}
 				<a href="{% url 'myprofile' user.pk %}"><div class="chat_img" > <img class="chat_img_{{ user.pk }}" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="sunil"> </div></a>
 			{% endif %}
 			<div class="chat_ib">
 			  <h5 class="h5">
-			  	{% if user.userprofile.profile_pic %}
+			  	{% if user.userprofile.profile_pic_url %}
 				<a class="con_fullname" style="color:black;" href="#" data-href="{% url 'conversation_url' %}" pkey={{ user.pk }}
-					username = {{ user.username }} full-name="{{ user.first_name }} {{ user.last_name }}" image-url="{{ user.userprofile.profile_pic.url }}" online="{{ user.userprofile.online }}">
+					username = {{ user.username }} full-name="{{ user.first_name }} {{ user.last_name }}" image-url="{{ user.userprofile.profile_pic_url }}" online="{{ user.userprofile.online }}">
 					{{ user.first_name }} {{ user.last_name }} 
 					{% if user.userprofile.online == True %}
                         <i class="fas fa-circle" style="color: #22f722;font-size: 1rem;"></i>

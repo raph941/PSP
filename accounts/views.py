@@ -14,7 +14,11 @@ from django.views.generic import ListView
 from django.db.models.functions import Concat
 from directmessages.apps import Inbox 
 from django.http import JsonResponse
-
+from io import BytesIO
+from PIL import Image
+from django.core.files import File
+from django.core.files.base import ContentFile
+import cloudinary
 
 from .forms import *
 from directmessages.forms import MessageForm
@@ -35,10 +39,30 @@ def NewRegularUser(request):
             nationality = form.cleaned_data.get('nationality')
             bio = form.cleaned_data.get('bio')
             profile_pic = form.cleaned_data.get('profile_pic')
+            if profile_pic:
+                x = form.cleaned_data.get('x')
+                y = form.cleaned_data.get('y')
+                width = form.cleaned_data.get('width')
+                height = form.cleaned_data.get('height')
+
+                image_obj = Image.open(profile_pic)
+                cropped_image = image_obj.crop((x, y, width+x, height+y))
+                resized_image = cropped_image.resize((400, 420), Image.ANTIALIAS)
+                thumb_io = BytesIO()
+                resized_image.save(thumb_io, image_obj.format)
+
+                try:
+                    response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "Regular profile_pic")
+                    image_url = response['secure_url']  
+                except:
+                    image_url = "https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png"
+                    messages.warning(request, 'your image upload failed, you can resolve this by editing your profile.')
+            else:
+                image_url = "https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png"
 
             UserProfile.objects.create(phone_number=phone_number, date_of_birth=date_of_birth,
                                          nationality=nationality, bio=bio,  
-                                         profile_pic=profile_pic, user=user)
+                                         profile_pic_url=image_url, user=user)
             
             return redirect('login')
         else:
@@ -74,15 +98,47 @@ def NewAdminUser(request):
             nationality = form.cleaned_data.get('nationality')
             bio = form.cleaned_data.get('bio')
             profile_pic = form.cleaned_data.get('profile_pic')
+            if profile_pic:
+                x = form.cleaned_data.get('x')
+                y = form.cleaned_data.get('y')
+                width = form.cleaned_data.get('width')
+                height = form.cleaned_data.get('height')
+
+                image_obj = Image.open(profile_pic)
+                cropped_image = image_obj.crop((x, y, width+x, height+y))
+                resized_image = cropped_image.resize((400, 420), Image.ANTIALIAS)
+                thumb_io = BytesIO()
+                resized_image.save(thumb_io, image_obj.format)
+
+                try:
+                    response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "Admin profile_pic")
+                    image_url = response['secure_url']  
+                except:
+                    image_url = "https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png"
+                    messages.warning(request, 'your image upload failed, you can resolve this by editing your profile.')
+            else:
+                image_url = "https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png"
 
             UserProfile.objects.create(phone_number=phone_number, date_of_birth=date_of_birth,
                                          nationality=nationality, bio=bio,  
-                                         profile_pic=profile_pic, user=user)
-            messages.success(request, "successfully Created")
-            return redirect('login')
+                                         profile_pic_url=image_url, user=user)
+            
+            return redirect('home')
         else:
-            messages.error(request, "user was not successfully Created")
             form = RegularUserCreationForm()
+
+            #to vary the message to be shown to the user based on the nature of validationerror they make
+            username = request.POST['username']
+            mail = request.POST['email']
+            password1 = request.POST['password1']
+            password2 = request.POST['password2']
+
+            if User.objects.filter(email=mail).exists():
+                messages.error(request, "A user with thesame Email already exists, if it's you please proceed to Login")
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "A user with thesame Username already exists")
+            if password1 and password1 != password2:
+                messages.error(request, "passwords did not match")
 
     return render(request, 'signup_regular.html', {'form': form})
 
@@ -101,24 +157,56 @@ def MyProfile(request, pk):
 
 @login_required
 def UserProfileUpdateView(request, pk): 
+    uu_form = UserUpdateForm(request.POST, instance=request.user)
+    upu_form = UserProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
     if request.method == 'POST':
-        uu_form = UserUpdateForm(request.POST, instance=request.user)
-        upu_form = UserProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
         if uu_form.is_valid and upu_form.is_valid():
             uu_form.save()
             form = upu_form.save(commit=False)
-            if request.POST.get('profile_pic'):
-                form.save()
-            else:
-                form.profile_pic = request.user.userprofile.profile_pic
-                form.save()
+
+            if upu_form.cleaned_data.get("profile_pic"):
+                x = upu_form.cleaned_data.get('x')
+                y = upu_form.cleaned_data.get('y')
+                width = upu_form.cleaned_data.get('width')
+                height = upu_form.cleaned_data.get('height')
+                obj = upu_form.cleaned_data.get("profile_pic")
+
+                image_obj = Image.open(obj)
+                cropped_image = image_obj.crop((x, y, width+x, height+y))
+                resized_image = cropped_image.resize((400, 420), Image.ANTIALIAS)
+                thumb_io = BytesIO()
+                resized_image.save(thumb_io, image_obj.format)
+                #save to cloudinary
+                try:
+                    if request.user.is_admin:
+                        response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "Admin profile_pic")
+                    else:
+                        response = cloudinary.uploader.upload(ContentFile(thumb_io.getvalue()), folder = "Regular profile_pic")
+                    image_url = response['secure_url']  
+                except:
+                    image_url = "request.user.userprofile.profile_pic_url"
+                    messages.warning(request, 'your image upload failed, you can resolve this by editing your story to add prefered image.')
                 
-
+                form.profile_pic_url = image_url
+                form.profile_pic.delete()
+                form.save()
+                messages.success(request, 'Your profile has been successfully updated')
+            else:
+                form.profile_pic_url = request.user.userprofile.profile_pic_url
+                form.save()
             return redirect('myprofile', pk)
-    else:
-        uu_form = UserUpdateForm(instance=request.user)
-        upu_form = UserProfileUpdateForm(instance=request.user.userprofile)
+        else:
+            #to vary the message to be shown to the user based on the nature of validationerror they make
+            uu_form = UserUpdateForm(instance=request.user)
+            upu_form = UserProfileUpdateForm(instance=request.user.userprofile)
+            username = request.POST['username']
+            mail = request.POST['email']
 
+            if User.objects.filter(email=mail).exists():
+                messages.error(request, "A user with thesame Email already exists, if it's you please proceed to Login")
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "A user with thesame Username already exists")
+                
     context = {
         'uu_form': uu_form,
         'upu_form': upu_form,
