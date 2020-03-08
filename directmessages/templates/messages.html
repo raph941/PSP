@@ -95,7 +95,7 @@ a:hover {
 
 		<div class="chat_list chat_list_{{ user.pk }}" user-pk="{{ user.pk }}">
 		  <div class="chat_people">
-			{% if user.userprofile._url %}
+			{% if user.userprofile.profile_pic_url %}
 				<div class="chat_img"> <img style="border-radius: 50%;" src="{{ user.userprofile.profile_pic_url }}" alt="sunil"> </div>
 			{% else %}
 				<a href="{% url 'myprofile' user.pk %}"><div class="chat_img" > <img class="chat_img_{{ user.pk }}" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="sunil"> </div></a>
