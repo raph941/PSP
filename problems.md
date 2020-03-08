@@ -1,0 +1,3 @@
+# Chat integrations
+    1. when a user is connected or the socket is open, and a new user connects to that socket too and and sends a message, the message would not be delivered in real time, until the first person to be connected initiates a message first then everything starts  working well
+    2. i need to find a way to display know when the message has been deliverd to the user such that when that happens i would be able to mark it as raed/not

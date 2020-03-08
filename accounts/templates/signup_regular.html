@@ -3,6 +3,8 @@
 {% load cloudinary %}
 {% block headerlinks %}
     <link rel="stylesheet" href="{% static 'css/font-awesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cropper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
 {% endblock %}
 
 {% block style %}
@@ -48,42 +50,42 @@
     
         <div class="wrap-input100 validate-input m-b-26 form-group" data-validate="username is required">
             <span class="label-input100">Username</span>
-            <input class="input100 form-control" type="text" name="username" id="id_username" placeholder="choose a username" required>
+            <input class="input100 form-control" type="text" name="username" id="id_username" placeholder="choose a username" autocomplete="off" required>
             <span class="focus-input100"></span>
         </div>
         <div class="wrap-input100 validate-input m-b-26 form-group">
             <span class="label-input100">Frist Name</span>
-            <input class="input100 form-control" type="text" name="first_name" maxlength="30" id="id_first_name" placeholder="John" required>
+            <input class="input100 form-control" type="text" name="first_name" maxlength="30" id="id_first_name" placeholder="John" autocomplete="off" required>
             <span class="focus-input100"></span>
         </div>
         <div class="wrap-input100 validate-input m-b-26 form-group" >
             <span class="label-input100">Last Name</span>
-            <input class="input100 form-control" type="text" name="last_name" maxlength="30" id="id_last_name" placeholder="Doe" required>
+            <input class="input100 form-control" type="text" name="last_name" maxlength="30" id="id_last_name" placeholder="Doe" autocomplete="off" required>
             <span class="focus-input100"></span>
         </div>
         <div class="wrap-input100 validate-input m-b-26 form-group">
             <span class="label-input100">Date of Birth</span>
-            <input type="date" class="input100 dateinput form-control"  name="date_of_birth" id="id_date_of_birth" placeholder="Select a date" required>
+            <input type="date" class="input100 dateinput form-control"  name="date_of_birth" id="id_date_of_birth" placeholder="Select a date" autocomplete="off" required>
             <span class="focus-input100"></span>
         </div>
         <div class="wrap-input100 validate-input m-b-26 form-group">
             <span class="label-input100">Bio</span>
-            <input type="text" class="input100 dateinput form-control"  name="bio" id="id_bio" placeholder="enter a short description about yourself" required>
+            <input type="text" class="input100 dateinput form-control"  name="bio" id="id_bio" placeholder="enter a short description about yourself" autocomplete="off" >
             <span class="focus-input100"></span>
         </div>
         <div class="wrap-input100 validate-input m-b-26 form-group" data-validate="email is required">
             <span class="label-input100">Email</span>
-            <input class="input100 form-control" type="email" name="email" id="id_email" placeholder="abcdef@gmail.com" maxlength="254" required>
+            <input class="input100 form-control" type="email" name="email" id="id_email" placeholder="abcdef@gmail.com" maxlength="254" autocomplete="off" required>
             <span class="focus-input100"></span>
         </div>
         <div class="wrap-input100 validate-input m-b-26 form-group">
             <span class="label-input100">Phone</span>
-            <input class="input100 form-control" type="number" name="phone_number" maxlength="30" id="id_phone_number" placeholder="enter phone number" required>
+            <input class="input100 form-control" type="number" name="phone_number" maxlength="30" id="id_phone_number" placeholder="enter phone number" autocomplete="off" required>
             <span class="focus-input100"></span>
         </div>
         <div class="wrap-input100 validate-input m-b-26 form-group">
             <span class="label-input100">Nationality</span>
-            <input class="input100 form-control" type="text" name="nationality" id="id_nationality" placeholder="enter nationality" required>
+            <input class="input100 form-control" type="text" name="nationality" id="id_nationality" placeholder="enter nationality" autocomplete="off" required>
             <span class="focus-input100"></span>
         </div>
         <div class="wrap-input100 validate-input m-b-26 form-group">
@@ -102,6 +104,12 @@
             <span class="focus-input100"></span>
         </div>
 
+        <!--hidden fields to retrieve image croipping properties-->
+            <input type="hidden" name="x" step="any" id="id_x">
+            <input type="hidden" name="y" step="any" id="id_y">
+            <input type="hidden" name="width" step="any" id="id_width">
+            <input type="hidden" name="height" step="any" id="id_height"> 
+        
         <div class="container-login100-form-btn">
             <button class="login100-form-btn" type="submit">
                 Submit
@@ -113,5 +121,70 @@
         </a>
 </form>  
 
+<!-- MODAL TO CROP THE IMAGE -->
+            <div class="modal fade" id="modalCrop">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-body">
+                    <img src="" id="image" style="max-width: 100%;">
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group pull-left" role="group">
+                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary js-crop-and-upload">Crop</button>
+                </div>
+                </div>
+            </div>
+            </div> 
+
+
 {% endblock %}
+
+{% block Javascript %}
+    <script>
+        $("#id_profile_pic").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#image").attr("src", e.target.result);
+                    $("#modalCrop").modal("show");
+                }
+                reader.readAsDataURL(this.files[0]);
+
+                var $image = $("#image");
+
+                var cropBoxData;
+                var canvasData;
+                $("#modalCrop").on("shown.bs.modal", function () {
+                    $image.cropper({
+                        viewMode: 1,
+                        aspectRatio: 1/1,
+                        minCropBoxWidth: 200,
+                        minCropBoxHeight: 200,
+                        ready: function () {
+                        $image.cropper("setCanvasData", canvasData);
+                        $image.cropper("setCropBoxData", cropBoxData);
+                        }
+                    });
+                }).on("hidden.bs.modal", function () {
+                    cropBoxData = $image.cropper("getCropBoxData");
+                    canvasData = $image.cropper("getCanvasData");
+                    $image.cropper("destroy");
+                    });
+
+                $(".js-crop-and-upload").click(function () {
+                    var cropData = $image.cropper("getData");
+                    $("#id_x").val(cropData["x"]);
+                    $("#id_y").val(cropData["y"]);
+                    $("#id_height").val(cropData["height"]);
+                    $("#id_width").val(cropData["width"]);
+                    //$("#formUpload").submit();
+                    $('#modalCrop').modal('hide')
+            });
+        }
+    });
+    </script> 
+    <script src="{% static 'js/cropper.min.js' %}"></script>
+{% endblock Javascript %}
        

@@ -46,6 +46,10 @@ footer{
 .stories_title{
     color:#2f85d9;
 }
+<!--Modal styling-->
+.modal-title{
+    margin: 0px;
+}
  {% endblock %}
 
 
@@ -54,17 +58,25 @@ footer{
     <section class=" s-content--top-padding s-content--narrow profile_section">
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10 picture-aside" >
             
-            {% if user.userprofile.profile_pic %}
-                <img class="profile_pic" src="{{ user.userprofile.profile_pic.url }}" alt="">
+            {% if user.userprofile.profile_pic_url %}
+                <img class="profile_pic" src="{{ user.userprofile.profile_pic_url }}" alt="">
             {% else %}
                 <img class="profile_pic" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="">
             {% endif %}
                 <p style="color: rgba(0, 0, 0, 0.5);">@{{ user.username }}
-                   <a href="#"> <i class="fas fa-envelope" style="padding-left:10px;"></i> </a>
-                </p>
-
+                {% if request.user != user %}
+                   <a data-toggle="modal" data-target="#Modal" data-whatever="@mdo"> 
+                        <i class="fas fa-envelope" style="padding-left:10px;"></i> 
+                   </a>
+                {% endif %}
                 
-
+                {% if user.userprofile.online == True %}
+                        <i class="fas fa-circle" style="color: #22f722;font-size: 1rem;"></i><span style="color:">online</span>
+                {% else %}
+                {% endif %}
+                    
+                </p>
+                
             <h1 class="entry__header-title display-1 " 
                 style="margin-bottom: 0px; color: slategrey;">
                     {{ user.first_name }} {{ user.last_name }}
@@ -123,4 +135,77 @@ footer{
 
     </section> <!-- end s-extra -->
 
+    <!-- CHAT MODAL -->
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        
+        <div class="modal-body">
+            <form>
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label" style="padding-left: 0px;font-size: 1.6rem;">
+                    Recipient: 
+                </label>
+                <input type="text" class="form-control" id="recipient-name" value="@{{ user.username }}" disabled
+                        style="
+                                padding-bottom: 0px;
+                                padding-top: 0px;
+                                height: 50px;
+                                padding-left: 10px;
+                            ">
+            </div>
+            <div class="form-group">
+                <form method="Post" class="form" post-href="{% url 'msg_post_url' %}">
+					{% csrf_token %}
+                    <label for="message-text" class="col-form-label" style="padding-left: 0px;font-size: 1.6rem;">Message:</label>
+                    <textarea class="form-control" id="id_content" style="font-size: 1.6rem;"></textarea>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="Submit" class="btn btn-primary btn_submit">Send message</button>
+                </form>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!--end of CHAT MODAL-->
+
 {% endblock content %}
+
+{% block javascript %}
+
+<script>
+
+$('.btn_submit').click(function(e){ 
+		e.preventDefault();
+        var recipient = {{ user.pk }}
+        post_url = "{% url 'msg_profile_post_url' %}"
+        var message = $('#id_content').val();
+
+        $.ajax({
+				url: post_url,
+				method: "POST",
+				data: {
+					"recipient": recipient,
+                    "message": message,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+				},
+                success: function(data){
+                    console.log(data)
+                    if (data.status == 'success'){
+				            $("#Modal").modal("hide");                            
+			            }   
+			        else{
+                            $("#Modal").modal("hide");
+                            alert("sorry your message was not successfully sent \n try again!!");                            
+			            } 
+                }
+        });
+			
+});
+
+	</script>
+
+    {% endblock javascript %}

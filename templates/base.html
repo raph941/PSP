@@ -20,9 +20,9 @@
 </head>
 
 <style>
-{% block style %}{% endblock %}
 .signup_icon{
     float: right;
+    right: 10px;
     padding-top: 20px;
     padding-right: 5px;
     color: black;
@@ -31,7 +31,7 @@
     right: 10px;
 }
 .header__search-trigger-authenticated {
-    right: 60px;
+    right: 90px;
 }
 
 @media only screen and (max-width: 900px){
@@ -39,6 +39,37 @@
     right: 90px;
 }
 }
+.message_icn{
+    color: blue;
+    float: right;
+    right:55px;
+    position: relative;
+    margin-top: 25px;
+}
+.message_notification_icn{
+    float: right;
+    right:55px;
+    position: relative;
+    margin-top: 25px;
+}
+.badgee:after {
+    content: "{{ request.user.userprofile.unread_messages.count }}";
+    position: absolute;
+    background: rgb(234, 52, 52);
+    height: 2rem;
+    top: 1.3rem;
+    right: 5rem;
+    width: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 1rem;
+    border-radius: 50%;
+    color: white;
+    border: 1px solid #e24444;
+    z-index: 2;
+}
+
+{% block style %}{% endblock %}
 </style>
 
 <body id="top">
@@ -57,37 +88,49 @@
                 <img src="{% static 'images/ppp.png' %}" alt="Homepage">
             </a>
         </div> <!-- end header__logo -->
+        
+
+        <!--message icon for navbar-->
+        {% if user.is_authenticated %}
+            {% if request.user.userprofile.unread_messages.count > 0 %}
+                <a href="{% url 'message_url' %}" class="message-icon"><span class="badgee"></span> <i class="fas fa-envelope message_icn "></i> </a>
+            {% else %}
+                <a href="{% url 'message_url' %}" class="message-icon"></span> <i class="fas fa-envelope message_icn "></i> </a>
+            {% endif %}            
+
+        {% else %}
+        {% endif %}
+        <!--end of message icon-->
 
         {% if user.is_authenticated %} 
         <span class="dropdown">
-            {% if request.user.userprofile.profile_pic %}
+            {% if request.user.userprofile.profile_pic_url %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
-                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ request.user.userprofile.profile_pic.url }}" alt="image" >
+                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="{{ request.user.userprofile.profile_pic_url }}" alt="image" >
             </a>
+
             {% else %}
             <a onclick="myDropdown()" class="navbar-profile-pic nav-link " data-toggle="dropdown" id="profileDropdown" aria-expanded="true">
-                <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="image" >
+                 <img class="avatar nav-avatar dropbtn" style="border-radius: 50%;vertical-align: middle;margin-top: 10px;" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="image" >
             </a>
-            {% endif %}
+        {% endif %}
             <div id="myDropdown" class="dropdown-content">
                 <a href="{% url 'create_story' %}" class="dropdown-anchor">New Story</a>
                 <a href="{% url 'my_stories' %}" class="dropdown-anchor">My Stories</a>
-                <a href="{% url 'myprofile' user.pk %}" class="dropdown-anchor">Profile</a>
+                <a href="{% url 'myprofile' request.user.pk %}" class="dropdown-anchor">Profile</a>
                 <a href="{% url 'logout' %}" class="dropdown-anchor">Sign out</a>
-
             </div>
-
         </span>
         <a class="header__search-trigger header__search-trigger-authenticated" href="#0"></a>
         {% else %}
-            <a href="{% url 'login' %}" class="navbar-profile-pic login-txt" >
+            <a href="{% url 'login' %}" class="navbar-profile-pic login-txt"  style="right:49px;">
                  <p style="vertical-align: middle; margin-top: 20px;" >Login</p>
             </a>
             <a href="{% url 'signup' %}">
                 <i class="fas fa-user-plus signup_icon"></i>
             </a>
-
-            <a class="header__search-trigger search-trigger-mod" href="#0"></a>
+         
+        <a class="header__search-trigger search-trigger-mod" href="#0"></a>
         {% endif %}
 
         <div class="header__search">
@@ -205,11 +248,17 @@
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/plugins.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/modernizr.js' %}"></script>
     <script src="{% static 'js/dropdown.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
 
     {% block javascript %}{% endblock javascript %}
-
+    <script>
+    $('.message-icon').click(function(e){ 
+        $('.badgee').hide()
+    });
+        
+    </script>
     {% block like_btn_script %}
         <script type="text/javascript"> 
             $('.like_btn').click(function(e){ 

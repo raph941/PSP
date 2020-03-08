@@ -1,0 +1,463 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block headerlinks %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/messages.css' %}">
+{% endblock %}
+
+{% block style %}
+.messaging{
+	margin-top: 65px;
+}
+.test{
+	background: #ffffff;
+    position: absolute;
+    top: 65px;
+    width: 100%;
+	height: 65px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+	border-top: 1px solid #c4c4c4;
+}
+.chat-header-username{
+	padding-left: inherit;
+}
+.outgoing_msg{
+	padding-left: 15px;
+}
+.btnn{
+	display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    padding: 10px;
+    border-radius: 30px;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 1.5rem;
+    border-radius: .5rem;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.back-arrow-icon{
+    border: none;
+    padding: 5px;
+    padding-right: 20px;
+}
+a:link { 
+    text-decoration: none; 
+        } 
+a:hover { 
+    text-decoration: none; 
+        } 
+
+@media screen and (max-width: 600px){
+	.mesgs{
+		display: none;
+		width: 100%
+	}
+	.inbox_people{
+		width: 100%;
+	}
+	.type_msg{
+		margin: 5px
+	}
+}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="messaging">
+  <div class="inbox_msg">
+  	<!--start of conversation list sidebar-->
+	<div class="inbox_people">
+	  <div class="headind_srch">
+		<div class="">
+		  <h4 style="display:inline">Messages </h4>
+		  <a style="float:right;right:0px;" href="{% url 'top_authors' %}">
+		  <img src="{% static 'images/icons/icons8-upload-mail-50.png' %}" >
+		  </a>
+		</div>
+	  </div>
+
+	  <div class="inbox_chat scroll" >
+	  
+		{% for user in conv_partners %}
+
+		<div class="chat_list chat_list_{{ user.pk }}" user-pk="{{ user.pk }}">
+		  <div class="chat_people">
+			{% if user.userprofile._url %}
+				<div class="chat_img"> <img style="border-radius: 50%;" src="{{ user.userprofile.profile_pic_url }}" alt="sunil"> </div>
+			{% else %}
+				<a href="{% url 'myprofile' user.pk %}"><div class="chat_img" > <img class="chat_img_{{ user.pk }}" src="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" alt="sunil"> </div></a>
+			{% endif %}
+			<div class="chat_ib">
+			  <h5 class="h5">
+			  	{% if user.userprofile.profile_pic_url %}
+				<a class="con_fullname" style="color:black;" href="#" data-href="{% url 'conversation_url' %}" pkey={{ user.pk }}
+					username = {{ user.username }} full-name="{{ user.first_name }} {{ user.last_name }}" image-url="{{ user.userprofile.profile_pic_url }}" online="{{ user.userprofile.online }}">
+					{{ user.first_name }} {{ user.last_name }} 
+					{% if user.userprofile.online == True %}
+                        <i class="fas fa-circle" style="color: #22f722;font-size: 1rem;"></i>
+					{% else %}
+					{% endif %}
+				</a>
+				{% else %}
+				<a class="con_fullname" style="color:black;" href="#" data-href="{% url 'conversation_url' %}" pkey={{ user.pk }}
+					username = {{ user.username }} full-name="{{ user.first_name }} {{ user.last_name }}" image-url="https://res.cloudinary.com/people-shaping-people/image/upload/v1581157209/Default%20Images/head-659651_1920_tfjm1i.png" online="{{ user.userprofile.online }}">
+					{{ user.first_name }} {{ user.last_name }} 
+					{% if user.userprofile.online == True %}
+                        <i class="fas fa-circle" style="color: #22f722;font-size: 1rem;"></i>
+					{% else %}
+					{% endif %}
+				</a>
+				{% endif %}
+					
+					
+				
+			  	<span class="chat_date chat_date_{{ user.pk }}">
+					{% if user.userprofile.unread_messages_from_me.count > 0 %}
+						<span class="badge badge-primary badge-pill" pk={{ user.pk }} badge-no="{{ user.userprofile.unread_messages_from_me.count }}">
+							{{ user.userprofile.unread_messages_from_me.count }}
+						</span>
+					{% else %}
+					{% endif %}
+				</span>
+			 </h5>
+			  <p class="p">{{ user.userprofile.last_msg_from_user }}</p>
+			</div>
+		  </div>
+		</div>
+		{% endfor %}
+
+	  </div>
+	</div>
+	<!--end on conversation list sidebar-->
+
+	<!--Start of chat side-->
+	<div class="mesgs" style="padding-top: 10px;padding-left:5px">
+	{% comment %} <a href="#" class="arrow_icon_a" >
+		<i class="fas fa-angle-double-left back-arrow-icon"></i>
+	</a> {% endcomment %}
+		
+		<div class="msg_history">
+		{% if conv_partners %}
+			<span class = "initial_display">
+				<p>Click on a convesation to begin a chat...</p>
+			</span>
+		{% else %}
+			<span class = "initial_display">
+				<p>You have not open conversations......</p>
+				<a class="btnn btn-primary" href="{% url 'top_authors' %}">Search Authors</a>
+			</span>
+		{% endif %}
+
+			<div class = "chat_div" style="padding-top:65px;">
+				<!--content of this div is manipulated with JavaScript-->
+
+			</div> 
+		</div>
+		<div class="type_msg" >
+			<div class="input_msg_write">
+				<form method="Post" class="form" post-href="{% url 'msg_post_url' %}" style="margin-bottom: 0px;height: 50px;">
+					{% csrf_token %}
+					<input id="id_content" type="text" class="write_msg" placeholder="Type a message" autocomplete="off"/>
+					<button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+				</form>
+			</div>
+		</div>
+		</div>
+  	</div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+
+<script type="text/javascript"> 
+	$('.chat_div').hide()
+	$('.type_msg').hide()
+	$( document ).ready(function() {
+		//removes the number on message icon on this page
+		$('.badgee').hide()
+	});
+
+	//start: this is for enhansing the media queries function for smaller screen
+			if ($('.header').width() <= 600 ){
+					$('.inbox_people').show()
+					$('.mesgs').hide()
+					$('.arrow_icon_a').hide()
+				}
+				$('.arrow_icon_a').click(function(e){ 
+					$('.mesgs').hide()
+					$('.inbox_people').show()
+				})
+			if ($('.header').width() >= 600 ){
+					$('.arrow_icon_a').hide()
+						}
+			//$(window).resize(function() {
+			//	if ($('.header').width() >= 600) {  
+			//		$('.arrow_icon_a').hide()
+			//		$('.inbox_people').show()
+			//	}else{
+			//		$('.mesgs').hide()
+			//		$('.arrow_icon_a').hide()
+			//		$('.inbox_people').show()
+			//		}
+			//});
+				
+	//end: end of media queries enhancement	
+
+	$('.con_fullname').off("click").click(function(e){ 
+			e.preventDefault();
+			$('.chat_div').show()
+			$('.initial_display').hide()
+			$('.type_msg').show()
+			var this_ = $(this)
+			var user_pk = this_.attr("pkey");
+			var Url = this_.attr("data-href");
+			var partner_username = this_.attr("username")
+			var partner_fullname = this_.attr("full-name")
+			var partner_image = this_.attr("image-url")
+			var partner_onlinestatus = this_.attr("online")
+			$('.chat_list').removeClass("active_chat"); 
+			$('.chat_list_' + user_pk).addClass("active_chat");
+			$('.active_chat').children(".chat_people").children('.chat_ib').children('.h5').children('.chat_date').children('.badge').hide()
+			var badgeNo = $('.active_chat').children(".chat_people").children('.chat_ib').children('.h5').children('.chat_date').children('.badge').attr("badge-no")
+			console.log(badgeNo)
+			$('.badgee').css("background-color", "yellow")
+
+			//start: this is for enhansing the media queries function for smaller screen
+			if ($('.header').width() <= 600 ){
+					$('.inbox_people').hide()
+					$('.mesgs').show()
+					$('.arrow_icon_a').show()
+				}
+			else{
+					$('.arrow_icon_a').hide()
+			}	
+			//end: end of media queries enhancement	
+			
+			$.ajax({
+				url: Url,
+				method: "GET",
+				data: {
+					"user_pk":user_pk,
+				},
+			success: function(data){
+					json_obj = JSON.parse(data)
+					$(".chat_div").empty();
+					if ( partner_onlinestatus == 'True' ){
+						var headHTML = $('<div class="test headind_srch"><span><a href="#" class="arrow_icon_a" ><i class="fas fa-angle-double-left back-arrow-icon"></i></a></span><span><img style="border-radius:50%;height: -webkit-fill-available;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + ': <span style="padding-left:10px;">online</span></span></div> ')
+					}else {
+						var headHTML = $('<div class="test headind_srch"><span><a href="#" class="arrow_icon_a" ><i class="fas fa-angle-double-left back-arrow-icon"></i></a></span><span><img style="border-radius:50%;height: -webkit-fill-available;" src=" ' + partner_image + ' " alt="sunil"></span><span class="chat-header-username">' + partner_fullname + '</span></div> ')
+					}
+					
+					$(".chat_div").append(headHTML);
+					$.each(json_obj, function () {
+						var recievedmsgHTML = $('<div> <div class="received_msg"><div class="received_withd_msg"><p>' + this.fields.content + '</p><span class="time_date"> ' + this.fields.sent_at + '</span></div></div> </div>')
+						var sentmsgHTML = $('<div class="outgoing_msg"><div class="sent_msg"><p>' + this.fields.content + '</p><span class="time_date"> ' + this.fields.sent_at + '</span></div></div> ')
+
+						if (this.fields.sender == user_pk) {
+								$(".chat_div").append(recievedmsgHTML);
+							}
+						else{
+								$(".chat_div").append(sentmsgHTML);
+							}
+					});
+					var height = parseInt($('.chat_div').height());
+					$( ".msg_history" ).scrollTop(height)
+					if ($('.header').width() <= 600 ){
+							$('.arrow_icon_a').show()
+						}
+					else{
+							$('.arrow_icon_a').hide()	
+						}
+					$('.arrow_icon_a').click(function(e){ 
+						$('.mesgs').hide()
+						$('.inbox_people').show()
+					})
+			}
+			})
+			
+	});
+	
+</script>
+
+<script src="{% static 'js/reconnecting-websocket.min.js' %}"></script>
+
+<script>
+
+	var postFunction =	function(e){ 
+		e.preventDefault();
+		var message 			= $("#id_content").val();
+		var reciever 			= $( ".chat_list.active_chat" ).attr("user-pk")
+		var partner_image 		= $( ".chat_list.active_chat" ).children(".chat_people").children('.chat_img').children('img').attr('src')
+		if (message.length > 0){
+		var postUrl 			= $(".form").attr('post-href')
+		}
+		else{
+		var postUrl 			= $(".form").attr('')
+		}
+
+		$.ajax({
+			url: 				postUrl,
+			method: 			"POST",
+			data: 				{
+								"message": message,
+								"reciever_pk": reciever,
+								'csrfmiddlewaretoken': '{{ csrf_token }}'
+								},
+
+		success: function(post_data){
+			post_json_obj 		= JSON.parse(post_data)
+			$(".chat_div").empty();
+			$.each(post_json_obj, function () {
+				var recievedmsgHTML = $('<div> <div class="received_msg"><div class="received_withd_msg"><p>' + this.fields.content + '</p><span class="time_date"> ' + this.fields.sent_at + '</span></div></div> </div>')
+				var sentmsgHTML 	= $('<div class="outgoing_msg"><div class="sent_msg"><p>' + this.fields.content + '</p><span class="time_date"> ' + this.fields.sent_at + '</span></div></div> ')
+				if (this.fields.sender == reciever) {
+					$(".chat_div").append(recievedmsgHTML);
+					}
+				else{
+					$(".chat_div").append(sentmsgHTML);
+					}
+				$('.form').trigger("reset");
+				var height 				= parseInt($('.chat_div').height());
+				$( ".msg_history" ).scrollTop(height)
+			});
+			}
+			});
+		}
+
+</script>
+
+<script>
+
+	var formData 				= $(".form")
+	var loc 					= window.location
+	var wsStart				 	= 'ws://' 
+	if(loc.protocol == 'https:'){
+	wsStart 					= 'wss://'
+								}
+	var endpoint 				= wsStart +loc.host + loc.pathname //this endpoint gives us a connection like a URL to our web socket
+	var socket 					= new ReconnectingWebSocket(endpoint)
+	socket.debug 				= true;
+	socket.timeoutInterval 		= 5400;
+
+
+	socket.onmessage = function(e){
+		console.log("message", e) 
+
+		var chatDataMsg 		= JSON.parse(e.data)
+		var reciever 			= $( ".chat_list.active_chat" ).attr("user-pk")
+		var partner_image 		= $( ".chat_list.active_chat" ).children(".chat_people").children('.chat_img').children('img').attr('src')
+		var recievedmsgHTML		= $('<div> <div class="received_msg"><div class="received_withd_msg"><p>' + chatDataMsg.message + '</p><span class="time_date"> ' + chatDataMsg.sent_at + '</span></div></div> </div>')
+		var sentmsgHTML 		= $('<div class="outgoing_msg"><div class="sent_msg"><p>' + chatDataMsg.message + '</p><span class="time_date"> ' + chatDataMsg.sent_at + '</span></div></div> ')
+		var activeChatPk        = $('.active_chat').attr('user-pk')
+		var msgTxt 				= chatDataMsg.message
+		var shortText 			= jQuery.trim(msgTxt).substring(0, 30).trim(this) + "...";
+		var badgeHTML 			= '<span class="badge badge-pill" style="background-color: #634fd9;">new</span>'
+
+		if (activeChatPk == chatDataMsg.recipient || activeChatPk == chatDataMsg.sender) {
+			if (chatDataMsg.sender == reciever) {
+				$(".chat_div").append(recievedmsgHTML);
+			}
+			else{
+				$(".chat_div").append(sentmsgHTML);
+			}	
+		}
+		else{
+			$(".chat_date_"+ chatDataMsg.sender).html(badgeHTML)
+			$(".chat_date_"+ chatDataMsg.sender).parent(".h5").parent(".chat_ib").children(".p").html(shortText)
+		}
+
+		var height 				= parseInt($('.chat_div').height());
+		$('.form').trigger("reset");
+		$( ".msg_history" ).scrollTop(height)
+	}
+
+
+	socket.onopen = function(e){
+		console.log("open", e)
+
+		$('.msg_send_btn').off("click").click(function(event){ 
+		// this event would be triggered when the user sends the message
+			event.preventDefault();
+			var message 		= $("#id_content").val();
+			var reciever 		= $( ".chat_list.active_chat" ).attr("user-pk")
+			finalData 			= {
+								"purpose": "post-msg",
+								"message": message,
+								"reciever": reciever,
+								"sender": "{{ request.user.pk }}",
+								'csrfmiddlewaretoken': '{{ csrf_token }}'
+								}
+			if (message.length > 0){
+				socket.send(JSON.stringify(finalData))
+									}
+		});
+
+		$( "#id_content" ).off("click").click(function() {
+		// this event would be triggered when the user clicks on the input box to send message and it sends data to mark all peevious messages as read
+			var me 				= {{ user.pk }};
+			var other_guy 		=  $( ".chat_list.active_chat" ).attr("user-pk");
+			input_click_data	= {
+								"purpose": "input-click-event",
+								"me": me,
+								"other_guy": other_guy
+								 }
+			socket.send(JSON.stringify(input_click_data))
+		});
+
+		$( ".con_fullname" ).click(function() {
+		// this event would be triggerd when the user clicks on the full name of the conversation parters on the conversation list
+			var me 				= {{ user.pk }};
+			var other_guy 		=  $( ".chat_list.active_chat" ).attr("user-pk");
+			input_click_data	= {
+								"purpose": "fullname-click-event",
+								"me": me,
+								"other_guy": other_guy
+								 }
+			socket.send(JSON.stringify(input_click_data))
+		});
+
+		$( ".chat_div" ).hover(function() {
+		//this event is triggered whenever a user hovers on the container of the messages and it sends data in order to mark all the present messages in the conversation as raed
+			var me 				= {{ user.pk }};
+			var other_guy 		=  $( ".chat_list.active_chat" ).attr("user-pk");
+			input_click_data	= {
+								"purpose": "hover-event",
+								"me": me,
+								"other_guy": other_guy
+								 }
+			socket.send(JSON.stringify(input_click_data))
+		});
+	}
+
+
+	socket.onerror = function(e){
+    	console.log("error", e)
+		$('.msg_send_btn').off("click").click(postFunction);
+		}
+
+
+	socket.onclose = function(e){
+		console.log("close", e)
+		$('.msg_send_btn').off("click").click(postFunction);
+		}
+
+</script>
+
+{% endblock javascript %}
+
+
+ 

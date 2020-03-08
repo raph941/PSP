@@ -17,6 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/daterangepicker/daterangepicker.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'login/css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'login/css/main.css' %}">
+	{% block headerlinks %}{% endblock headerlinks%}
 </head>
 {% block style %}{% endblock %}
 
@@ -116,6 +117,7 @@
 	<script src="{% static 'login/vendor/daterangepicker/daterangepicker.js' %}"></script>
 	<script src="{% static 'login/vendor/countdowntime/countdowntime.js' %}"></script>
 	<script src="{% static 'login/js/main.js' %}"></script>
+	{% block Javascript %}{% endblock Javascript %}
 
 </body>
 </html>
