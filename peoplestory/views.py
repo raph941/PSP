@@ -68,6 +68,10 @@ def About(request):
     return render(request, 'about.html')
 
 
+def PrivacyPolicy(request):
+    return render(request, 'privacypolicy.html')
+
+
 def Contact(request):
     form = ContactForm(request.POST)
 
