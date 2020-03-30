@@ -239,7 +239,6 @@ a:hover {
 			$('.chat_list_' + user_pk).addClass("active_chat");
 			$('.active_chat').children(".chat_people").children('.chat_ib').children('.h5').children('.chat_date').children('.badge').hide()
 			var badgeNo = $('.active_chat').children(".chat_people").children('.chat_ib').children('.h5').children('.chat_date').children('.badge').attr("badge-no")
-			console.log(badgeNo)
 			$('.badgee').css("background-color", "yellow")
 
 			//start: this is for enhansing the media queries function for smaller screen
@@ -393,7 +392,7 @@ a:hover {
 
 
 	socket.onopen = function(e){
-		console.log("open", e)
+		//console.log("open", e)
 
 		$('.msg_send_btn').off("click").click(function(event){ 
 		// this event would be triggered when the user sends the message
@@ -434,6 +433,9 @@ a:hover {
 								"other_guy": other_guy
 								 }
 			socket.send(JSON.stringify(input_click_data))
+			$('.chat_div').show()
+			$('.initial_display').hide()
+			$('.type_msg').show()
 		});
 
 		$( ".chat_div" ).hover(function() {
@@ -451,13 +453,13 @@ a:hover {
 
 
 	socket.onerror = function(e){
-    	console.log("error", e)
+    	//console.log("error", e)
 		$('.msg_send_btn').off("click").click(postFunction);
 		}
 
 
 	socket.onclose = function(e){
-		console.log("close", e)
+		//console.log("close", e)
 		$('.msg_send_btn').off("click").click(postFunction);
 		}
 
