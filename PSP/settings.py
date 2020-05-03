@@ -114,29 +114,20 @@ AUTH_USER_MODEL = 'accounts.User'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# DATABASES = {
-#             'default': {
-#             'ENGINE': config('ENGINE'),
-#             'NAME': config('NAME'),
-#             'USER': config('USER'),
-#             'PASSWORD': config('PASSWORD'),
-#             'HOST': config('HOST'),
-#             'PORT': config('PORT'),
-#     }
-# }
-
-DATABASES = {
+if config('DATABASE_URL', False):
+    DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default = config('DATABASE_URL')
     )
-}
+    }
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+    }
+
 
 
 # Internationalization
@@ -167,7 +158,7 @@ MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -183,9 +174,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
-
-#heroku settings
-# django_heroku.settings(locals())
 
 #configurations for claudinary API
 cloudinary.config(
@@ -209,15 +197,6 @@ USER_ONLINE_TIMEOUT = 300
 # Number of seconds that we will keep track of inactive users for before 
 # their last seen is removed from the cache
 USER_LASTSEEN_TIMEOUT = 60 * 60 * 24 * 7
-
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-#         'CONFIG': {
-#             "hosts": [('localhost', 6379)],
-#         },
-#     },
-# }
 
 CHANNEL_LAYERS = {
     "default": {

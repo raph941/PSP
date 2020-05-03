@@ -16,6 +16,15 @@
 }
 }
 
+@media only screen and (min-width:400px) {
+  .main_story {
+    height: -webkit-fill-available;
+  }
+  .posted_by_section {
+      width:80%;
+  }
+
+}
 
 .article_class{
     margin-top: 50px;
@@ -237,14 +246,11 @@
                         {% for comment in story.comments.all %}
                         <li class="depth-1 comment">
 
-                            <div class="comment__avatar">
-                                <img class="avatar" src="{{ comment.comment_author.userprofile.profile_pic_url }}" alt="" width="50" height="50">
-                            </div>
-
+                          
                             <div class="comment__content">
 
                                 <div class="comment__info">
-                                    <div class="comment__author">{{ comment.comment_author }} </div>
+                                    <a class="comment__author" href="{% url 'myprofile' comment.comment_author.pk %}">{{ comment.comment_author }}</a>
 
                                     <div class="comment__meta">
                                         <div class="comment__time">{{ comment.comment_date }}</div>

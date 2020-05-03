@@ -166,12 +166,14 @@
                     <li><a href="{% url 'unpublished_dashboard' %}" title="">Dashboard</a></li>
                     <li><a href="{% url 'admin_signup' %}" title="">New Admin</a></li>
                 {% endif %}
-
-                <li><a href="{% url 'about' %}" title="">About</a></li>
-                <li><a href="{% url 'contact' %}" title="">Contact</a></li>
-                <li><a href="{% url 'privacy_policy' %}" title="">Privacy Policy</a></li>
-                
-                    
+                <li class="has-children">
+                    <a href="#0" title="">About Us</a>
+                    <ul class="sub-menu">
+                        <li><a href="{% url 'about' %}" title="">About</a></li>
+                        <li><a href="{% url 'contact' %}" title="">Contact</a></li>
+                        <li><a href="{% url 'privacy_policy' %}" title="">Privacy Policy</a></li>
+                    </ul>
+                </li>
 
             </ul> <!-- end header__nav -->
 
