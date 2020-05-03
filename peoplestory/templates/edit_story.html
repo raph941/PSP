@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block headerlinks %}
     <link href="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588534996/static/css/cropper.min_cporwb.css" rel="stylesheet">
@@ -116,7 +117,7 @@
     });
     </script> 
     <script type="text/javascript" src="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588535125/static/js/bootstrap.min_l4vp3g.js" ></script>
-    <script type="text/javascript" src="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588535177/static/tinymce/tinymce.min_y2plpj.js" ></script>
+    <script type="text/javascript" src="{% static 'tinymce/tinymce.min.js' %}" ></script>
     <script type="text/javascript" src="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588535153/static/tinymce/init-tinymce_gjcaeh.js" ></script>
     <script type="text/javascript" src="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588535125/static/js/cropper.min_hiyuox.js"></script>
 {% endblock %}
