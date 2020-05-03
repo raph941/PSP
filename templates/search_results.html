@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block style %}
 .article_image{
@@ -45,15 +44,15 @@
                                 
                                 <a href="#">
                                     {{ story.views }}
-                                    <img src="{% static 'images/icons/iconfinder.png' %}" alt="image">
+                                    <img src="https://res.cloudinary.com/people-shaping-people/image/upload/v1588535122/static/images/icons/iconfinder_ititvs.png" alt="image">
                                 </a>
                                 <a class="like_btn" data-href="{% url 'like' story.pk %}" requestuser-id="{{ request.user.pk }}"
                                     story-id="{{ story.pk }}" like-count='{{ story.likes.count }}'>
                                     <span class="likecount_span_{{story.pk}}">{{ story.likes.count }}</span>
-                                    <img src="{% static 'images/icons/iconfinder_like.png' %}" alt="image">
+                                    <img src="https://res.cloudinary.com/people-shaping-people/image/upload/v1588535123/static/images/icons/iconfinder_like_cvss6p.png" alt="image">
                                 </a>
                                 <a href="{% url 'story_delete_confirm' story.pk %}">
-                                    <img src="{% static 'images/icons/icons-delete.png' %}" alt="image">
+                                    <img src="https://res.cloudinary.com/people-shaping-people/image/upload/v1588535123/static/images/icons/icons-delete_o1wphw.png" alt="image">
                                 </a>
                             </div>
 

@@ -1,12 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
-
-
-{% block headerlinks %}
-<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
-{% endblock %}
-
 
 {% block style %}
 .contact-title{
@@ -106,9 +98,5 @@ input{
       });
     });
   </script>
-
-<script type="text/javascript" src="{% static 'slick/jquery-1.11.0.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'slick/jquery-migrate-1.2.1.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
 				
 {% endblock %}

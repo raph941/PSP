@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block headerlinks %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/card.css' %}">
+    <link rel="stylesheet" href="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588534996/static/css/bootstrap-grid.min_dvchja.css">
+    <link rel="stylesheet" href="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588534996/static/css/card_bqkqqs.css">
 
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588534997/static/css/bootstrap.min_sq8nsp.css">
+    <script src="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588535126/static/js/jquery-3.3.1.slim.min_pufmsv.js"></script>
+    <script src="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588535127/static/js/popper.min_wziygl.js"></script>
+    <script src="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588535125/static/js/bootstrap.min_l4vp3g.js"></script>
 {% endblock %}
 
 {% block style %}
@@ -108,7 +107,7 @@ th{
             <div class="card-body">
             <p class="card-title">Users</p>
             <a href="{% url 'user_dashboard' %}">
-                <img src="{% static 'images/icons/users.png' %}" >
+                <img src="https://res.cloudinary.com/people-shaping-people/image/upload/v1588535124/static/images/icons/users_ybc1dm.png" >
             </a>
 
             <span style="float: right;font-size: xx-large;">{{ all_users.count }}<span>
@@ -119,7 +118,7 @@ th{
             <div class="card-body">
                 <p class="card-title">Published Stories</p>
                 <a href="{% url 'published_dashboard' %}">
-                    <img src="{% static 'images/icons/published.png' %}" >
+                    <img src="https://res.cloudinary.com/people-shaping-people/image/upload/v1588535124/static/images/icons/published_q60lvu.png" >
                 </a>
 
                 <span style="float: right;font-size: xx-large;" class="published_stories">{{ published_stories.count }}<span>
@@ -129,7 +128,7 @@ th{
             <div class="card-body">
                 <p class="card-title">Unpublished Stories</p>
                 <a href="{% url 'unpublished_dashboard' %}">
-                    <img src="{% static 'images/icons/unpublished.png' %}" >
+                    <img src="https://res.cloudinary.com/people-shaping-people/image/upload/v1588535124/static/images/icons/unpublished_ua5hhx.png" >
                 </a>
 
                 <span style="float: right;font-size: xx-large;" class="unpublished_stories">{{ unpublished_stories.count }}<span>
@@ -139,7 +138,7 @@ th{
             <div class="card-body">
                 <p class="card-title">Denied Stories</p>
                 <a href="{% url 'denied_dashboard' %}">
-                    <img src="{% static 'images/icons/denied.png' %}" >
+                    <img src="https://res.cloudinary.com/people-shaping-people/image/upload/v1588535120/static/images/icons/denied_ojjdeu.png" >
                 </a>
 
                 <span style="float: right;font-size: xx-large;" class="denied_stories">{{ denied_stories.count }}<span>
@@ -163,6 +162,6 @@ th{
 {% endblock content %}
 
 {% block javascript %}
-<script src="{% static 'js/dashboardajax.js' %}"></script>
+<script src="https://res.cloudinary.com/people-shaping-people/raw/upload/v1588535125/static/js/dashboardajax_kyakce.js"></script>
 
 {% endblock javascript %}
