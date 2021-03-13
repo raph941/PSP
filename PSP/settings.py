@@ -126,7 +126,7 @@ elif config('NAMECHEAP', False):
             'ENGINE': config('DB_ENGINE'),
             'NAME': config('DB_NAME'),
             'USER': config('DB_USER'),
-            'PASSWORD': config('eY1hDroLv@Of'),
+            'PASSWORD': config('DB_PASSWORD'),
             'HOST': config('DB_HOST'),
             'PORT': config('5432'),
         }
@@ -138,7 +138,6 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
