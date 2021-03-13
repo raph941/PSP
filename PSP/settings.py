@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 from django.contrib.messages import constants as messages
 import os
-import django_heroku
 import cloudinary
 import dj_database_url
 from decouple import config, Csv
