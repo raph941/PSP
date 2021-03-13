@@ -46,6 +46,10 @@
                     <textarea name="story" id="id_story" class="full-width new_story_input tinymce" >{{ story.get_story_as_markdown}}</textarea>
                 </div>
 
+                <div class="form-field">
+                    <input name="video_link" style="background: white;" id="id_story_caption" class="full-width new_story_input" value="{{ story.video_link }}" type="text">
+                </div>
+
                 <button type="submit" class="submit btn btn--large full-width" style="margin-top: 10px;">Update</button>
 
         </form>

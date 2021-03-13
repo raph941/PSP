@@ -14,6 +14,15 @@
 .new_story_input{
     margin-bottom: 10px;
 }
+
+input {
+    border: 1px solid #ccc !important;
+    padding: 10px;
+
+    :last-child {
+        margin-top: 10px
+    }
+}
 {% endblock %}
 
 
@@ -46,6 +55,10 @@
 
             <div class="message form-field">
                 <textarea name="story" id="id_story" class="full-width new_story_input tinymce" placeholder="Your Message"></textarea>
+            </div>
+
+            <div>
+                <input name="video_link" style="background: white; margin-top: 10px;" id="id_full_name" class="full-width new_story_input" placeholder="Enter link to audio / video storr (optional)" value="" type="text">
             </div>
 
             <button type="submit" class="submit btn btn--large full-width" style="margin-top: 10px;">Create Story</button>

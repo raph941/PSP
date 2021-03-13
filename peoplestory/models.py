@@ -24,13 +24,13 @@ class Stories(models.Model):
     story = models.TextField()
     last_updated = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='story_images/', null=True, blank=True)
-    #image_url field, holds the url of the image after beign saved to the cloudinary platform
     image_url = models.CharField(max_length=2000, blank=True, null=True)
     comment_count = models.IntegerField(blank=True, default=0, verbose_name=('comment count'))
     views = models.PositiveIntegerField(default=0)
     likes = models.ManyToManyField(User, blank=True, related_name="story_likes")
     published = models.BooleanField(default=False)
     denied = models.BooleanField(default=False)
+    video_link = models.TextField(blank=True, null=True)
     
     def __str__(self):
         return f'story about : { self.full_name }'

@@ -189,6 +189,9 @@
                 </ul>
             </div>
             
+            {% if story.video_link %}
+                <a  href="{{ story.video_link }}" target="_blank" style="color: black;">Click to Listen to storie's audio / video version</a>
+            {% endif %}
 
             <div class="story_detail_text col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
                 <blockquote><p style="font-size: 1.7rem;">

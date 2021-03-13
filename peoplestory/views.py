@@ -101,8 +101,7 @@ def Contact(request):
 @login_required
 def CreateStoryView(request):  
     form = NewStoryForm(request.POST, request.FILES)
-
-    if request.method == 'POST':  
+    if request.method == 'POST':
         if form.is_valid():
             story = form.save(commit=False)
             story.author = request.user
