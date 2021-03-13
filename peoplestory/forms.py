@@ -27,7 +27,7 @@ class UpdateStoryForm(forms.ModelForm):
 
     class Meta:
         model = Stories
-        fields = ['full_name', 'story_caption', 'story', 'image', 'x', 'y', 'width', 'height']
+        fields = ['full_name', 'story_caption', 'story', 'image', 'x', 'y', 'width', 'height', 'video_link']
 
 
 class CommentForm(forms.ModelForm):
