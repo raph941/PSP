@@ -128,7 +128,7 @@ elif config('NAMECHEAP', False):
             'USER': config('DB_USER'),
             'PASSWORD': config('DB_PASSWORD'),
             'HOST': config('DB_HOST'),
-            'PORT': config('5432'),
+            'PORT': config('DB_PORT'),
         }
     }
 else:
